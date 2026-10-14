@@ -36,7 +36,7 @@ If these sources disagree, report the mismatch and resolve it before placement.
 
 - **Ground:** Base terrain only.
 - **Details:** Small, non-blocking decoration.
-- **Objects:** World features such as rocks, trees, and bushes. Every placed object blocks movement across its complete placed footprint, including tree canopies and bushes.
+- **Objects:** World features and structures, including rocks, trees, bushes, complete buildings, and doors. Buildings and doors belong on this layer, not in a separate decorative layer. Every placed object needs collision appropriate to its role.
 - **Foreground:** Parts of scenery that must render over the player.
 
 Avoid canopy layering and foreground rendering unless explicitly requested. Foreground can remain unused until a map actually needs it.
@@ -45,11 +45,13 @@ Avoid canopy layering and foreground rendering unless explicitly requested. Fore
 
 - Use the identified source tiles to construct the requested map and place every bundle in its complete arrangement.
 - Position objects appropriately while preserving paths, entrances, and usable space.
-- **Every placed world object must have collision.** Do not assume the `Objects` layer or the sprite itself automatically blocks movement.
-- Trees, rocks, and bushes all block movement where their sprite pixels are visibly opaque. **Transparent pixels within any object's texture must remain passable**, including gaps inside canopies, branches, and bush silhouettes. Do not leave opaque parts of an `Objects`-layer asset passable by default.
+- **Every placed world object must have collision.** Do not assume the `Objects` layer or the sprite itself automatically blocks movement. This includes complete house/building bundles and door bundles placed on `Objects`.
+- **Building collision:** A complete house/building is one bundled `Objects`-layer asset. Add collision to its solid/opaque structure so the player cannot walk through the building.
+- **Door transition collision:** A door is also placed on `Objects` and needs collision. Its scene-transition interaction must use a dedicated transition trigger/collision area at the doorway, separate from the building's ordinary blocking collision. The trigger should activate the intended scene transition without making the surrounding building passable.
+- Trees, rocks, bushes, and building structures block movement where their sprite pixels are visibly opaque. **Transparent pixels within any object's texture must remain passable**, including gaps inside canopies, branches, bush silhouettes, and building artwork. Do not leave opaque parts of an `Objects`-layer asset passable by default. Doorway transition triggers are a separate interaction layer of collision and do not replace the building's solid collision.
 - Derive collision automatically from each placed asset's actual alpha channel rather than using the full tile-bundle rectangle. Merge adjacent opaque pixel runs into larger rectangles to keep physics shape counts practical. Ignore pixels with alpha at or below 0.05 to filter effectively transparent edges.
 - Generate default object colliders in both the editor and at runtime under `GeneratedObjectCollisions`, with editor scene ownership so `StaticBody2D` and `CollisionShape2D` nodes are visible and selectable in the 2D editor. Generate this container only when it does not already exist. Never automatically delete or rebuild an existing container: users may have manually adjusted its shapes and saved those changes into the scene. To intentionally discard adjustments and regenerate defaults, delete `GeneratedObjectCollisions` in the editor and let the tool script recreate it. After adjusting collision shapes, save `world.tscn` so the adjustments are serialized.
-- Use the project's established collision layers and masks; verify opaque tree canopy, trunk, rock, and bush pixels block movement while visible transparent gaps remain walkable.
+- Use the project's established collision layers and masks; verify opaque tree canopy, trunk, rock, bush, and building pixels block movement while visible transparent gaps remain walkable. Verify each door's dedicated scene-transition trigger independently from ordinary blocking collision.
 - For generated maps, generate matching collision bodies deterministically from the same object-placement definitions. Avoid duplicated or stale colliders when rebuilding the map. `Ground` and decorative `Details` are separate layers; this rule applies to every asset placed on `Objects`.
 - Preserve existing gameplay logic, TileMapLayer nodes, scene components, and project conventions unless a change is necessary and authorized.
 - Use the actual assets. Do not use Polygon2D, improvised graphics, or placeholder scenery as substitutes.
