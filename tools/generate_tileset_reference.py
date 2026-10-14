@@ -18,7 +18,8 @@ SCALE = 4
 CELL = TILE_SIZE * SCALE
 
 SHEETS = (
-    ("exterior.png", "exterior_labeled.svg"),
+    ("exterior.png", "overworld_exterior_labeled.svg"),
+    ("exterior.png", "town_exterior_labeled.svg"),
     ("ground_grass_details.png", "ground_grass_details_labeled.svg"),
 )
 
@@ -53,6 +54,7 @@ def render_sheet(source_name: str, output_name: str) -> None:
     svg = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{scaled_width}" height="{scaled_height}" viewBox="0 0 {scaled_width} {scaled_height}">',
+        f'<title>{escape(output_name.removesuffix("_labeled.svg").replace("_", " ").title())} tileset reference</title>',
         '<defs><pattern id="checker" width="32" height="32" patternUnits="userSpaceOnUse">',
         '<rect width="32" height="32" fill="#262626"/>',
         '<rect width="16" height="16" fill="#3e3e3e"/>',
@@ -90,7 +92,7 @@ def render_sheet(source_name: str, output_name: str) -> None:
 
 
 def main() -> None:
-    """Generate coordinate references for both overworld source sheets."""
+    """Generate separate overworld/town exterior references and the ground/details atlas."""
     for source_name, output_name in SHEETS:
         render_sheet(source_name, output_name)
 
