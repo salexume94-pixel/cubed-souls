@@ -45,9 +45,9 @@ Do not split buildings or trees across layers merely to create a visual overlap.
 
 - Use the identified source tiles to construct the requested map and place every bundle in its complete arrangement.
 - Position objects appropriately while preserving paths, entrances, and usable space.
-- **Temporary object-collision-disabled phase:** object collision is intentionally disabled while map layout and the scene tree are being debugged. Remove generated `GeneratedObjectCollisions` containers and do not generate object collision shapes or add collision to object sprite tiles during this phase.
-- This applies to world objects only: trees, rocks, bushes, houses, and chapel remain visible but do not block movement. Preserve the map-edge boundary collision and all player/NPC actor collision and interaction logic.
-- **Future object-collision pass:** when explicitly requested, reintroduce world-object collision in small, inspectable batches. Keep collision separate from visual tiles, and verify each batch in Godot before expanding it. Doorway interaction triggers must be designed separately from ordinary blocking collision.
+- **Source-alpha object collision (current trial):** the overworld and Havenreach generators build collision from the alpha channel of each catalogued object bundle. Opaque source pixels block movement; transparent pixels remain passable. The generated `GeneratedObjectCollisions` container is rebuilt from the current layout in editor and runtime.
+- This applies to world objects: trees and their canopies, rocks, bushes, houses, and chapel. Object collision is generated separately from visual TileMapLayer placement. Preserve map-edge boundary collision and all player/NPC actor collision and interaction logic.
+- **Review before expanding:** inspect generated collision shapes in Godot and test movement around objects. Alpha-derived shapes currently use merged opaque-pixel rectangles, which may produce many nodes for detailed sprites. Doorway interaction triggers must be designed separately from ordinary blocking collision.
 - Preserve existing gameplay logic, TileMapLayer nodes, scene components, and project conventions unless a change is necessary and authorized.
 - Use the actual assets. Do not use Polygon2D, improvised graphics, or placeholder scenery as substitutes.
 
