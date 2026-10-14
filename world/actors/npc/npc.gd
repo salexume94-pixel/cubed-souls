@@ -96,14 +96,15 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	if _dialogue_open or behavior_profile == BehaviorProfile.STATIONARY:
+	if _dialogue_open or (behavior_profile == BehaviorProfile.STATIONARY and not story_movement_active):
 		velocity = Vector2.ZERO
 		move_and_slide()
 		sprite.play("idle_" + facing)
 		return
 
 	if story_movement_active:
-		_move_direction = global_position.direction_to(story_movement_target)
+		var story_offset := story_movement_target - global_position
+		_move_direction = Vector2.ZERO if story_offset.length() < 6.0 else story_offset.normalized()
 	elif _escape_override_time > 0.0:
 		_escape_override_time = maxf(0.0, _escape_override_time - delta)
 		_move_direction = _escape_override_direction
@@ -112,11 +113,10 @@ func _physics_process(delta: float) -> void:
 		if _move_timer <= 0.0:
 			_move_timer = think_interval
 			_choose_behavior_target()
-
-	if global_position.distance_to(_movement_target) < 6.0 and not story_movement_active:
-		_move_direction = Vector2.ZERO
-	elif not story_movement_active:
-		_move_direction = global_position.direction_to(_movement_target)
+		if global_position.distance_to(_movement_target) < 6.0:
+			_move_direction = Vector2.ZERO
+		else:
+			_move_direction = global_position.direction_to(_movement_target)
 
 	var safe_direction := _move_direction
 	if not (story_movement_active and story_ignore_world_collision):
@@ -150,6 +150,7 @@ func _physics_process(delta: float) -> void:
 		sprite.play("walk_" + facing)
 	else:
 		sprite.play("idle_" + facing)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	# E starts a conversation when close enough, then advances each line.
@@ -222,6 +223,7 @@ func _create_ally_detection_area() -> void:
 	# Allies expose proximity events independently of body collision or dialogue.
 	_ally_detection_area = Area2D.new()
 	_ally_detection_area.name = "AllyDetectionArea"
+	_ally_detection_area.position = Vector2(0, -24)
 	_ally_detection_area.collision_layer = 0
 	_ally_detection_area.collision_mask = 2
 	_ally_detection_area.monitoring = true
