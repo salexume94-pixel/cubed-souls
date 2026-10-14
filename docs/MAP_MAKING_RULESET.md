@@ -145,6 +145,16 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 
 
 
+
+### Town exterior door
+
+| Coordinates | Asset |
+|---|---|
+| `(6,6), (7,6), (6,7), (7,7)` | Door bundle (2 × 2 atlas cells) |
+
+The supplied coordinates form a 2-column × 2-row bundle in the labeled atlas. At 16 × 16 source pixels per cell, its atlas footprint is 32 × 32 pixels. The user's “4×4 door” label is retained as a note requiring clarification; it does not match the listed coordinate footprint if “4×4” means atlas cells.
+
+
 ### Town house sprite — complete bundled asset
 
 **Asset:** One complete house sprite, arranged from top to bottom in `town_exterior_labeled.svg`. The coordinates below are a single asset, not separate buildings or modular pieces. Preserve the listed row/column arrangement and the empty cells inside its overall footprint.
