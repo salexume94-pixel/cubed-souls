@@ -1,3 +1,19 @@
+## 2026-10-14 — Catalog Walls, Floors, Windows, and Doors
+
+### Changes
+- Added the user's confirmed `walls_floor_labeled.svg` coordinates to `docs/MAP_MAKING_RULESET.md`.
+- Classified the four-cell window bundle as Foreground because it renders over the wall; preserved its transparent openings.
+- Recorded the stone wall bundles and open/closed door bundles under Objects.
+- Recorded seven wooden floor cells as separate, individually placeable Ground tiles that can be mixed for visual variation without requiring procedural room generation.
+- Preserved all supplied source coordinates and documented the existing separate door-transition trigger rule.
+
+### Verification
+- [x] Updated the ruleset on GitHub `main`.
+- [x] Confirmed the catalog records the user's coordinates and stated layer decisions.
+- [ ] Visually cross-check the assets against `walls_floor_labeled.svg` and verify placement, layering, collision, and door transitions in Godot. Runtime verification remains pending.
+
+---
+
 ## 2026-10-14 — Add Missing House and Interior Tile References
 
 ### Changes
