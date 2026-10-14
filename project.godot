@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SceneManager="*res://systems/scene_manager.gd"
 SceneTestBootstrap="*res://systems/scene_test_bootstrap.gd"
 
 [display]
