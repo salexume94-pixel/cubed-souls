@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://world/maps/overworld/world.gd" id="2_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical_boundary"]
-size = Vector2(16, 640)
+size = Vector2(16, 656)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal_boundary"]
-size = Vector2(1024, 16)
+size = Vector2(1040, 16)
 
 [node name="World" type="Node2D" unique_id=3713881]
 script = ExtResource("2_script")
