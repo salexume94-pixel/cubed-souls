@@ -21,12 +21,14 @@ SHEETS = (
     ("overworld/exterior.png", "overworld_exterior_labeled.svg"),
     ("overworld/exterior.png", "town_exterior_labeled.svg"),
     ("overworld/ground_grass_details.png", "ground_grass_details_labeled.svg"),
-    ("towns/chapels/Exterior.png", "chapel_exterior_labeled.svg"),
-    ("towns/chapels/Walls_Interior.png", "chapel_walls_interior_labeled.svg"),
+    # The exterior atlas contains 32 extra pixels at the bottom of the source PNG.
+    # Crop the reference viewport to the intended 256x304 atlas without altering the source asset.
+    ("towns/chapels/Exterior.png", "chapel_exterior_labeled.svg", 304),
+    ("towns/chapels/Walls_Interior.png", "chapel_walls_interior_labeled.svg", None),
 )
 
 
-def render_sheet(source_relative_path: str, output_name: str) -> None:
+def render_sheet(source_relative_path: str, output_name: str, reference_height: int | None = None) -> None:
     """Write one self-contained SVG atlas with a grid and coordinate labels."""
     source_path = TILESET_DIR / source_relative_path
     source_name = Path(source_relative_path).name
@@ -45,11 +47,20 @@ def render_sheet(source_relative_path: str, output_name: str) -> None:
             f"{source_name} is {width}x{height}; dimensions must be divisible "
             f"by {TILE_SIZE} for this 16x16 atlas workflow."
         )
+    # Some references intentionally show only a source-image region. Keep the
+    # image at native scale and clip it with the SVG viewport instead of stretching it.
+    display_height = height if reference_height is None else reference_height
+    if display_height <= 0 or display_height > height or display_height % TILE_SIZE:
+        raise ValueError(
+            f"{output_name} display height {display_height} must be a positive "
+            f"multiple of {TILE_SIZE} and no greater than source height {height}."
+        )
 
     columns = width // TILE_SIZE
-    rows = height // TILE_SIZE
+    rows = display_height // TILE_SIZE
     scaled_width = width * SCALE
-    scaled_height = height * SCALE
+    scaled_height = display_height * SCALE
+    source_scaled_height = height * SCALE
     # Embed the source PNG so the reference works in GitHub previews and when the
     # SVG is opened or moved independently. Relative SVG image links often break
     # in repository viewers even when their paths are correct.
@@ -66,7 +77,7 @@ def render_sheet(source_relative_path: str, output_name: str) -> None:
         '<rect x="16" y="16" width="16" height="16" fill="#3e3e3e"/>',
         '</pattern></defs>',
         f'<rect width="{scaled_width}" height="{scaled_height}" fill="url(#checker)"/>',
-        f'<image href="{escape(image_href, quote=True)}" x="0" y="0" width="{scaled_width}" height="{scaled_height}" preserveAspectRatio="none" image-rendering="pixelated"/>',
+        f'<image href="{escape(image_href, quote=True)}" x="0" y="0" width="{scaled_width}" height="{source_scaled_height}" preserveAspectRatio="none" image-rendering="pixelated"/>',
     ]
 
     # Draw grid and compact coordinate labels on every source cell.
@@ -98,8 +109,10 @@ def render_sheet(source_relative_path: str, output_name: str) -> None:
 
 def main() -> None:
     """Generate overworld, town, and chapel exterior/interior tile references."""
-    for source_name, output_name in SHEETS:
-        render_sheet(source_name, output_name)
+    for sheet in SHEETS:
+        source_name, output_name = sheet[0], sheet[1]
+        reference_height = sheet[2] if len(sheet) > 2 else None
+        render_sheet(source_name, output_name, reference_height)
 
 
 if __name__ == "__main__":
