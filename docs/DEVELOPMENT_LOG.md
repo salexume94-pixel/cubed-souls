@@ -1,3 +1,20 @@
+## 2026-10-14 — Add Overworld Object Collision and Map-Making Rule
+
+### Changes
+- Added runtime-only collision bodies for the placed tree trunks and rock formations in `world/maps/overworld/world.gd`.
+- Tree colliders cover the trunk/base rather than the entire canopy; rock colliders use compact footprints. Bushes remain passable.
+- Kept collision on the established player-blocking collision layer with empty masks; map boundary logic remains unchanged.
+- Updated `docs/MAP_MAKING_RULESET.md` to require an explicit collision decision for every world object, fitted collision geometry, and runtime route/collision testing.
+
+### Verification
+- [x] Reviewed each collider's destination against its matching object placement and map bounds.
+- [x] Confirmed physics bodies are created only at runtime, avoiding duplicate editor-generated colliders.
+- [ ] Pull `origin main`; test each tree trunk and rock from all reachable sides in Godot.
+- [ ] Confirm tree canopies and bushes are passable where intended, paths remain open, and no debugger errors appear.
+- Collision sizing and runtime behavior remain **unverified in Godot** until tested locally.
+
+---
+
 ## 2026-10-14 — Extend Overworld With Catalogued Objects
 
 ### Changes
