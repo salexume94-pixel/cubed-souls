@@ -48,7 +48,7 @@ def render_sheet(source_name: str, output_name: str) -> None:
     scaled_height = height * SCALE
     # Keep generated references alongside docs; reference the original PNG using a
     # relative URL so the script does not need to copy or modify source assets.
-    image_href = "../../../../../assets/tilesets/overworld/" + source_name
+    image_href = "../../../assets/tilesets/overworld/" + source_name
 
     svg = [
         '<?xml version="1.0" encoding="UTF-8"?>',
