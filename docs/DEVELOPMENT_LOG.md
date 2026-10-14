@@ -1,3 +1,12 @@
+## 2026-10-14 — Overworld Boundaries Runtime-Verified
+
+- User confirmed the overworld perimeter collision fix is working in Godot.
+- The four invisible boundary walls are created at runtime by `world.gd`, avoiding the broken serialized parent paths in `world.tscn`.
+- Recorded the tested behavior in `docs/RUNTIME_VERIFIED.md`.
+- Scope is limited to the overworld boundary behavior tested; other maps and unrelated collisions are not implied to be verified.
+
+---
+
 ## 2026-10-14 — Replace Fragile Scene-File Boundary Nodes
 
 ### Issue
