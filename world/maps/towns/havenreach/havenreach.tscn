@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="TileSet" uid="uid://0arbp208wdjw" path="res://assets/tilesets/overworld/background.tres" id="1_tileset"]
+
+[node name="Havenreach" type="Node2D"]
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")
+
+[node name="Details" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")
+
+[node name="Objects" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")
+
+[node name="Foreground" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")
+z_index = 1
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
