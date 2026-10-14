@@ -144,6 +144,25 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 - Document destination map coordinates separately from source atlas coordinates when planning a specific map.
 
 
+
+### Town house sprite — complete bundled asset
+
+**Asset:** One complete house sprite, arranged from top to bottom in `town_exterior_labeled.svg`. The coordinates below are a single asset, not separate buildings or modular pieces. Preserve the listed row/column arrangement and the empty cells inside its overall footprint.
+
+```text
+(2,0) (3,0) (4,0) (5,0)
+(1,1) (2,1) (3,1) (4,1) (5,1) (6,1)
+(1,2) (2,2) (3,2) (4,2) (5,2) (6,2) (7,2) (8,2)
+(0,3) (1,3) (2,3) (3,3) (4,3) (5,3) (6,3) (7,3) (8,3) (9,3)
+(0,4) (1,4) (2,4) (3,4) (4,4) (5,4) (6,4) (7,4) (8,4) (9,4)
+(0,5) (1,5) (2,5) (3,5) (4,5) (5,5) (6,5) (7,5) (8,5) (9,5)
+(1,6) (2,6) (3,6) (4,6) (5,6) (6,6) (7,6) (8,6)
+(1,7) (2,7) (3,7) (4,7) (5,7) (6,7) (7,7) (8,7)
+```
+
+The asset's atlas footprint spans columns 0–9 and rows 0–7 (10 × 8 cells), with intentionally unlisted cells left empty. This is a source-atlas footprint, not a destination map position.
+
+
 ## `chapel_exterior_labeled.svg`
 
 ### Objects
