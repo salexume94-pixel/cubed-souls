@@ -13,19 +13,19 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 ## 2. Map appearance
 
 - [ ] Grass fills the 64 × 40 map without blank cells.
-- [ ] Four complete house bundles appear with no missing tiles or altered bundle arrangements.
+- [ ] Four complete house bundles appear in an irregular, scattered layout with no missing tiles or altered bundle arrangements.
 - [ ] Chapel uses the real chapel exterior PNG and appears as one complete 8 × 10 bundle.
 - [ ] Trees, rocks, bushes, and leaf/flower details use only existing atlas assets.
 - [ ] The central approach remains open and the player spawns near the center of the settlement.
-- [ ] House and chapel upper sections render over the player where intended; lower wall sections render behind the player.
+- [ ] House and chapel layers render as intended; building collisions cover the full footprint, including roofs.
 - [ ] No duplicated, missing, or offset collision nodes appear after reopening the scene.
 
 ## 3. Movement and collisions
 
 - [ ] Move in all four directions using the configured movement keys.
 - [ ] Hold Shift while moving; running is faster than walking.
-- [ ] Opaque tree, rock, bush, house, and chapel pixels block the player.
-- [ ] Transparent gaps inside object sprites remain passable where the source artwork is transparent.
+- [ ] Trees, rocks, and bushes block on opaque pixels; each house and the chapel blocks across its entire rectangular footprint, including the roof.
+- [ ] Transparent gaps inside non-building object sprites remain passable where the source artwork is transparent. Building footprints are intentionally solid.
 - [ ] The player can walk around each building and object without getting trapped.
 - [ ] The four map edges prevent the player from leaving the 64 × 40 map.
 - [ ] No debugger errors appear during movement or collision tests.
@@ -40,6 +40,6 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 
 ## 5. Report
 
-Record each section as PASS or FAIL. For failures, include the exact debugger error and a screenshot of the affected map region. Do not mark collision or camera behavior verified until it has been physically tested in-game.
+Record each section as PASS or FAIL. For failures, include the exact debugger error and a screenshot of the affected map region. Movement, collisions, and camera bounds have been reported runtime-verified by the user. Re-run these checks after layout/collision changes to catch regressions.
 
 **Known scope limit:** this test scene validates the map and player movement. Building-door scene transitions and interior entry are not implemented by this map scaffold.
