@@ -130,3 +130,49 @@ Before relying on these assets in gameplay:
 7. Flag assets requiring manual visual inspection or Godot import testing.
 
 **Limitation:** This audit confirms repository structure, file counts, selected PNG dimensions, and the presence of key project resources. It does not claim that all 1,379 PNGs have been visually inspected or runtime-tested. Complete the pixel-level audit before making assumptions about sprite layout or migrating gameplay systems around those assumptions.
+
+
+---
+
+## 2026-10-14 — Repository Audit Refresh
+
+**Branch:** `main`  
+**Latest commit inspected:** `98684e452b65e7f1670a3168d227b5cf75321b18` — `Log ruined temple walls floor catalog`
+
+### Current repository snapshot
+
+The recursive Git tree completed without truncation and returned **2,888 entries**. This is 27 more entries than the earlier audit's 2,861 tree entries, so the original inventory is now historical rather than current. The current repository metadata confirms the default branch is `main`, the repository is public, and it is not archived.
+
+### Findings
+
+| Severity | Finding | Status / impact |
+|---|---|---|
+| High | `world/maps/towns/havenreach/havenreach.tscn` is only a scene scaffold: four TileMapLayers, empty Buildings/NPCs containers, and PlayerSpawn. It has no attached map-generation script, populated cells, or placed town assets. | Confirmed by static inspection. Havenreach is not yet a playable/constructed town map. |
+| High | `scenes/main.tscn` starts directly with `world/maps/overworld/world.tscn` and a player at (512, 320). | Confirmed. The project currently launches the generic overworld, not Havenreach or the story opening. |
+| High | `world/maps/overworld/world.gd` reconstructs the Ground, Details, and Objects layers on ready. The placement data is hard-coded in the script. | Confirmed. Keep the generated layout deterministic; map-specific hand-authored placements should not be added to layers that the script clears. |
+| High | The overworld collision generator derives shapes from texture alpha, but collision accuracy and transparency gaps cannot be established from code inspection alone. | Requires Godot runtime testing against actual sprites and movement. Preserve user-adjusted `GeneratedObjectCollisions` as the script's comments specify. |
+| Medium | `.gitignore` does not ignore `.DS_Store`, while two `.DS_Store` files are tracked in the repository. | Confirmed. Ignore future macOS metadata; remove tracked copies separately if desired. |
+| Medium | The project config has no explicit viewport/window dimensions. | Confirmed in `project.godot`. Decide desired baseline dimensions before relying on window defaults. |
+| Medium | `docs/AUDIT.md` previously recorded commit `2324d8d...` and 2,861 tree entries. | Updated snapshot supersedes those counts; retain the older section as historical evidence. |
+| Medium | The tileset catalog contains coordinate entries that are explicitly awaiting visual cross-checks against labeled SVGs and the actual atlas resource. | Do not assume newly cataloged dungeon pieces are ready for map placement until cross-checked. |
+| Low | The repository root has no `README.md`. | Confirmed by a 404 on the default branch. A root README would improve onboarding, but is not required for the project to run. |
+
+### Positive findings
+
+- `project.godot`, `scenes/main.tscn`, player scene/script, overworld scene/script, and the shared TileSet resource are present.
+- The recursive tree includes `world/maps/towns/havenreach/` and the intended map directories for `dungeons`, `overworld`, and `towns`.
+- Generated labeled references now include overworld/town exterior, ground grass details, house details, chapel exterior/interior, and ruined-temple exterior/interior tilesets.
+- `docs/MAP_MAKING_RULESET.md` clearly separates Ground, Details, Objects, and Foreground and requires complete bundled assets, alpha-aware collision, and explicit runtime verification.
+- `docs/RUNTIME_VERIFIED.md` appropriately labels user-reported checks and states their scope limits.
+- The latest commits append catalog/development-log entries rather than deleting the earlier history.
+
+### Recommended next actions
+
+1. Build Havenreach using the existing labeled references and actual tileset resources; do not invent substitute art.
+2. Before map placement, reconcile the newly supplied ruined-temple coordinates against the SVG and TileSet atlas.
+3. Run the project in Godot and test object collisions, transparent gaps, map boundaries, camera bounds, and player movement after the latest pull.
+4. Add `.DS_Store` to `.gitignore`; remove the already tracked metadata files in a separate cleanup commit.
+5. Decide and document the intended viewport/window dimensions.
+6. Keep all untested findings labeled as static inspection, not runtime verification.
+
+**Audit limits:** This refresh inspects GitHub files, metadata, and the complete repository tree. It does not execute Godot, inspect every PNG pixel, validate all scene resource references, or verify collision fit in runtime.
