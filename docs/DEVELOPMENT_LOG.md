@@ -1,3 +1,17 @@
+## 2026-10-14 — Fix Project and NPC Test Scene Parse Errors
+
+### Changes
+- Replaced literal escaped newline sequences in the `project.godot` autoload block with real line breaks, preserving the existing `SceneTestBootstrap` autoload and display settings.
+- Changed the NPC test scene comment to Godot scene-file comment syntax.
+
+### Verification
+- [x] Confirmed the autoload block is structurally separated from the display section in the source.
+- [x] Confirmed the test scene no longer uses the invalid `#` comment line.
+- [ ] Pull `origin main`, reopen the project, and confirm Godot no longer reports the autoload resource-path or test-scene parse errors.
+- **Status:** Source formatting corrected; Godot runtime/editor verification pending.
+
+---
+
 ## 2026-10-14 — Add Isolated NPC Test Scene
 
 ### Changes
