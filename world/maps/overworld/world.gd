@@ -38,8 +38,9 @@ func _ready() -> void:
 	_build_ground()
 	_place_grass_leaves()
 	_place_objects()
-	# Remove generated object colliders while keeping the normal map-edge boundaries.
+	# Rebuild source-alpha collision from the same catalogued object bundles.
 	_remove_generated_object_collisions()
+	_create_object_collisions()
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
 
@@ -130,7 +131,7 @@ func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimens
 
 
 func _remove_generated_object_collisions() -> void:
-	# Object sprites should be collision-free during layout debugging. Remove only their generated container.
+	# Clear the previous generated alpha-collision container before rebuilding it from the current object layout.
 	var existing_root := get_node_or_null("GeneratedObjectCollisions")
 	if existing_root != null:
 		existing_root.free()
