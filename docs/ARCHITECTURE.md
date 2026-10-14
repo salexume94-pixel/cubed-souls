@@ -86,6 +86,14 @@ A gate is not complete just because code parses. Record what was tested, the res
 9. **Do not treat debug scaffolding as production gameplay.** Clearly label temporary tests and keep them isolated.
 10. **No unrequested migration.** Do not bring in legacy gameplay code until the system has been inventoried, dependencies identified, and migration approved.
 
+### Collision-shape policy
+
+- Player and NPC bodies should use `CapsuleShape2D` by default.
+- Enemy collision shapes are assessed case by case based on sprite silhouette and gameplay needs.
+- Fit collision to the visible character body, not blindly to the full sprite-sheet frame when it contains transparent padding.
+- Godot does not provide a general automatic “wrap collision shape to sprite alpha” option for `CollisionShape2D`. The capsule dimensions and offset must be chosen/adjusted manually, using the sprite's visible bounds as a reference. A capsule is an approximation, not a pixel-perfect alpha outline.
+- Keep collision geometry simple and stable for movement and physics; do not replace it with a polygon or static-body generation workflow just to trace sprite pixels.
+
 ## 6. Verification Protocol
 
 For each code/resource change:
