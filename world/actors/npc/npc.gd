@@ -47,6 +47,7 @@ const DIRECTIONS := ["down", "left", "right", "up"]
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = $InteractionArea
+@onready var obstacle_probe: RayCast2D = $ObstacleProbe
 
 var facing: String = "down"
 var _player_in_range: Node2D
@@ -282,7 +283,7 @@ func _avoid_obstacles(direction: Vector2) -> Vector2:
 
 func _is_direction_clear(direction: Vector2) -> bool:
 	# Three parallel raycasts approximate the width of the capsule and catch wall edges.
-	var original_position := obstacle_probe.position
+	var original_position: Vector2 = obstacle_probe.position
 	var lateral := direction.rotated(PI / 2.0).normalized() * 8.0
 	for offset in [Vector2.ZERO, lateral, -lateral]:
 		obstacle_probe.position = original_position + offset
