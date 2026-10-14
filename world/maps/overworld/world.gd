@@ -16,14 +16,17 @@ const SINGLE_LEAF_A_X: int = 15
 const SINGLE_LEAF_B_X: int = 16
 const MAP_WIDTH: int = 64
 const MAP_HEIGHT: int = 40
+const TILE_SIZE: int = 16
 
 @onready var ground: TileMapLayer = $Ground
 @onready var details: TileMapLayer = $Details
 
 func _ready() -> void:
-	# Rebuild on editor scene load as well as game start so the map is never editor-invisible.
+	# Keep map artwork generated in the editor, but create physics walls only at runtime.
 	_build_ground()
 	_place_grass_leaves()
+	if not Engine.is_editor_hint():
+		_create_map_boundaries()
 
 func _build_ground() -> void:
 	# Fill the field with the base-grass tile confirmed by the user.
@@ -72,3 +75,26 @@ func _place_bundle(map_position: Vector2i, left_atlas_x: int) -> void:
 func _place_single_leaf(map_position: Vector2i, atlas_x: int) -> void:
 	# Single-leaf accents use the two confirmed individual-leaf cells.
 	details.set_cell(map_position, DETAILS_SOURCE_ID, Vector2i(atlas_x, LEAF_ROW))
+
+func _create_map_boundaries() -> void:
+	# Build physics nodes in code to avoid fragile .tscn parent-path parsing.
+	# The map spans 64×40 tiles at 16 pixels per tile; walls sit just outside its edges.
+	_add_boundary("WestBoundary", Vector2(-TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(TILE_SIZE, MAP_HEIGHT * TILE_SIZE + TILE_SIZE))
+	_add_boundary("EastBoundary", Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(TILE_SIZE, MAP_HEIGHT * TILE_SIZE + TILE_SIZE))
+	_add_boundary("NorthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, -TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
+	_add_boundary("SouthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE + TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
+
+func _add_boundary(boundary_name: String, boundary_position: Vector2, boundary_size: Vector2) -> void:
+	# Each wall is a StaticBody2D on the player's collision layer, with no scene-file child paths.
+	var wall := StaticBody2D.new()
+	wall.name = boundary_name
+	wall.position = boundary_position
+	wall.collision_layer = 1
+	wall.collision_mask = 0
+
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = boundary_size
+	collision.shape = rectangle
+	wall.add_child(collision)
+	add_child(wall)
