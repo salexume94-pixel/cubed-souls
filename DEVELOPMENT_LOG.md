@@ -2,6 +2,24 @@
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
 
+## 2026-10-14 — Slow Idle Animations and Confirm North-Facing Idle Fix
+
+### Changes
+- Reduced the idle animation playback speed from 6 FPS to 3 FPS across all four directions so the idle motion feels calmer.
+- Kept walk and run animation speeds unchanged.
+- Removed per-cell warnings when transparent sprite-sheet cells are skipped. These blank cells are expected in the idle sheet and were cluttering the debugger.
+
+### Verification
+- [x] User confirmed the north-facing idle animation no longer disappears.
+- [ ] Verify the slower idle animation timing locally in Godot.
+- [ ] Confirm the debugger no longer reports warnings for expected transparent idle cells.
+
+---
+
+# Development Log
+
+This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
+
 ## 2026-10-13 — Fix North-Facing Idle Animation
 
 ### Diagnosis
