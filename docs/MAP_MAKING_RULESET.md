@@ -45,10 +45,9 @@ Foreground layering is intentional when an asset must overlap the player or anot
 
 - Use the identified source tiles to construct the requested map and place every bundle in its complete arrangement.
 - Position objects appropriately while preserving paths, entrances, and usable space.
-- **Temporary collision-disabled phase:** object and map-boundary collisions are intentionally disabled while map layout and the scene tree are being debugged. Do not add collision shapes to sprite tiles or generate `GeneratedObjectCollisions` during this phase.
-- Keep the art layers visual-only for now. Trees, rocks, bushes, houses, and chapel remain visible, but the player can walk through them and beyond the map edges.
-- Player/NPC interaction logic and their own actor collision are separate systems; do not remove or rewrite those unless specifically requested.
-- **Future collision pass:** when explicitly requested, reintroduce world-object collision in small, inspectable batches. Keep collision separate from visual tiles, and verify each batch in Godot before expanding it. Doorway interaction triggers must be designed separately from ordinary blocking collision.
+- **Temporary object-collision-disabled phase:** object collision is intentionally disabled while map layout and the scene tree are being debugged. Remove generated `GeneratedObjectCollisions` containers and do not generate object collision shapes or add collision to object sprite tiles during this phase.
+- This applies to world objects only: trees, rocks, bushes, houses, and chapel remain visible but do not block movement. Preserve the map-edge boundary collision and all player/NPC actor collision and interaction logic.
+- **Future object-collision pass:** when explicitly requested, reintroduce world-object collision in small, inspectable batches. Keep collision separate from visual tiles, and verify each batch in Godot before expanding it. Doorway interaction triggers must be designed separately from ordinary blocking collision.
 - Preserve existing gameplay logic, TileMapLayer nodes, scene components, and project conventions unless a change is necessary and authorized.
 - Use the actual assets. Do not use Polygon2D, improvised graphics, or placeholder scenery as substitutes.
 
