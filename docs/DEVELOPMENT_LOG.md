@@ -1,3 +1,21 @@
+## 2026-10-14 — Begin Map Scene Transition Port
+
+### Changes
+- Added persistent `SceneManager` autoload that fades between map scenes while preserving the single Player node in `scenes/main.tscn`.
+- Added a reusable `MapTransitionTrigger` for non-solid Player-only map entry/exit zones.
+- Added an east-edge transition from the overworld into Havenreach and exits from all four Havenreach edges back to the saved safe return point.
+- Added a configurable return offset so leaving Havenreach does not immediately retrigger its entrance.
+- Updated `docs/checklist.md` to record NPC collision/movement as runtime verified by the user, while leaving dialogue and Havenreach placement checks open.
+- Added the NPC test result to `docs/RUNTIME_VERIFIED.md`.
+
+### Verification
+- [x] Reviewed the legacy `Scripts/systems/scene_manager.gd` and `world/world_exit_boundary.gd` behavior before adapting the design.
+- [x] Added the transition manager, trigger, and first map entry/exit paths directly to GitHub `main`.
+- [ ] Pull `origin main` and run the game in Godot; verify overworld → Havenreach → overworld, safe return position, fade overlay, and no debugger errors.
+- **Status:** Source implementation committed; Godot runtime verification pending.
+
+---
+
 ## 2026-10-14 — Fix NPC Obstacle Probe Parse Error
 
 ### Changes
