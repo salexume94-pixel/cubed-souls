@@ -1,3 +1,17 @@
+## 2026-10-14 — Correct Havenreach Roof Alpha Sampling
+
+### Correction
+- The prior roof/body split did not change the alpha sampler's reliance on each TileSetAtlasSource tile texture region. Reworked sampling to read the exact registered atlas cell directly from the source PNG using atlas coordinates, so foreground-rendered roof pixels are sampled independently of their visual layer.
+- Added an explicit error if a requested object region produces zero opaque pixels, preventing a missing collider from failing silently.
+- Kept alpha-based collision, transparent gaps, and merged rectangle shapes.
+
+### Verification
+- [x] Fix committed directly to `main`.
+- [ ] Pull `origin main`, open Havenreach in Godot, and test opaque roof pixels and transparent gaps.
+- Runtime verification is pending.
+
+---
+
 ## 2026-10-14 — Extend Havenreach House Alpha Collision to Roofs
 
 ### Changes
