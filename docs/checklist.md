@@ -10,7 +10,9 @@ This checklist tracks gameplay systems that still need to be built or ported int
 
 ## Priority 2 — Scene transitions
 
-- [ ] **In progress.** Port/adapt the previous `Scripts` repository's scene-transition manager and boundary/entry behavior. Support changing between map scenes and define how the Player spawn/entry point is selected. Runtime verification is still required.
+- [x] Added the persistent `SceneManager` autoload and reusable `MapTransitionTrigger`.
+- [x] Added the overworld east-edge entry into Havenreach and four Havenreach exits that return to the saved safe overworld position.
+- [ ] **Runtime verification pending.** In Godot, verify overworld → Havenreach → overworld, the safe return position, fade overlay, and absence of debugger errors. Confirm spawn behavior and adjust trigger placement if needed.
 
 ## Priority 3 — Quest system
 
