@@ -276,15 +276,51 @@ func _add_alpha_rectangle(collision_name: String, map_origin: Vector2i, rectangl
 			collision.owner = edited_root
 
 func _create_map_boundaries() -> void:
-	# Build physics nodes in code to avoid fragile .tscn parent-path parsing.
-	# The map spans 64×40 tiles at 16 pixels per tile; walls sit just outside its edges.
+	# Keep three solid edges and use the east edge as the first real map exit.
+	# The trigger sits just inside the boundary so it activates before the Player
+	# reaches the edge wall; the return offset prevents immediate re-entry.
 	_add_boundary("WestBoundary", Vector2(-TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(TILE_SIZE, MAP_HEIGHT * TILE_SIZE + TILE_SIZE))
-	_add_boundary("EastBoundary", Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(TILE_SIZE, MAP_HEIGHT * TILE_SIZE + TILE_SIZE))
 	_add_boundary("NorthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, -TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 	_add_boundary("SouthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE + TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
+	_add_map_transition_trigger(
+		"HavenreachEntry",
+		Vector2(MAP_WIDTH * TILE_SIZE - 8.0, MAP_HEIGHT * TILE_SIZE / 2.0),
+		Vector2(32.0, MAP_HEIGHT * TILE_SIZE),
+		"res://world/maps/towns/havenreach/havenreach.tscn",
+		Vector2(512.0, 320.0),
+		false,
+		Vector2(-48.0, 0.0)
+	)
+
+
+func _add_map_transition_trigger(
+	trigger_name: String,
+	trigger_position: Vector2,
+	trigger_size: Vector2,
+	target_scene: String,
+	target_player_position: Vector2,
+	use_return_position: bool = false,
+	return_position_offset: Vector2 = Vector2.ZERO
+) -> void:
+	# Build the reusable trigger at runtime so the map remains data-light.
+	var trigger := Area2D.new()
+	trigger.name = trigger_name
+	trigger.set_script(preload("res://systems/map_transition_trigger.gd"))
+	trigger.set("target_scene", target_scene)
+	trigger.set("target_player_position", target_player_position)
+	trigger.set("use_return_position", use_return_position)
+	trigger.set("return_position_offset", return_position_offset)
+	trigger.position = trigger_position
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = trigger_size
+	collision.shape = rectangle
+	trigger.add_child(collision)
+	add_child(trigger)
+
 
 func _add_boundary(boundary_name: String, boundary_position: Vector2, boundary_size: Vector2) -> void:
-	# Each wall is a StaticBody2D on the player's collision layer, with no scene-file child paths.
+	# Each wall is a StaticBody2D on the Player's collision layer.
 	var wall := StaticBody2D.new()
 	wall.name = boundary_name
 	wall.position = boundary_position
