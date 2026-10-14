@@ -22,7 +22,8 @@ Current foundational files include:
 - `project.godot`: project configuration and main-scene setting.
 - `scenes/main.tscn`: main scene; currently instances the overworld and player.
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
-- `world/maps/overworld/world.tscn`: current overworld scene.
+- `world/maps/overworld/world.tscn`: overworld scene and TileMapLayer composition.
+- `world/maps/overworld/world.gd`: builds the starter grass field and scatters details using the existing overworld TileSet.
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
 
