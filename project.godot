@@ -17,6 +17,11 @@ config/icon="res://icon.svg"
 
 [display]
 
+# The project baseline is 16:9 at 1152×648; maps use a 16 px tile grid.
+window/size/viewport_width=1152
+window/size/viewport_height=648
+window/size/window_width_override=1152
+window/size/window_height_override=648
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

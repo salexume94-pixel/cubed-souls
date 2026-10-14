@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://world/maps/towns/havenreach/havenreach.tscn" id="1_havenreach"]
+[ext_resource type="PackedScene" path="res://player/player.tscn" id="2_player"]
+
+[node name="HavenreachTest" type="Node2D"]
+
+[node name="Havenreach" parent="." instance=ExtResource("1_havenreach")]
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(512, 320)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="TileSet" uid="uid://0arbp208wdjw" path="res://assets/tilesets/overworld/background.tres" id="1_tileset"]
+[ext_resource type="Script" path="res://world/maps/towns/havenreach/havenreach.gd" id="2_script"]
 
 [node name="Havenreach" type="Node2D"]
+script = ExtResource("2_script")
 
 [node name="Ground" type="TileMapLayer" parent="."]
 tile_set = ExtResource("1_tileset")
@@ -22,3 +24,4 @@ z_index = 1
 [node name="NPCs" type="Node2D" parent="."]
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(512, 320)

@@ -1,3 +1,28 @@
+
+---
+
+## 2026-10-14 — Build Havenreach Map Scaffold and Cross-Check Tileset Catalogs
+
+### Changes
+- Cross-checked labeled SVG dimensions and documented bundle footprints in `docs/TILESET_CROSSCHECK.md`.
+- Registered the existing chapel exterior PNG as atlas source ID 2 in the shared TileSet; the chapel bundle uses its catalogued 8 × 10 region.
+- Added the deterministic Havenreach map generator using existing grass, house, chapel, tree, rock, bush, and grass-detail atlas cells.
+- Kept house and chapel bundles aligned to their source coordinates and split upper rows onto Foreground for player overlap.
+- Added alpha-derived collision generation for placed bundles and runtime-only map boundaries.
+- Added `havenreach_test.tscn` as a direct movement/camera test harness without changing the main story launch scene.
+- Set the project baseline viewport and window override to 1152 × 648 (16:9).
+- Preserved the existing development history and kept the earlier `.DS_Store` cleanup in its own commit.
+
+### Verification
+- [x] Static source inspection of the labeled atlas references and current TileSet resource.
+- [x] Havenreach scene, script, chapel atlas source, and test harness committed to GitHub `main`.
+- [x] Viewport/window baseline explicitly configured.
+- [ ] Godot editor import and parse validation pending on the user's machine.
+- [ ] Runtime movement, alpha collision fit, transparent gaps, foreground overlap, camera bounds, and boundaries remain unverified until the test scene is run in Godot.
+- [ ] Modular house-details coordinates still need cataloguing; chapel-interior and dungeon sheets do not yet have TileSet resources.
+
+---
+
 ## 2026-10-14 — Catalog Ruined Temple Walls and Floor Assets
 
 ### Changes
