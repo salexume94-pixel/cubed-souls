@@ -1,3 +1,17 @@
+## 2026-10-14 — Extend Havenreach House Alpha Collision to Roofs
+
+### Changes
+- Split each generated house collision mask into two alpha-derived regions matching its rendering layers: roof/foreground rows 0–4 and body/object rows 5–7.
+- The roof now gets an explicit collision pass over its full 10×5-tile region. Opaque roof pixels block movement; transparent pixels remain walkable.
+- Kept the existing alpha threshold and merged-rectangle approach. House placement, art, and randomized layout are unchanged.
+
+### Verification
+- [x] Change committed directly to `main`.
+- [ ] Pull `origin main`, open Havenreach in Godot, and test movement against the roof edges and transparent gaps.
+- Runtime verification is pending.
+
+---
+
 ## 2026-10-14 — Keep Building Collision Alpha-Based
 
 ### Correction
