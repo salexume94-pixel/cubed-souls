@@ -23,7 +23,7 @@ Current foundational files include:
 - `scenes/main.tscn`: main scene; currently instances the overworld and player.
 - `scenes/tests/npc_test.tscn`: isolated NPC smoke-test scene; not configured as the game's startup scene.
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
-- `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using the shared player sprite sheets, capsule collision, optional movement modes, and starter dialogue UI.
+- `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using shared player sprite sheets, capsule collision, stationary/civilian/guard/ally behavior profiles, obstacle probes, E-key dialogue, and optional story movement.
 - `world/maps/overworld/world.tscn`: overworld scene.
 - `world/maps/overworld/world.gd`: inert by design; tile placements are authored in `world.tscn`, not regenerated at runtime. Do not restore guessed atlas placements.
 - `assets/`: source art, sprites, and tileset resources.
@@ -92,6 +92,7 @@ A gate is not complete just because code parses. Record what was tested, the res
 ### Collision-shape policy
 
 - Player and NPC bodies should use `CapsuleShape2D` by default.
+- Collision layers separate static world geometry (layer 1), the Player (layer 2), and NPC actors (layer 3 / bitmask value 4). The Player collides with world geometry and NPC actors; NPCs collide with world geometry and other NPCs but do not physically collide with or push the Player. NPC interaction sensors detect the Player on layer 2.
 - Enemy collision shapes are assessed case by case based on sprite silhouette and gameplay needs.
 - Fit collision to the visible character body, not blindly to the full sprite-sheet frame when it contains transparent padding.
 - Godot does not provide a general automatic “wrap collision shape to sprite alpha” option for `CollisionShape2D`. The capsule dimensions and offset must be chosen/adjusted manually, using the sprite's visible bounds as a reference. A capsule is an approximation, not a pixel-perfect alpha outline.
