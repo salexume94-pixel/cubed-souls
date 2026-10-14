@@ -111,16 +111,8 @@ func _place_detail_tile(map_position: Vector2i, atlas_coords: Vector2i) -> void:
 
 
 func _build_objects() -> void:
-	# Shuffle candidate plots so houses feel organically scattered instead of arranged in matching corners.
-	# The seed keeps placements stable between editor refreshes and game launches.
-	var rng := RandomNumberGenerator.new()
-	rng.seed = LAYOUT_SEED
-	var house_plots: Array[Vector2i] = HOUSE_CANDIDATES.duplicate()
-	house_plots.shuffle()
-	for index in range(4):
-		_place_house(house_plots[index], "House_%02d" % (index + 1))
-
-	# The chapel uses its own registered atlas source and is the settlement's visual landmark.
+	# Place fixed landmark and nature bundles first so houses can avoid every occupied object cell.
+	# The house layout is randomized only after these fixed placements are known.
 	_place_chapel(Vector2i(28, 3), "HavenreachChapel")
 
 	# Tree, rock, and bush bundles frame the settlement without blocking the central approach.
@@ -143,6 +135,41 @@ func _build_objects() -> void:
 	_place_object_bundle("NorthEastSmallBush", Vector2i(56, 12), BUSH_SMALL, Vector2i(1, 1))
 	_place_object_bundle("SouthWestSmallBush", Vector2i(5, 29), BUSH_SMALL, Vector2i(1, 1))
 
+	# Shuffle candidate plots, then skip any plot whose actual house cells overlap existing objects.
+	# Each accepted house is placed immediately, so later candidates also avoid earlier houses.
+	var rng := RandomNumberGenerator.new()
+	rng.seed = LAYOUT_SEED
+	var house_plots: Array[Vector2i] = HOUSE_CANDIDATES.duplicate()
+	house_plots.shuffle()
+	var placed_houses := 0
+	for plot in house_plots:
+		if placed_houses >= 4:
+			break
+		if not _can_place_house(plot):
+			continue
+		placed_houses += 1
+		_place_house(plot, "House_%02d" % placed_houses)
+	if placed_houses < 4:
+		push_warning("Havenreach: only placed %d of 4 houses because remaining plots overlap existing objects." % placed_houses)
+
+
+func _can_place_house(map_origin: Vector2i) -> bool:
+	# Reject a plot if any registered house cell would cover an existing object/foreground tile.
+	# This tests occupied cells, not the entire rectangular footprint, so intentional atlas gaps
+	# do not reserve unnecessary ground.
+	var atlas_source := objects.tile_set.get_source(EXTERIOR_SOURCE_ID) as TileSetAtlasSource
+	if atlas_source == null:
+		return false
+	for y in range(HOUSE_SIZE.y):
+		for x in range(HOUSE_SIZE.x):
+			var atlas_coords := HOUSE_ATLAS_ORIGIN + Vector2i(x, y)
+			if not atlas_source.has_tile(atlas_coords):
+				continue
+			var destination := map_origin + Vector2i(x, y)
+			if objects.get_cell_source_id(destination) != -1 or foreground.get_cell_source_id(destination) != -1:
+				return false
+	return true
+
 
 func _place_house(map_origin: Vector2i, collision_name: String) -> void:
 	# Place the house as one 10×8 source bundle, preserving all atlas offsets and intentional gaps.
@@ -160,22 +187,15 @@ func _place_house(map_origin: Vector2i, collision_name: String) -> void:
 				foreground.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
 			else:
 				objects.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
-	# Generate the foreground roof and lower building body as separate alpha masks.
-	# The roof occupies rows 0–4 on Foreground; the wall/base occupies rows 5–7 on Objects.
-	# Both masks use the same source alpha, so transparent pixels in either section remain walkable.
+	# Build one alpha mask across the COMPLETE 10×8 house bundle.
+	# This explicitly includes every opaque roof pixel as well as the lower body.
+	# Transparent source pixels remain walkable; the roof is not clipped at a row boundary.
 	_collision_specs.append({
-		"name": collision_name + "_Roof",
+		"name": collision_name,
 		"map_origin": map_origin,
 		"source_id": EXTERIOR_SOURCE_ID,
 		"atlas_origin": HOUSE_ATLAS_ORIGIN,
-		"dimensions": Vector2i(HOUSE_SIZE.x, 5),
-	})
-	_collision_specs.append({
-		"name": collision_name + "_Body",
-		"map_origin": map_origin + Vector2i(0, 5),
-		"source_id": EXTERIOR_SOURCE_ID,
-		"atlas_origin": HOUSE_ATLAS_ORIGIN + Vector2i(0, 5),
-		"dimensions": Vector2i(HOUSE_SIZE.x, HOUSE_SIZE.y - 5),
+		"dimensions": HOUSE_SIZE,
 	})
 
 
