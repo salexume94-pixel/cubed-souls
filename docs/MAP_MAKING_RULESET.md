@@ -142,3 +142,42 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 - These coordinates are transcribed from the working catalog and must be visually checked against `overworld_exterior_labeled.svg` and the Godot atlas configuration before use.
 - Repeated asset names at different coordinates are separate atlas entries. Keep them distinct unless the SVG confirms they are duplicates.
 - Document destination map coordinates separately from source atlas coordinates when planning a specific map.
+
+
+## `chapel_exterior_labeled.svg`
+
+### Objects
+
+| Coordinates | Asset |
+|---|---|
+| (1,0), (3,0), (4,0), (6,0); all coordinates from columns 0–7 in rows 1–9 listed below | Chapel |
+| (0,1), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1) | Chapel |
+| (0,2), (1,2), (2,2), (3,2), (4,2), (5,2), (6,2), (7,2) | Chapel |
+| (0,3), (1,3), (2,3), (3,3), (4,3), (5,3), (6,3), (7,3) | Chapel |
+| (0,4), (1,4), (2,4), (3,4), (4,4), (5,4), (6,4), (7,4) | Chapel |
+| (0,5), (1,5), (2,5), (3,5), (4,5), (5,5), (6,5), (7,5) | Chapel |
+| (0,6), (1,6), (2,6), (3,6), (4,6), (5,6), (6,6), (7,6) | Chapel |
+| (0,7), (1,7), (2,7), (3,7), (4,7), (5,7), (6,7), (7,7) | Chapel |
+| (0,8), (1,8), (2,8), (3,8), (4,8), (5,8), (6,8), (7,8) | Chapel |
+| (0,9), (1,9), (2,9), (3,9), (4,9), (5,9), (6,9), (7,9) | Chapel |
+
+The listed chapel coordinates are source atlas coordinates for the chapel exterior asset. Treat them as a grouped asset and preserve the visible arrangement in the labeled SVG.
+
+## `chapel_walls_interior_labeled.svg`
+
+### Ground
+
+| Coordinates | Asset |
+|---|---|
+| (2,31), (3,31), (2,32), (3,32) | Floor tile (2 × 2 bundle) |
+
+### Objects
+
+| Coordinates | Asset |
+|---|---|
+| (0,11), (1,11), (2,11), (3,11), (4,11), (5,11), (6,11), (0,12), (1,12), (2,12), (3,12), (4,12), (5,12), (6,12), (0,13), (1,13), (2,13), (3,13), (4,13), (5,13), (6,13), (0,14), (1,14), (2,14), (3,14), (4,14), (5,14), (6,14), (0,15), (1,15), (2,15), (3,15), (4,15), (5,15), (6,15) | Back wall (7 × 5 region) |
+| (0,25), (1,25), (2,25), (3,25), (0,26), (1,26), (2,26), (3,26), (0,27), (1,27), (2,27), (3,27) | Portrait on back wall (4 × 3 bundle) |
+| (8,4), (9,4), (8,5), (9,5), (8,6), (9,6), (8,7), (9,7) | Vertical pillar (2 × 4 bundle) |
+| (3,12), (3,13), (3,14), (3,15) | Repeatable backwall section (1 × 4 vertical bundle) |
+
+The coordinates (3,12) through (3,15) are also included in the full back-wall region above. The repeatable-backwall entry identifies those same tiles for modular/repeatable wall construction; do not treat it as a separate set of source coordinates.
