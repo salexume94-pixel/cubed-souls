@@ -1,3 +1,28 @@
+## 2026-10-14 — Add Overworld Tileset Catalog and Coordinate References
+
+### Findings
+- Visually inspected the actual `exterior.png` and `ground_grass_details.png` images from GitHub, not example art.
+- `exterior.png` is a transparent prop sheet with a building, fences/walls, bushes, trees, rocks, stumps, mushrooms, plants, and fountain-like objects.
+- `ground_grass_details.png` is a transparent detail sheet with small earth/stone-like accents and green grass/plant tufts.
+- Neither sheet contains a confirmed seamless opaque grass tile suitable for filling the whole ground layer. The prior repeated atlas cell `(0, 0)` from source ID 1 is a small transparent detail, not valid base ground.
+
+### Changes
+- Added `docs/OVERWORLD_TILESET_CATALOG.md` with asset dimensions, source IDs, category definitions, layer rules, placement workflow, and future-agent guardrails.
+- Added `tools/generate_tileset_reference.py`, which generates enlarged, checkerboard-backed PNG sheets with every 16×16 cell labelled by zero-based `(x, y)` coordinate.
+- Removed the unverified tile placements from `world/maps/overworld/world.tscn` rather than leaving a tiny detail repeated as ground or unverified details scattered over the map.
+- Preserved the four existing TileMapLayer nodes: `Ground`, `Details`, `Objects`, and `Foreground`. No `Polygon2D` nodes or hand-drawn geometry were added.
+
+### Verification
+- [x] Source PNGs inspected visually from the repository.
+- [x] TileSet resource checked for image references and source IDs.
+- [x] Coordinate-reference generator and catalog committed to GitHub `main`.
+- [x] Scene source checked to confirm all four TileMapLayer nodes remain and unverified tile data is removed.
+- [ ] Run `python tools/generate_tileset_reference.py` locally to create the labelled reference sheets.
+- [ ] Open the scene in Godot and verify the cleared scene state.
+- [ ] Identify and add a proper base-grass asset before rebuilding the ground field. Godot editor/runtime behavior is not yet verified.
+
+---
+
 ## 2026-10-14 — Rebuild Overworld From the Specified Asset Folder
 
 ### Changes
