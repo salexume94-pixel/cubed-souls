@@ -267,13 +267,34 @@ The window is not a small decorative detail. It is an overlay component intended
 
 Reference: `docs/tileset_reference/generated/ruined_temple_walls_floor_labeled.svg`, sourced from `assets/tilesets/dungeons/ruined_temple/Walls_floor.png`. The source is 176 × 256 pixels, arranged as 11 columns × 16 rows of 16 × 16 cells. Coordinates use zero-based `(column, row)`.
 
-### Visual inventory
+### Ground
 
-The sheet contains several stone-wall sections, vertical wall/pillar pieces, a long horizontal wall section, door/opening artwork, and floor texture cells. These are candidate assets only; do not infer exact source coordinates from this summary.
+| Coordinates | Asset | Placement rule |
+|---|---|---|
+| `(6,13)` | Ground floor entrance | Entry/threshold floor tile; verify alignment with the intended entrance before placement. |
+| `(7,13)`, `(8,13)`, `(9,13)` | Ground floor tiles | Individual floor cells. |
+| `(1,14)`, `(2,14)`, `(3,14)`, `(4,14)`, `(5,14)`, `(6,14)`, `(7,14)`, `(8,14)`, `(9,14)` | Ground floor tiles | Individual floor cells; may be repeated across the room. |
+
+### Objects
+
+| Coordinates | Asset | Placement rule |
+|---|---|---|
+| `(7,5)`, `(7,6)`, `(7,7)`, `(7,8)` | Crumbling right wall edge | One vertical 1 × 4 bundle; preserve the complete top-to-bottom arrangement. |
+| `(9,5)`, `(9,6)`, `(9,7)`, `(9,8)` | Crumbling left wall edge | One vertical 1 × 4 bundle; preserve the complete top-to-bottom arrangement. |
+| `(5,6)`, `(6,6)`, `(5,7)`, `(6,7)`, `(5,8)`, `(6,8)` | Interior door / dungeon passage | One 2-column × 3-row bundle. Potentially useful for deeper dungeon levels; destination and transition behavior are not yet assigned. |
+| `(1,6)`, `(1,7)`, `(1,8)` | Stone wall section | One vertical 1 × 3 bundle. |
+| `(2,6)`, `(2,7)`, `(2,8)` | Stone wall section | One vertical 1 × 3 bundle. |
+| `(3,6)`, `(3,7)`, `(3,8)` | Stone wall section | One vertical 1 × 3 bundle. |
+| `(4,6)`, `(4,7)`, `(4,8)` | Stone wall section | One vertical 1 × 3 bundle. |
+| `(4,9)`, `(4,10)` | Right wall edge | One vertical 1 × 2 bundle. |
+| `(5,9)`, `(5,10)` | Left wall edge | One vertical 1 × 2 bundle. |
+| `(0,0)`, `(1,0)`, `(2,0)`, `(0,1)`, `(1,1)`, `(2,1)`, `(0,2)`, `(1,2)`, `(2,2)`, `(0,3)`, `(1,3)`, `(2,3)`, `(0,4)`, `(1,4)`, `(2,4)` | Solid stone pillar | One complete 3-column × 5-row bundle from top to bottom; preserve all 15 cells. |
+
+Wall and pillar bundles belong on `Objects` and must block movement according to their opaque pixels. The interior door is also an `Objects` asset; keep its ordinary blocking collision separate from any transition trigger. Its possible use for a deeper dungeon level is a design note, not an implemented connection.
 
 ### Catalog status
 
-The labeled reference is committed and ready for coordinate inspection. Exact coordinates and bundled groupings have deliberately not been guessed. Before placing anything, identify useful assets in the labeled SVG, record every coordinate in each bundle, and preserve the original arrangement. Classify floor cells as Ground, solid wall structures as Objects, and any intentional overlay as Foreground. Doors need a transition trigger separate from ordinary blocking collision. Catalog only pieces likely to be used rather than every cell.
+These entries record the coordinates supplied for the labeled SVG. Floor cells are individual placements; all grouped wall, door, and pillar coordinates are single bundled assets and must remain assembled. No map placement or Godot runtime verification is implied.
 
 ## `ruined_temple_exterior_objects_labeled.svg`
 
