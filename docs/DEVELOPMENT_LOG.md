@@ -1,3 +1,11 @@
+## 2026-10-14 — Add Ruined Temple Exterior Objects Reference
+
+- Added `docs/tileset_reference/generated/ruined_temple_exterior_objects_labeled.svg`, a self-contained coordinate atlas sourced from `assets/tilesets/dungeons/ruined_temple/Exterior_objects.png`.
+- Source dimensions: 352×656 pixels; atlas grid: 22 columns × 41 rows using 16×16 source cells. Coordinates are zero-based `(column, row)`.
+- Registered the source sheet in `tools/generate_tileset_reference.py` so the reference can be regenerated locally.
+- This is a visual reference only; no gameplay assets or scenes were changed.
+- Verification: SVG source and embedded PNG dimensions checked during generation. Visual cross-check and Godot runtime verification are pending.
+
 ## 2026-10-14 — Catalog Walls, Floors, Windows, and Doors
 
 ### Changes
