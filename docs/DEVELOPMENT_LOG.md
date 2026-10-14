@@ -1,3 +1,23 @@
+## 2026-10-14 — Port NPC Movement and Behavior Profiles
+
+### Changes
+- Adapted the previous Scripts repository's movement ideas to the current reusable NPC actor instead of copying its old combat/game-state dependencies.
+- Added Stationary, Civilian, Guard, and Ally behavior profiles. Civilians and Allies wander within a bounded home radius and create personal space when the Player approaches; Guards follow authored patrol points or remain at their post.
+- Added obstacle steering using three parallel raycasts, alternate-direction checks, and a short stuck-recovery override.
+- Added Ally proximity signals and explicit story-target movement hooks without coupling NPC movement to a story manager.
+- Separated physics layers: static world geometry is layer 1, Player is layer 2, and NPCs use layer 3. The Player collides with NPCs, but NPC movement ignores the Player body so it cannot push civilians around; interaction sensors still detect the Player.
+- Expanded scenes/tests/npc_test.tscn with Civilian, Guard, and Ally examples.
+- Updated the architecture guide and implementation checklist.
+
+### Verification
+- [x] Reviewed the previous Scripts/world/moving_npc.gd and adapted movement/avoidance concepts to the current NPC scene.
+- [x] Updated NPC/player collision layers and interaction sensor masks in source.
+- [x] Committed implementation and documentation directly to GitHub main.
+- [ ] Pull origin main, run scenes/tests/npc_test.tscn, and verify civilian wandering/retreat, guard patrol, ally wandering/detection, obstacle avoidance, collision, and dialogue.
+- **Status:** Source committed; Godot runtime verification pending.
+
+---
+
 ## 2026-10-14 — Re-enable Source-Alpha Object Collision Trial
 
 ### Changes
