@@ -9,6 +9,7 @@ These files are inspection aids, not game assets.
 
 from pathlib import Path
 from html import escape
+from base64 import b64encode
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "assets" / "tilesets" / "overworld"
@@ -47,9 +48,11 @@ def render_sheet(source_name: str, output_name: str) -> None:
     rows = height // TILE_SIZE
     scaled_width = width * SCALE
     scaled_height = height * SCALE
-    # Keep generated references alongside docs; reference the original PNG using a
-    # relative URL so the script does not need to copy or modify source assets.
-    image_href = "../../../assets/tilesets/overworld/" + source_name
+    # Embed the source PNG so the reference works in GitHub previews and when the
+    # SVG is opened or moved independently. Relative SVG image links often break
+    # in repository viewers even when their paths are correct.
+    image_data = b64encode(source_path.read_bytes()).decode("ascii")
+    image_href = f"data:image/png;base64,{image_data}"
 
     svg = [
         '<?xml version="1.0" encoding="UTF-8"?>',
