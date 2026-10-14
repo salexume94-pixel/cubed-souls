@@ -2,6 +2,20 @@
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
 
+## 2026-10-14 — Documentation Paths and Runtime Verification Record
+
+### Changes
+- Renamed the runtime verification record from `docs/RUNTIME_VERIFIED.txt` to `docs/RUNTIME_VERIFIED.md` without changing the recorded verification claim.
+- Updated `docs/ARCHITECTURE.md` to reference the Markdown filename and the actual root-level location of this development log.
+- Updated `README.md` with direct links to the architecture guide, audit, runtime verification record, and development log.
+
+### Verification status
+- GitHub file contents and paths were inspected on `main`.
+- Documentation changes are committed to GitHub `main`.
+- Godot runtime behavior was not tested as part of this documentation-only change.
+
+---
+
 ## 2026-10-14 — Slow Idle Animations and Confirm North-Facing Idle Fix
 
 ### Changes
