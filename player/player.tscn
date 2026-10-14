@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://player/player.gd" id="1_player"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(18, 14)
+size = Vector2(64, 64)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 1
@@ -16,7 +16,7 @@ position = Vector2(0, -24)
 sprite_frames = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_body")
 
 [node name="Camera2D" type="Camera2D" parent="."]
