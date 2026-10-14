@@ -53,8 +53,9 @@ func _ready() -> void:
 	_build_ground()
 	_build_details()
 	_build_objects()
-	# Remove generated object colliders while keeping the normal map-edge boundaries.
+	# Rebuild source-alpha collision from every placed house, chapel, tree, rock, and bush bundle.
 	_remove_generated_object_collisions()
+	_create_object_collisions()
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
 
@@ -245,7 +246,7 @@ func _place_object_bundle(collision_name: String, map_origin: Vector2i, atlas_or
 
 
 func _remove_generated_object_collisions() -> void:
-	# Object sprites should be collision-free during layout debugging. Remove only their generated container.
+	# Clear the previous generated alpha-collision container before rebuilding it from the current object layout.
 	var existing_root := get_node_or_null("GeneratedObjectCollisions")
 	if existing_root != null:
 		existing_root.free()
@@ -304,8 +305,7 @@ func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vecto
 			if not atlas_source.has_tile(atlas_coords):
 				continue
 			# Sample the registered atlas cell directly from the source PNG.
-			# Do not depend on the rendered tile region: the house roof is drawn on Foreground,
-			# but its collision must still come from the exact source-atlas alpha pixels.
+			# Read the source atlas directly so collision follows the exact alpha pixels of the object bundle.
 			var source_x := atlas_coords.x * TILE_SIZE
 			var source_y := atlas_coords.y * TILE_SIZE
 			for py in range(TILE_SIZE):
