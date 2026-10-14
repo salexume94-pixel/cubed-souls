@@ -4,7 +4,7 @@ This checklist tracks gameplay systems that still need to be built or ported int
 
 ## Priority 1 — NPC scenes
 
-- [ ] **Source implemented; runtime verification pending.** Added `world/actors/npc/npc.tscn` and `npc.gd` with the player’s sprite sheets/animation layout, matching capsule body dimensions, configurable stationary/wander/patrol movement, and E-key multi-line dialogue. Dialogue pauses player movement. Pull and test in Godot before checking this item off.
+- [ ] **Source implemented; runtime verification pending.** `world/actors/npc/npc.tscn` and `npc.gd` reuse the player's sprite sheets and capsule dimensions, with Stationary, Civilian, Guard, and Ally profiles. Civilian/Ally wander within a home radius and make room for the Player; Guards follow authored patrol points or remain at post. Movement includes multi-ray obstacle steering, stuck recovery, and optional story-target movement. E-key multiline dialogue pauses the Player. The isolated test scene now includes all three moving profiles.
 
 ## Priority 2 — Scene transitions
 
