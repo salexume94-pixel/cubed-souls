@@ -1,3 +1,21 @@
+## 2026-10-14 — Add Reusable NPC Scene, Movement, and Dialogue
+
+### Changes
+- Added `world/actors/npc/npc.tscn` and `npc.gd` as a reusable NPC actor.
+- NPCs reuse the player's 64×64 sprite sheets and directional idle/walk/run frame layout. The physical capsule uses the same radius (10 px), height (32 px), and vertical offset (-24 px) as the player.
+- Added configurable stationary, bounded-wander, and patrol movement modes. NPCs are stationary by default; patrol paths can be assigned in the Inspector.
+- Added an interaction area and E-key dialogue with configurable speaker name and multiple lines. Dialogue locks player movement until the final line is advanced.
+- Added the player's `movement_enabled` flag and `player` group registration so dialogue can pause movement cleanly.
+- Updated `docs/ARCHITECTURE.md` and `docs/checklist.md` to document the new actor and keep runtime verification pending.
+
+### Verification
+- [x] Reviewed referenced sprite paths, scene node paths, collision dimensions, and player movement-lock integration against current `main` source.
+- [x] Changes committed directly to GitHub `main`.
+- [ ] Pull `origin main`, open/run the project in Godot, and verify NPC animation visibility, collisions, each movement mode, E-key interaction, multi-line dialogue, and player movement lock/unlock.
+- **Status:** Code-reviewed; Godot parser/editor/runtime verification has not been run here.
+
+---
+
 ## 2026-10-14 — Add Prioritized Implementation Checklist
 
 ### Changes
