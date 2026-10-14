@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody2D
 
 # Movement is intentionally self-contained so this player can be reused on other maps.
@@ -20,12 +21,16 @@ var is_running: bool = false
 
 
 func _ready() -> void:
-	# Build frames from the existing sprite sheets instead of duplicating art assets.
+	# Build frames in both the editor and game so the player sprite is visible before Play.
 	sprite.sprite_frames = _build_sprite_frames()
 	sprite.play("idle_down")
 
 
 func _physics_process(_delta: float) -> void:
+	# Tool scripts can process in the editor; never move the player while editing the scene.
+	if Engine.is_editor_hint():
+		return
+
 	# Use the standard Godot input actions so keyboard remapping remains possible.
 	var input_direction := _get_move_input()
 	velocity = input_direction * move_speed
@@ -43,6 +48,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _build_sprite_frames() -> SpriteFrames:
+	# Construct SpriteFrames from the existing PNG sheets so no duplicate art resource is needed.
 	var frames := SpriteFrames.new()
 	frames.clear_all() # Remove the default animation so only known animations are exposed.
 
