@@ -8,6 +8,7 @@ extends Area2D
 @export_file("*.tscn") var target_scene: String = ""
 @export var target_player_position: Vector2 = Vector2.ZERO
 @export var use_return_position: bool = false
+@export var return_position_offset: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -22,4 +23,4 @@ func _on_body_entered(body: Node2D) -> void:
 	# Ignore NPCs and other physics bodies; only the Player changes maps.
 	if not body.is_in_group("player"):
 		return
-	SceneManager.change_map(target_scene, target_player_position, use_return_position)
+	SceneManager.change_map(target_scene, target_player_position, use_return_position, return_position_offset)
