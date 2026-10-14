@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	# Use the standard Godot input actions so keyboard remapping remains possible.
-	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_direction := _get_move_input()
 	velocity = input_direction * move_speed
 	move_and_slide()
 
@@ -44,7 +44,7 @@ func _physics_process(_delta: float) -> void:
 
 func _build_sprite_frames() -> SpriteFrames:
 	var frames := SpriteFrames.new()
-	frames.clear() # Remove the default animation so only known animations are exposed.
+	frames.clear_all() # Remove the default animation so only known animations are exposed.
 
 	for animation_name in ANIMATIONS:
 		var definition: Dictionary = ANIMATIONS[animation_name]
@@ -70,3 +70,17 @@ func _build_sprite_frames() -> SpriteFrames:
 				frames.add_frame(name, atlas)
 
 	return frames
+
+
+func _get_move_input() -> Vector2:
+	# Support both WASD and arrow keys without requiring editor input-map setup.
+	var direction := Vector2.ZERO
+	if Input.is_action_pressed("ui_left") or Input.is_key_pressed(KEY_A):
+		direction.x -= 1.0
+	if Input.is_action_pressed("ui_right") or Input.is_key_pressed(KEY_D):
+		direction.x += 1.0
+	if Input.is_action_pressed("ui_up") or Input.is_key_pressed(KEY_W):
+		direction.y -= 1.0
+	if Input.is_action_pressed("ui_down") or Input.is_key_pressed(KEY_S):
+		direction.y += 1.0
+	return direction.normalized()
