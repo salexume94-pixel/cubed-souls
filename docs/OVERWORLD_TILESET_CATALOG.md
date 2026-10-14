@@ -62,7 +62,10 @@ Only add entries after visually checking the generated reference image. A multi-
 | Source | Coordinate / region | Description | Class | Layer | Confidence / notes |
 |---|---|---|---|---|---|
 | 0 — `exterior.png` | `(1, 12)` | User-confirmed base grass cell | Ground surface | Ground | **Coordinate confirmed by user; Godot rendering pending** |
-| 1 — `ground_grass_details.png` | TBD | Small green grass/plant accents | Flora / ground detail | Details | Sheet-level observation; exact cells TBD |
+| 1 — `ground_grass_details.png` | `(11, 15)` + `(12, 15)` | Two-cell grass-leaf bundle | Flora / ground detail | Details | Coordinates confirmed by user; adjacent cells must stay together |
+| 1 — `ground_grass_details.png` | `(13, 15)` + `(14, 15)` | Alternate two-cell grass-leaf bundle | Flora / ground detail | Details | Coordinates confirmed by user; adjacent cells must stay together |
+| 1 — `ground_grass_details.png` | `(15, 15)` | Single grass leaf | Flora / ground detail | Details | Coordinate confirmed by user |
+| 1 — `ground_grass_details.png` | `(16, 15)` | Single grass leaf | Flora / ground detail | Details | Coordinate confirmed by user |
 | 0 — `exterior.png` | TBD | Trees, rocks, buildings, fences, and other large props | Terrain / prop | Objects / Foreground | Sheet-level observation; record each region before placement |
 
 ## Guardrails for future agents
