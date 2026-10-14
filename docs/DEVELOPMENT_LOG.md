@@ -1,3 +1,21 @@
+## 2026-10-14 — Rebuild Overworld From the Specified Asset Folder
+
+### Changes
+- Inspected the actual images in `assets/tilesets/overworld/`: `exterior.png` contains transparent environment props (including trees, rocks, fences, and a building), while `ground_grass_details.png` contains transparent ground-detail sprites. Neither image is a complete opaque grass ground texture.
+- Replaced the guessed TileSet atlas-cell placement with region-based sprites sampled from those two exact sheets.
+- Rebuilt `world/maps/overworld/world.gd` to draw a grass field and winding dirt path, scatter ground details, place trees/rocks around the map edges and in small groves, and leave a clear player spawn area.
+- Simplified `world/maps/overworld/world.tscn` to run the overworld builder.
+- Kept the main-scene player spawn at `Vector2(512, 320)`.
+- Updated architecture and audit documentation.
+
+### Verification status
+- [x] Visually inspected both source PNG sheets before selecting asset regions.
+- [x] Changes committed directly to GitHub `main`.
+- [ ] Run in Godot and inspect the full map, sprite-region boundaries, player spawn, movement, and debugger output.
+- Runtime behavior remains **unverified**. Some region rectangles are initial selections and may need adjustment after visual inspection in Godot.
+
+---
+
 ## 2026-10-14 — Build Starter Overworld and Set Player Spawn
 
 ### Changes
