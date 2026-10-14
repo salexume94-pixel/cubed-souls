@@ -1,3 +1,20 @@
+## 2026-10-14 — Add Shift-to-Run Movement
+
+### Changes
+- Added a configurable `run_speed_multiplier` defaulting to `1.6`, so holding Shift while moving increases the player's speed.
+- Connected the existing directional run sprite animations to the movement state; releasing Shift returns to the walk animation, and stopping returns to idle.
+- Kept WASD and arrow-key movement, diagonal normalization, player collision, and camera behavior unchanged.
+- No Input Map configuration is required.
+
+### Verification
+- [x] Reviewed the movement-state and animation selection logic.
+- [x] Committed the change to GitHub `main`.
+- [ ] Pull `origin main`; test Shift with WASD and arrow keys in all directions.
+- [ ] Confirm run animation transitions cleanly to walk/idle and no debugger errors appear.
+- Runtime running behavior is **not yet verified** in Godot.
+
+---
+
 ## 2026-10-14 — Camera Bounds Runtime-Verified
 
 - User confirmed that the reusable camera-bounds implementation works in Godot.
