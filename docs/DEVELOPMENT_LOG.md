@@ -1,3 +1,20 @@
+## 2026-10-14 — Fix Overworld Boundary Instantiation Warnings
+
+### Issue
+- User-reported Godot warnings showed boundary child nodes could not resolve nested parent paths, so the collision walls were not instantiated and did not block the player.
+
+### Fix
+- Removed the unnecessary `MapBoundaries` container and placed each `StaticBody2D` directly under the world root.
+- Kept each collision shape as a child of its corresponding static body.
+- Preserved the existing TileMapLayers and invisible rectangular boundary geometry.
+
+### Verification
+- [x] Scene parent paths reviewed and corrected on GitHub `main`.
+- [ ] Pull and run in Godot; confirm the parent-path warnings are gone and test all four edges and corners.
+- Runtime collision behavior remains **unverified** until the user retests.
+
+---
+
 ## 2026-10-14 — Add Overworld Perimeter Collision
 
 ### Changes
