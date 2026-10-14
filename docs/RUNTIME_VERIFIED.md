@@ -19,6 +19,18 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — NPC Movement and Collision Smoke Test
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user ran the NPC test scene in Godot and reported no errors, working collision, and working NPC movement.
+
+**Result:** NPC scripts parse successfully in the tested build; Player/NPC collision and NPC movement behavior are working.
+
+**Scope limits:** This does not yet verify E-key dialogue progression, movement locking during dialogue, or visibility/placement of the NPC instances in the Havenreach town scene.
+
+---
+
 ### 2026-10-14 — Source-Alpha Object Collision Trial
 
 **Status:** VERIFIED — user-reported.
