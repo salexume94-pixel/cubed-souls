@@ -53,11 +53,7 @@ func _ready() -> void:
 	_build_ground()
 	_build_details()
 	_build_objects()
-	_create_object_collisions()
-
-	# Runtime-only invisible boundaries keep the player inside the settlement.
-	if not Engine.is_editor_hint():
-		_create_map_boundaries()
+	# Object collision generation and map-edge boundaries are intentionally disabled during map-layout debugging.
 
 
 func _build_ground() -> void:
