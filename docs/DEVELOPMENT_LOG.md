@@ -1,3 +1,18 @@
+## 2026-10-14 — Full House Alpha Collision and Occupied-Plot Checks
+
+### Changes
+- Replaced the split roof/body collision specs with one alpha mask spanning the complete 10×8 house bundle. This removes the roof/body row cutoff and runs the existing alpha-based collider generator across the roof and body together.
+- Changed Havenreach placement order so the chapel, trees, rocks, and bushes are placed before houses.
+- House candidates are now checked against occupied `Objects` and `Foreground` tile cells; overlapping plots are skipped while preserving seeded random placement.
+- Added a warning if fewer than four non-overlapping houses can be placed.
+
+### Verification
+- [x] Changes committed directly to `main`.
+- [ ] Pull `origin main`, inspect house placement and test collision on opaque roof pixels and transparent gaps in Godot.
+- Runtime verification is pending.
+
+---
+
 ## 2026-10-14 — Correct Havenreach Roof Alpha Sampling
 
 ### Correction
