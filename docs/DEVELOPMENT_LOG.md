@@ -1,3 +1,19 @@
+## 2026-10-14 — Add Overworld Perimeter Collision
+
+### Changes
+- Added four invisible `StaticBody2D` boundary walls to `world/maps/overworld/world.tscn`, aligned to the perimeter of the 64×40 tile map (1,024×640 world pixels).
+- Reused two simple `RectangleShape2D` resources for horizontal and vertical walls.
+- Set the walls to the player's collision layer and kept their collision masks empty, so they block the player without trying to move or detect other physics bodies.
+- Preserved the existing `Ground`, `Details`, `Objects`, and `Foreground` TileMapLayers, TileSet, map script, player capsule, and all artwork. No visible border art or `Polygon2D` was added.
+
+### Verification
+- [x] Scene structure and map dimensions inspected on GitHub `main`.
+- [x] Boundary positions and rectangle sizes reviewed against the 1,024×640 map bounds.
+- [ ] Pull `origin main`, run the game, and test all four edges and corners.
+- Runtime collision behavior is **not yet verified**.
+
+---
+
 ## 2026-10-14 — Record Player Capsule Collision Verification
 
 ### Verification
