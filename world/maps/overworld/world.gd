@@ -127,45 +127,116 @@ func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimens
 
 
 func _create_object_collisions() -> void:
-	# Every placed Objects-layer asset blocks movement across its full bundle footprint.
-	# This intentionally includes tree canopies and bushes, not just trunks or bases.
-	# A 3×3 bundle uses a 48×48 collider; a 2×2 bundle uses 32×32; single tiles use 16×16.
-	_add_object_collision("TreeLargeCollision_1", Vector2i(2, 2), Vector2(48, 48), Vector2(24, 24))
-	_add_object_collision("TreeSmallCollision_1", Vector2i(18, 2), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("TreeLargeCollision_2", Vector2i(42, 2), Vector2(48, 48), Vector2(24, 24))
-	_add_object_collision("TreeSmallCollision_2", Vector2i(59, 3), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("TreeSmallCollision_3", Vector2i(2, 17), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("TreeLargeCollision_3", Vector2i(59, 20), Vector2(48, 48), Vector2(24, 24))
-	_add_object_collision("TreeLargeCollision_4", Vector2i(3, 34), Vector2(48, 48), Vector2(24, 24))
-	_add_object_collision("TreeSmallCollision_4", Vector2i(19, 35), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("TreeLargeCollision_5", Vector2i(42, 35), Vector2(48, 48), Vector2(24, 24))
-	_add_object_collision("TreeSmallCollision_5", Vector2i(59, 34), Vector2(32, 32), Vector2(16, 16))
+	# Build collision from each placed asset's alpha channel, not its rectangular bundle.
+	# Opaque pixels block movement; transparent pixels remain walkable.
+	_add_alpha_collision_for_bundle("TreeLargeCollision_1", Vector2i(2, 2), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_add_alpha_collision_for_bundle("TreeSmallCollision_1", Vector2i(18, 2), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("TreeLargeCollision_2", Vector2i(42, 2), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_add_alpha_collision_for_bundle("TreeSmallCollision_2", Vector2i(59, 3), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("TreeSmallCollision_3", Vector2i(2, 17), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("TreeLargeCollision_3", Vector2i(59, 20), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_add_alpha_collision_for_bundle("TreeLargeCollision_4", Vector2i(3, 34), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_add_alpha_collision_for_bundle("TreeSmallCollision_4", Vector2i(19, 35), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("TreeLargeCollision_5", Vector2i(42, 35), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_add_alpha_collision_for_bundle("TreeSmallCollision_5", Vector2i(59, 34), TREE_SMALL_ATLAS, Vector2i(2, 2))
 
-	# Rock bundles block their full placed tile footprint.
-	_add_object_collision("RockLargeCollision_1", Vector2i(10, 3), Vector2(48, 48), Vector2(24, 24))
-	_add_object_collision("RockMediumCollision_1", Vector2i(29, 2), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("RockMediumCollision_2", Vector2i(51, 10), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("RockMediumCollision_3", Vector2i(10, 34), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("RockLargeCollision_2", Vector2i(51, 33), Vector2(48, 48), Vector2(24, 24))
+	_add_alpha_collision_for_bundle("RockLargeCollision_1", Vector2i(10, 3), ROCK_LARGE_ATLAS, Vector2i(3, 3))
+	_add_alpha_collision_for_bundle("RockMediumCollision_1", Vector2i(29, 2), ROCK_MEDIUM_A_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("RockMediumCollision_2", Vector2i(51, 10), ROCK_MEDIUM_B_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("RockMediumCollision_3", Vector2i(10, 34), ROCK_MEDIUM_B_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("RockLargeCollision_2", Vector2i(51, 33), ROCK_LARGE_ATLAS, Vector2i(3, 3))
 
-	# Bushes are solid obstacles too, using their full tile or bundle footprint.
-	_add_object_collision("BushMediumCollision_1", Vector2i(7, 9), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("BushSmallCollision_1", Vector2i(56, 13), Vector2(16, 16), Vector2(8, 8))
-	_add_object_collision("BushMediumCollision_2", Vector2i(24, 31), Vector2(32, 32), Vector2(16, 16))
-	_add_object_collision("BushSmallCollision_2", Vector2i(6, 29), Vector2(16, 16), Vector2(8, 8))
-	_add_object_collision("BushSmallCollision_3", Vector2i(56, 28), Vector2(16, 16), Vector2(8, 8))
+	_add_alpha_collision_for_bundle("BushMediumCollision_1", Vector2i(7, 9), BUSH_MEDIUM_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("BushSmallCollision_1", Vector2i(56, 13), BUSH_SMALL_ATLAS, Vector2i(1, 1))
+	_add_alpha_collision_for_bundle("BushMediumCollision_2", Vector2i(24, 31), BUSH_MEDIUM_ATLAS, Vector2i(2, 2))
+	_add_alpha_collision_for_bundle("BushSmallCollision_2", Vector2i(6, 29), BUSH_SMALL_ATLAS, Vector2i(1, 1))
+	_add_alpha_collision_for_bundle("BushSmallCollision_3", Vector2i(56, 28), BUSH_SMALL_ATLAS, Vector2i(1, 1))
 
-func _add_object_collision(collision_name: String, map_position: Vector2i, shape_size: Vector2, local_offset: Vector2) -> void:
-	# Physics bodies are created only at runtime; the @tool map remains easy to edit.
+
+func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vector2i, atlas_origin: Vector2i, dimensions: Vector2i) -> void:
+	# Read the exact atlas cells used by the sprite bundle and assemble their alpha mask.
+	var atlas_source := objects.tile_set.get_source(EXTERIOR_SOURCE_ID) as TileSetAtlasSource
+	if atlas_source == null:
+		push_error("Cannot create alpha collision for %s: exterior TileSet source is missing." % collision_prefix)
+		return
+
+	var atlas_texture := atlas_source.get_texture()
+	var atlas_image := atlas_texture.get_image() if atlas_texture != null else null
+	if atlas_image == null or atlas_image.is_empty():
+		push_error("Cannot create alpha collision for %s: exterior texture image is unavailable." % collision_prefix)
+		return
+
+	var pixel_width: int = dimensions.x * TILE_SIZE
+	var pixel_height: int = dimensions.y * TILE_SIZE
+	var opaque := PackedByteArray()
+	opaque.resize(pixel_width * pixel_height)
+
+	for tile_y in range(dimensions.y):
+		for tile_x in range(dimensions.x):
+			var atlas_coords := atlas_origin + Vector2i(tile_x, tile_y)
+			if not atlas_source.has_tile(atlas_coords):
+				push_error("Missing atlas tile %s while building collision for %s." % [atlas_coords, collision_prefix])
+				continue
+			var region: Rect2i = atlas_source.get_tile_texture_region(atlas_coords)
+			for py in range(mini(TILE_SIZE, region.size.y)):
+				for px in range(mini(TILE_SIZE, region.size.x)):
+					var alpha: float = atlas_image.get_pixel(region.position.x + px, region.position.y + py).a
+					if alpha > 0.05:
+						var target_x: int = tile_x * TILE_SIZE + px
+						var target_y: int = tile_y * TILE_SIZE + py
+						opaque[target_y * pixel_width + target_x] = 1
+
+	# Turn opaque horizontal runs into rectangles, merging identical runs vertically.
+	# This keeps transparent holes open without creating one physics body per pixel.
+	var active_runs: Dictionary = {}
+	var rectangle_index: int = 0
+	for y in range(pixel_height):
+		var row_runs: Array[Vector2i] = []
+		var x: int = 0
+		while x < pixel_width:
+			if opaque[y * pixel_width + x] == 0:
+				x += 1
+				continue
+			var run_start: int = x
+			while x < pixel_width and opaque[y * pixel_width + x] != 0:
+				x += 1
+			row_runs.append(Vector2i(run_start, x - run_start))
+
+		var next_active: Dictionary = {}
+		for run in row_runs:
+			var key: String = "%d:%d" % [run.x, run.y]
+			if active_runs.has(key):
+				var existing: Dictionary = active_runs[key]
+				existing["height"] = int(existing["height"]) + 1
+				next_active[key] = existing
+			else:
+				next_active[key] = {"x": run.x, "y": y, "width": run.y, "height": 1}
+		for key in active_runs:
+			if not next_active.has(key):
+				var completed: Dictionary = active_runs[key]
+				_add_alpha_rectangle(collision_prefix + "_" + str(rectangle_index), map_origin, completed)
+				rectangle_index += 1
+		active_runs = next_active
+
+	for key in active_runs:
+		_add_alpha_rectangle(collision_prefix + "_" + str(rectangle_index), map_origin, active_runs[key])
+		rectangle_index += 1
+
+
+func _add_alpha_rectangle(collision_name: String, map_origin: Vector2i, rectangle_data: Dictionary) -> void:
+	# Place each merged alpha-mask rectangle in map space, preserving transparent gaps.
 	var body := StaticBody2D.new()
 	body.name = collision_name
-	body.position = Vector2(map_position.x * TILE_SIZE, map_position.y * TILE_SIZE) + local_offset
+	body.position = Vector2(map_origin.x * TILE_SIZE, map_origin.y * TILE_SIZE) + Vector2(
+		float(rectangle_data["x"]) + float(rectangle_data["width"]) / 2.0,
+		float(rectangle_data["y"]) + float(rectangle_data["height"]) / 2.0
+	)
 	body.collision_layer = 1
 	body.collision_mask = 0
 
 	var collision := CollisionShape2D.new()
 	var rectangle := RectangleShape2D.new()
-	rectangle.size = shape_size
+	rectangle.size = Vector2(float(rectangle_data["width"]), float(rectangle_data["height"]))
 	collision.shape = rectangle
 	body.add_child(collision)
 	add_child(body)
