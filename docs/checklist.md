@@ -12,7 +12,8 @@ This checklist tracks gameplay systems that still need to be built or ported int
 
 - [x] Added the persistent `SceneManager` autoload and reusable `MapTransitionTrigger`.
 - [x] Added the overworld east-edge entry into Havenreach and four Havenreach exits that return to the saved safe overworld position.
-- [ ] **Runtime verification pending.** In Godot, verify overworld → Havenreach → overworld, the safe return position, fade overlay, and absence of debugger errors. Confirm spawn behavior and adjust trigger placement if needed.
+- [x] **Runtime verified by user:** overworld → Havenreach entry and fade work.
+- [ ] **Regression/fix pending runtime retest:** leaving Havenreach failed in the user's test. Exit trigger strips have been widened and moved farther inside the map; verify all four exits, safe return position, fade overlay, and absence of debugger errors.
 
 ## Priority 3 — Quest system
 
