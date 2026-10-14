@@ -2,6 +2,20 @@
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
 
+## 2026-10-13 — Increase Overworld Camera Zoom to 2.5x
+
+### Changed
+- Set the player scene's Camera2D zoom to `Vector2(2.5, 2.5)` so the player appears larger on screen.
+- Preserved camera position smoothing.
+
+### Verification
+- Source change committed to `main`.
+- **Godot runtime verification: pending.** Pull the latest changes, run the overworld, and confirm the player scale and visible play area feel right. A 2.5x zoom shows a smaller portion of the map, as expected.
+
+---
+
+This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
+
 ## 2026-10-13 — Initial Overworld Runtime Verification Passed
 
 ### Verified locally in Godot
