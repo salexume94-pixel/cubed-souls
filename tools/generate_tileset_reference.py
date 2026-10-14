@@ -28,6 +28,7 @@ SHEETS = (
     ("towns/towns/house_details.png", "house_details_labeled.svg"),
     ("towns/towns/walls_floor.png", "walls_floor_labeled.svg"),
     ("dungeons/ruined_temple/Exterior_objects.png", "ruined_temple_exterior_objects_labeled.svg"),
+    ("dungeons/ruined_temple/Walls_floor.png", "ruined_temple_walls_floor_labeled.svg"),
 )
 
 
