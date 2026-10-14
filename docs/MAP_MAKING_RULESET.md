@@ -72,7 +72,9 @@ After placement:
 
 # Tileset Catalog
 
-## `exterior_labeled.svg`
+## `overworld_exterior_labeled.svg` and `town_exterior_labeled.svg`
+
+Both references display the same source image, `assets/tilesets/overworld/exterior.png`, because these exterior assets are shared between overworld and town maps. Use the overworld-named reference while building overworld areas and the town-named reference while building towns. Their tile coordinates and appearances are identical; the separate names clarify the intended map context. The catalog below applies to both references.
 
 ### Ground
 
@@ -137,6 +139,6 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 
 ## Catalog maintenance notes
 
-- These coordinates are transcribed from the working catalog and must be visually checked against `exterior_labeled.svg` and the Godot atlas configuration before use.
+- These coordinates are transcribed from the working catalog and must be visually checked against `overworld_exterior_labeled.svg` and the Godot atlas configuration before use.
 - Repeated asset names at different coordinates are separate atlas entries. Keep them distinct unless the SVG confirms they are duplicates.
 - Document destination map coordinates separately from source atlas coordinates when planning a specific map.
