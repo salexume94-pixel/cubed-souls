@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://world/actors/npc/npc.tscn" id="3_npc"]
 
-# Isolated smoke-test scene. It is not the game's startup scene.
+; Isolated smoke-test scene. It is not the game's startup scene.
 [node name="NPCTest" type="Node2D"]
 
 [node name="World" parent="." instance=ExtResource("1_world")]
