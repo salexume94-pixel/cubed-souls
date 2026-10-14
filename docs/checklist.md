@@ -4,7 +4,7 @@ This checklist tracks gameplay systems that still need to be built or ported int
 
 ## Priority 1 — NPC scenes
 
-- [ ] **Status: Not implemented.** Create reusable NPC scene(s) with a base script, sprite/animation setup, collision, and an interaction hook. Keep character identity and role-specific behavior configurable so NPC roles can be assigned afterward.
+- [ ] **Source implemented; runtime verification pending.** Added `world/actors/npc/npc.tscn` and `npc.gd` with the player’s sprite sheets/animation layout, matching capsule body dimensions, configurable stationary/wander/patrol movement, and E-key multi-line dialogue. Dialogue pauses player movement. Pull and test in Godot before checking this item off.
 
 ## Priority 2 — Scene transitions
 
