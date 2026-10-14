@@ -28,7 +28,7 @@ Current foundational files include:
 
 ### Runtime verification record
 
-- `docs/RUNTIME_VERIFIED.txt` is the single source for recorded runtime-verified behavior.
+- `docs/RUNTIME_VERIFIED.md` is the single source for recorded runtime-verified behavior.
 - Keep runtime results out of this architecture document. Add only observed runtime behavior to the verification record, with date, evidence, result, and scope limits.
 - Repository audits and sprite-sheet hypotheses belong in `docs/AUDIT.md`; they are not runtime verification.
 
@@ -49,7 +49,7 @@ Place each file according to its primary responsibility. Extend this structure o
 | `systems/` | Cross-scene gameplay services and managers |
 | `ui/` | Menus, HUD, and interface scenes/scripts |
 | `scenes/` | Main scene and high-level scene composition |
-| `docs/` | Architecture, audits, migration decisions, and append-only development log |
+| `docs/` | Architecture, audits, runtime verification, migration decisions, and task handoffs |
 
 Use paths that match the actual repository. Do not create speculative folders or placeholder systems merely because they appear in this table.
 
@@ -97,7 +97,7 @@ For each code/resource change:
    - **Static-checked:** relevant static/resource checks passed.
    - **Runtime-verified:** behavior was actually observed in Godot.
    - **Blocked:** state the exact missing evidence or failure.
-7. Append a dated entry to `docs/DEVELOPMENT_LOG.md` when that file exists or when a task requires creating it. Never erase earlier log entries.
+7. Append a dated entry to the root `DEVELOPMENT_LOG.md`. Never erase earlier log entries. Runtime verification results must also be recorded in `docs/RUNTIME_VERIFIED.md`.
 
 Do not report a test as passed if it was not run. If the user supplies runtime results, record them as user-reported runtime verification.
 
@@ -139,6 +139,6 @@ A task is complete only when:
 ## 9. Related Documents
 
 - `docs/AUDIT.md` — current asset/repository inventory and outstanding audit work.
-- `docs/RUNTIME_VERIFIED.txt` — sole record of behavior actually observed running in Godot.
-- `docs/DEVELOPMENT_LOG.md` — chronological implementation notes, if/when created; append entries only. Runtime verification results must also be recorded in `docs/RUNTIME_VERIFIED.txt`.
+- `docs/RUNTIME_VERIFIED.md` — sole record of behavior actually observed running in Godot.
+- `DEVELOPMENT_LOG.md` — root-level chronological implementation notes; append entries only.
 - `README.md` — brief project overview and top-level structure.
