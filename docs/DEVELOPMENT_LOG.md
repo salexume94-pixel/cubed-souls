@@ -1,3 +1,20 @@
+## 2026-10-14 — Narrow Collision Disablement to World Objects
+
+### Changes
+- Corrected the previous change: only world-object collision is disabled; map-edge boundary collision remains enabled at runtime.
+- Added cleanup for the generated `GeneratedObjectCollisions` container in the overworld and Havenreach tool scripts, removing the invisible house/tree/rock/bush collision nodes from the editor as well as runtime.
+- Left player/NPC actor collision and interaction systems unchanged.
+- Updated the map-making ruleset to clarify the scope.
+
+### Verification
+- [x] Confirmed both scene files do not serialize generated object-collision nodes.
+- [x] Restored runtime map-edge boundary creation in both map scripts.
+- [x] Committed the corrected source to GitHub `main`.
+- [ ] Pull `origin main` and verify in Godot that object collision boxes disappear while map boundaries and actor collisions remain.
+- **Status:** Source changes committed; Godot runtime/editor verification pending.
+
+---
+
 ## 2026-10-14 — Temporarily Disable World Object and Boundary Collisions
 
 ### Changes
