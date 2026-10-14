@@ -9,7 +9,7 @@ enum MovementMode { STATIONARY, WANDER, PATROL }
 
 @export_group("Identity")
 @export var display_name: String = "Villager"
-@export_multiline var dialogue_lines: PackedStringArray = PackedStringArray([
+@export var dialogue_lines: PackedStringArray = PackedStringArray([
 	"Good day, traveler."
 ])
 
@@ -121,7 +121,11 @@ func _update_patrol() -> void:
 	if patrol_points.is_empty():
 		_move_direction = Vector2.ZERO
 		return
-	var target: Vector2 = get_parent().to_global(patrol_points[_patrol_index])
+	var patrol_parent := get_parent() as Node2D
+	if patrol_parent == null:
+		_move_direction = Vector2.ZERO
+		return
+	var target: Vector2 = patrol_parent.to_global(patrol_points[_patrol_index])
 	var difference := target - global_position
 	if difference.length() <= 5.0:
 		_patrol_index = (_patrol_index + 1) % patrol_points.size()
