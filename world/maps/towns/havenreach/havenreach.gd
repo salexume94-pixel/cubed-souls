@@ -232,44 +232,16 @@ func _create_object_collisions() -> void:
 			if edited_root != null:
 				_collision_root.owner = edited_root
 
-	# Buildings use one solid rectangle across their entire footprint, including roof tiles.
-	# Small environmental props retain alpha-derived shapes so transparent gaps stay passable.
+	# Buildings use the same source-alpha collision method as trees and bushes.
+	# Opaque roof/wall pixels block movement; transparent pixels inside atlas cells stay passable.
 	for spec in _collision_specs:
-		var collision_name := str(spec["name"])
-		if collision_name.begins_with("House_") or collision_name == "HavenreachChapel":
-			_add_full_bundle_collision(collision_name, spec["map_origin"], spec["dimensions"])
-		else:
-			_add_alpha_collision_for_bundle(
-				collision_name,
-				spec["map_origin"],
-				int(spec["source_id"]),
-				spec["atlas_origin"],
-				spec["dimensions"]
-			)
-
-
-func _add_full_bundle_collision(collision_name: String, map_origin: Vector2i, dimensions: Vector2i) -> void:
-	# Block the full building footprint, deliberately including the roof and any transparent-looking gaps.
-	var body := StaticBody2D.new()
-	body.name = collision_name + "_FullFootprint"
-	body.position = Vector2(map_origin.x * TILE_SIZE, map_origin.y * TILE_SIZE) + Vector2(
-		float(dimensions.x * TILE_SIZE) / 2.0,
-		float(dimensions.y * TILE_SIZE) / 2.0
-	)
-	body.collision_layer = 1
-	body.collision_mask = 0
-
-	var collision := CollisionShape2D.new()
-	var rectangle := RectangleShape2D.new()
-	rectangle.size = Vector2(dimensions.x * TILE_SIZE, dimensions.y * TILE_SIZE)
-	collision.shape = rectangle
-	body.add_child(collision)
-	_collision_root.add_child(body)
-	if Engine.is_editor_hint():
-		var edited_root := get_tree().edited_scene_root
-		if edited_root != null:
-			body.owner = edited_root
-			collision.owner = edited_root
+		_add_alpha_collision_for_bundle(
+			str(spec["name"]),
+			spec["map_origin"],
+			int(spec["source_id"]),
+			spec["atlas_origin"],
+			spec["dimensions"]
+		)
 
 
 func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vector2i, source_id: int, atlas_origin: Vector2i, dimensions: Vector2i) -> void:
