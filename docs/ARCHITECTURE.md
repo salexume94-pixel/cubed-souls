@@ -22,6 +22,7 @@ Current foundational files include:
 - `project.godot`: project configuration and main-scene setting.
 - `scenes/main.tscn`: main scene; currently instances the overworld and player.
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
+- `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using the shared player sprite sheets, capsule collision, optional movement modes, and starter dialogue UI.
 - `world/maps/overworld/world.tscn`: overworld scene.
 - `world/maps/overworld/world.gd`: inert by design; tile placements are authored in `world.tscn`, not regenerated at runtime. Do not restore guessed atlas placements.
 - `assets/`: source art, sprites, and tileset resources.
@@ -45,6 +46,7 @@ Place each file according to its primary responsibility. Extend this structure o
 | `assets/tilesets/` | Tile images and Godot TileSet resources |
 | `assets/audio/` | Music and sound assets |
 | `player/` | Player scene, script, and player-specific resources |
+| `world/actors/npc/` | Reusable NPC scene and configurable NPC behavior/dialogue |
 | `world/maps/overworld/` | World/overworld maps and their scene resources |
 | `world/maps/towns/` | Town maps |
 | `world/maps/dungeons/` | Dungeon maps |
