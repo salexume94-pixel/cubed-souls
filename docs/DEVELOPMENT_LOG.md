@@ -1,3 +1,20 @@
+## 2026-10-14 — Replace Fragile Scene-File Boundary Nodes
+
+### Issue
+- Repeated Godot warnings reported that the `CollisionShape2D` parent path for the overworld boundary had vanished, despite corrections to the scene file.
+
+### Fix
+- Removed the four boundary bodies and collision shapes from `world.tscn` to eliminate the failing serialized parent paths entirely.
+- Added runtime construction of the four invisible `StaticBody2D` perimeter walls in `world.gd`, with each collision shape attached through `add_child()`.
+- Preserved all existing TileMapLayers, tileset references, and map-art generation. The walls are created only at runtime, not in the editor.
+
+### Verification
+- [x] Removed the problematic serialized boundary child paths on GitHub `main`.
+- [ ] Pull and run in Godot; confirm warnings are gone and test all four edges and corners.
+- Runtime collision behavior remains **unverified** until locally tested.
+
+---
+
 ## 2026-10-14 — Correct Boundary Collision Shape Parenting
 
 ### Issue
