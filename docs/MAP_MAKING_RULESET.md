@@ -36,7 +36,7 @@ If these sources disagree, report the mismatch and resolve it before placement.
 
 - **Ground:** Base terrain only.
 - **Details:** Small, non-blocking decoration.
-- **Objects:** World features such as rocks, trees, and bushes. Collision and interaction are handled separately where needed.
+- **Objects:** World features such as rocks, trees, and bushes. Every placed object blocks movement across its complete placed footprint, including tree canopies and bushes.
 - **Foreground:** Parts of scenery that must render over the player.
 
 Avoid canopy layering and foreground rendering unless explicitly requested. Foreground can remain unused until a map actually needs it.
@@ -45,11 +45,11 @@ Avoid canopy layering and foreground rendering unless explicitly requested. Fore
 
 - Use the identified source tiles to construct the requested map and place every bundle in its complete arrangement.
 - Position objects appropriately while preserving paths, entrances, and usable space.
-- **Every placed world object must receive an explicit collision decision.** Do not assume the `Objects` layer or the sprite itself automatically blocks movement.
-- Trees: block the trunk/base only, not the full canopy or transparent space. Rocks: block the solid rock footprint, fitted to the visible formation. Bushes and decorative details: leave non-blocking unless gameplay specifically requires otherwise.
-- Keep multi-tile artwork bundled visually, but do not automatically make its entire rectangular tile bundle solid. Collision geometry must match the visible solid portion and must not block nearby paths, entrances, or empty space.
-- Use the project's established collision layers and masks; verify the player is blocked by intended obstacles and can pass through non-blocking details.
-- For generated maps, generate matching collision bodies deterministically from the same object-placement definitions. Avoid duplicated or stale colliders when rebuilding the map. Do not add object collision to `Ground` or decorative `Details` by default.
+- **Every placed world object must have collision.** Do not assume the `Objects` layer or the sprite itself automatically blocks movement.
+- Trees: the entire placed tree bundle blocks movement, including the canopy. Rocks: the entire placed rock bundle blocks movement. Bushes: every bush blocks movement. Do not leave any `Objects`-layer asset passable by default.
+- For bundled objects, size and position collision to cover the complete placed bundle footprint. A 3×3 bundle uses a 48×48 pixel footprint on a 16-pixel grid; a 2×2 bundle uses 32×32; a single-tile object uses 16×16. If the art extends beyond its tile footprint, inspect it and adjust collision deliberately rather than silently leaving part of the object passable.
+- Use the project's established collision layers and masks; verify the player is blocked by trees (including canopy areas), rocks, and bushes from every reachable side.
+- For generated maps, generate matching collision bodies deterministically from the same object-placement definitions. Avoid duplicated or stale colliders when rebuilding the map. `Ground` and decorative `Details` are separate layers; this rule applies to every asset placed on `Objects`.
 - Preserve existing gameplay logic, TileMapLayer nodes, scene components, and project conventions unless a change is necessary and authorized.
 - Use the actual assets. Do not use Polygon2D, improvised graphics, or placeholder scenery as substitutes.
 
@@ -61,8 +61,8 @@ Before placement:
 3. Verify atlas-coordinate mapping and the target map's structure.
 
 After placement:
-- Check for incorrect coordinates, missing bundle tiles, broken arrangements, unintended gaps or overlaps, missing/oversized collisions, and collisions that obstruct intended routes.
-- Test walking into tree trunks and rocks from each reachable side; confirm canopies remain passable where appropriate and bushes/details remain passable unless intentionally solid.
+- Check for incorrect coordinates, missing bundle tiles, broken arrangements, unintended gaps or overlaps, missing/undersized/oversized collisions, and collisions that obstruct intended routes.
+- Test trees across both trunk and canopy areas, every rock bundle, and every bush from each reachable side. All `Objects`-layer assets must block movement; confirm paths remain navigable around them.
 - Distinguish proposed changes from implemented changes.
 - Do not claim runtime verification until the map has been run and tested in Godot.
 - State what remains unverified.
