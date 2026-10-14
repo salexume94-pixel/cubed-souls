@@ -23,5 +23,5 @@ z_index = 1
 
 [node name="NPCs" type="Node2D" parent="."]
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
+[node name="PlayerSpawnMarker" type="Marker2D" parent="."]
 position = Vector2(512, 320)
