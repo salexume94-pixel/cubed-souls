@@ -1,3 +1,17 @@
+## 2026-10-14 — Add Isolated NPC Test Scene
+
+### Changes
+- Added `scenes/tests/npc_test.tscn`, which loads the existing overworld, player, and reusable NPC with sample two-line dialogue.
+- Kept the test scene separate from `scenes/main.tscn`; it does not change the game's startup scene.
+- Documented the test scene in the architecture guide and NPC checklist.
+
+### Verification
+- [x] Checked that the scene references existing scene paths and sets the NPC sample dialogue.
+- [ ] Open `scenes/tests/npc_test.tscn` in Godot and run it to test proximity, E-key dialogue, player movement lock/unlock, collision, and optional movement modes.
+- **Status:** Code-reviewed; runtime verification pending.
+
+---
+
 ## 2026-10-14 — Add Reusable NPC Scene, Movement, and Dialogue
 
 ### Changes
