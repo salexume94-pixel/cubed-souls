@@ -31,15 +31,16 @@ const BUSH_SMALL_ATLAS: Vector2i = Vector2i(14, 14)
 @onready var ground: TileMapLayer = $Ground
 @onready var details: TileMapLayer = $Details
 @onready var objects: TileMapLayer = $Objects
+var _object_collision_root: Node2D
 
 func _ready() -> void:
-	# Keep map artwork generated in the editor, but create physics walls only at runtime.
+	# Rebuild the deterministic artwork and alpha-derived object colliders in the editor and at runtime.
 	_build_ground()
 	_place_grass_leaves()
 	_place_objects()
+	_create_object_collisions()
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
-		_create_object_collisions()
 
 func _build_ground() -> void:
 	# Fill the field with the base-grass tile confirmed by the user.
@@ -127,6 +128,20 @@ func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimens
 
 
 func _create_object_collisions() -> void:
+	# Rebuild one named container so tool-script refreshes never leave duplicate or stale colliders.
+	var old_root := get_node_or_null("GeneratedObjectCollisions")
+	if old_root != null:
+		old_root.free()
+
+	_object_collision_root = Node2D.new()
+	_object_collision_root.name = "GeneratedObjectCollisions"
+	add_child(_object_collision_root)
+	if Engine.is_editor_hint():
+		# Give generated nodes scene ownership so they appear in the editor Scene tree and can be selected.
+		var edited_root := get_tree().edited_scene_root
+		if edited_root != null:
+			_object_collision_root.owner = edited_root
+
 	# Build collision from each placed asset's alpha channel, not its rectangular bundle.
 	# Opaque pixels block movement; transparent pixels remain walkable.
 	_add_alpha_collision_for_bundle("TreeLargeCollision_1", Vector2i(2, 2), TREE_LARGE_ATLAS, Vector2i(3, 3))
@@ -239,7 +254,12 @@ func _add_alpha_rectangle(collision_name: String, map_origin: Vector2i, rectangl
 	rectangle.size = Vector2(float(rectangle_data["width"]), float(rectangle_data["height"]))
 	collision.shape = rectangle
 	body.add_child(collision)
-	add_child(body)
+	_object_collision_root.add_child(body)
+	if Engine.is_editor_hint():
+		var edited_root := get_tree().edited_scene_root
+		if edited_root != null:
+			body.owner = edited_root
+			collision.owner = edited_root
 
 func _create_map_boundaries() -> void:
 	# Build physics nodes in code to avoid fragile .tscn parent-path parsing.
