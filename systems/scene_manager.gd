@@ -41,7 +41,8 @@ func _ready() -> void:
 func change_map(
 	scene_path: String,
 	player_position: Vector2,
-	use_return_position: bool = false
+	use_return_position: bool = false,
+	return_position_offset: Vector2 = Vector2.ZERO
 ) -> void:
 	# Ignore overlapping trigger signals while a transition is running.
 	if transition_in_progress:
@@ -69,7 +70,7 @@ func change_map(
 		has_return_player_position = false
 	elif not use_return_position:
 		var player := root.find_child("Player", true, false) as Node2D
-		return_player_position = player.position
+		return_player_position = player.position + return_position_offset
 		has_return_player_position = true
 
 	transition_in_progress = true
