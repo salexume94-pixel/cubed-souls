@@ -1,3 +1,18 @@
+## 2026-10-14 — Fix NPC Obstacle Probe Parse Error
+
+### Changes
+- Declared the existing `ObstacleProbe` RayCast2D as an `@onready` reference in `npc.gd`, matching the node already present in `npc.tscn`.
+- Explicitly typed the saved raycast position as `Vector2`, avoiding inference failure caused by the missing identifier.
+- Committed the fix directly to GitHub `main`.
+
+### Verification
+- [x] Matched the script reference to the existing `ObstacleProbe` scene node.
+- [x] Confirmed all reported parse-error references are addressed in source.
+- [ ] Pull `origin main`, reload the test scene, and verify Godot parses the script and the NPC behavior runs correctly.
+- **Status:** Source fix committed; Godot runtime verification pending.
+
+---
+
 ## 2026-10-14 — Add NPC Instances to Havenreach
 
 ### Changes
