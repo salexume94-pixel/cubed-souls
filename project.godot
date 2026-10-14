@@ -1,5 +1,10 @@
 ; Engine configuration file.
-; Keep project-wide defaults explicit so the first playable scene opens consistently.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
 
 config_version=5
 
