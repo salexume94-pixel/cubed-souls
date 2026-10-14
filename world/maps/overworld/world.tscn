@@ -24,38 +24,36 @@ tile_set = ExtResource("1_tileset")
 [node name="Foreground" type="TileMapLayer" parent="." unique_id=25035801]
 tile_set = ExtResource("1_tileset")
 
-# Invisible static collision walls keep the player inside the 64x40 tile field.
-# Their inner faces align with the map edges; they add no visible placeholder art.
-[node name="MapBoundaries" type="Node2D" parent="."]
-
-[node name="WestBoundary" type="StaticBody2D" parent="MapBoundaries"]
+# Keep each boundary directly under World to avoid nested-parent instantiation warnings.
+# These invisible static walls block the player without adding visible placeholder art.
+[node name="WestBoundary" type="StaticBody2D" parent="."]
 position = Vector2(-8, 320)
 collision_layer = 1
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundaries/WestBoundary"]
+[node name="WestCollision" type="CollisionShape2D" parent="WestBoundary"]
 shape = SubResource("RectangleShape2D_vertical_boundary")
 
-[node name="EastBoundary" type="StaticBody2D" parent="MapBoundaries"]
+[node name="EastBoundary" type="StaticBody2D" parent="."]
 position = Vector2(1032, 320)
 collision_layer = 1
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundaries/EastBoundary"]
+[node name="EastCollision" type="CollisionShape2D" parent="EastBoundary"]
 shape = SubResource("RectangleShape2D_vertical_boundary")
 
-[node name="NorthBoundary" type="StaticBody2D" parent="MapBoundaries"]
+[node name="NorthBoundary" type="StaticBody2D" parent="."]
 position = Vector2(512, -8)
 collision_layer = 1
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundaries/NorthBoundary"]
+[node name="NorthCollision" type="CollisionShape2D" parent="NorthBoundary"]
 shape = SubResource("RectangleShape2D_horizontal_boundary")
 
-[node name="SouthBoundary" type="StaticBody2D" parent="MapBoundaries"]
+[node name="SouthBoundary" type="StaticBody2D" parent="."]
 position = Vector2(512, 648)
 collision_layer = 1
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundaries/SouthBoundary"]
+[node name="SouthCollision" type="CollisionShape2D" parent="SouthBoundary"]
 shape = SubResource("RectangleShape2D_horizontal_boundary")
