@@ -1,3 +1,21 @@
+## 2026-10-14 — Extend Overworld With Catalogued Objects
+
+### Changes
+- Added complete evergreen tree bundles, rock bundles, and bush assets to the existing `Objects` TileMapLayer.
+- Used only the documented source coordinates in `docs/MAP_MAKING_RULESET.md`; each multi-cell asset is copied as a contiguous bundle.
+- Kept the 64×40 grass field, existing details, all four TileMapLayer nodes, player movement, and perimeter boundaries.
+- Placed scenery mainly around the map edges to preserve an open central walking route.
+- No Polygon2D, improvised graphics, canopy layering, or Foreground tiles were added.
+
+### Verification
+- [x] Confirmed used source coordinates and bundle dimensions against the catalog and existing TileSet atlas registrations.
+- [x] Reviewed the placement script and ensured bundled cells remain contiguous.
+- [ ] Pull `origin main`, open the overworld in Godot, and inspect every tree/rock/bush for visual correctness and bundle alignment.
+- [ ] Run the game and check path clearance, collisions, and camera bounds.
+- Runtime appearance and object collision remain **unverified**.
+
+---
+
 ## 2026-10-14 — Shift-to-Run Runtime-Verified
 
 - User confirmed the Shift-to-run feature works in Godot.
