@@ -1,3 +1,19 @@
+## 2026-10-14 — Fix Havenreach Exit Triggers and House Door Clearance
+
+### Changes
+- Widened the four Havenreach edge-trigger strips and moved them farther inside the town perimeter so the Player can enter an exit trigger before the physical boundary stops movement.
+- Carved the house doorway region (source cells `(6,6)` through `(7,7)`) out of generated alpha collision so the doorway itself is not a solid blocker.
+- Added a clear two-cell-wide approach-lane check beneath each house door; candidate houses are rejected if existing bushes, rocks, or other object/foreground tiles occupy that lane.
+- Recorded the user's partial scene-transition test: entering Havenreach works, leaving it failed and needs retesting after this fix.
+
+### Verification
+- [x] Reviewed exit trigger placement relative to the physical boundary walls.
+- [x] Updated house placement/collision logic to protect the doorway and approach.
+- [ ] Pull `origin main` and runtime-test all Havenreach exits, house-door walk-up clearance, and debugger output in Godot.
+- **Status:** Source changes committed; runtime retest pending.
+
+---
+
 ## 2026-10-14 — Begin Map Scene Transition Port
 
 ### Changes
