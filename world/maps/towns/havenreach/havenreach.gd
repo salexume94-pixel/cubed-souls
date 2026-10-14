@@ -391,15 +391,40 @@ func _add_alpha_rectangle(collision_name: String, map_origin: Vector2i, rectangl
 
 
 func _create_map_boundaries() -> void:
-	# Place boundary bodies just outside the 64×40-tile map.
+	# Keep physical boundaries, but add walk-through exit triggers just inside
+	# each edge. Returning to the overworld uses the exact safe position saved
+	# by the overworld's Havenreach entry trigger.
 	_add_boundary("WestBoundary", Vector2(-TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(TILE_SIZE, MAP_HEIGHT * TILE_SIZE + TILE_SIZE))
 	_add_boundary("EastBoundary", Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(TILE_SIZE, MAP_HEIGHT * TILE_SIZE + TILE_SIZE))
 	_add_boundary("NorthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, -TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 	_add_boundary("SouthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE + TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 
+	_add_map_transition_trigger("NorthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, 8.0), Vector2(MAP_WIDTH * TILE_SIZE, 32.0))
+	_add_map_transition_trigger("SouthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE - 8.0), Vector2(MAP_WIDTH * TILE_SIZE, 32.0))
+	_add_map_transition_trigger("WestExit", Vector2(8.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(32.0, MAP_HEIGHT * TILE_SIZE))
+	_add_map_transition_trigger("EastExit", Vector2(MAP_WIDTH * TILE_SIZE - 8.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(32.0, MAP_HEIGHT * TILE_SIZE))
+
+
+func _add_map_transition_trigger(trigger_name: String, trigger_position: Vector2, trigger_size: Vector2) -> void:
+	# Every town edge returns to the overworld; SceneManager restores the saved
+	# return point rather than dropping the Player at a hard-coded town center.
+	var trigger := Area2D.new()
+	trigger.name = trigger_name
+	trigger.set_script(preload("res://systems/map_transition_trigger.gd"))
+	trigger.set("target_scene", "res://world/maps/overworld/world.tscn")
+	trigger.set("target_player_position", Vector2(960.0, 320.0))
+	trigger.set("use_return_position", true)
+	trigger.position = trigger_position
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = trigger_size
+	collision.shape = rectangle
+	trigger.add_child(collision)
+	add_child(trigger)
+
 
 func _add_boundary(boundary_name: String, boundary_position: Vector2, boundary_size: Vector2) -> void:
-	# Boundary bodies use the player's existing collision layer and do not query other bodies.
+	# Boundary bodies use the Player's existing collision layer.
 	var wall := StaticBody2D.new()
 	wall.name = boundary_name
 	wall.position = boundary_position
