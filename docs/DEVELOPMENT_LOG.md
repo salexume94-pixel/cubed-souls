@@ -1,3 +1,17 @@
+## 2026-10-14 — Correct Ruined Temple Dragon Statue Coordinates
+
+### Changes
+- Replaced the unresolved dragon-statue note with the corrected coordinates supplied by the user in `docs/MAP_MAKING_RULESET.md`.
+- Removed repeated coordinate entries `(2,33)`, `(2,34)`, and `(2,35)` from the catalog representation; each unique source cell is recorded once.
+- Preserved all unique coordinates supplied for the vertical dragon statue. No missing coordinates were invented.
+
+### Verification
+- [x] Updated the ruined temple asset catalog on GitHub `main`.
+- [ ] Visually cross-check the dragon statue's full silhouette against the labeled SVG.
+- [ ] Godot placement, collision, layering, and runtime behavior remain unverified.
+
+---
+
 ## 2026-10-14 — Catalog Ruined Temple Exterior Objects
 
 ### Changes
