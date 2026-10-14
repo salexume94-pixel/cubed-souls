@@ -1,3 +1,19 @@
+## 2026-10-14 — Scatter Grass-Leaf Bundles Across Overworld
+
+### Changes
+- Added user-confirmed grass-leaf atlas cells from `ground_grass_details.png` (TileSet source ID `1`) to the existing `Details` TileMapLayer.
+- Placed bundle A using atlas cells `(11, 15)` and `(12, 15)`, and bundle B using `(13, 15)` and `(14, 15)`. Each pair is placed on adjacent map cells by a shared helper.
+- Scattered 12 two-cell bundles and 11 single-leaf accents around the 64×40 field.
+- Preserved the existing scene layers and base grass tile. No Polygon2D or invented art was added.
+- Updated the tileset catalog with the confirmed leaf-cell classifications.
+
+### Verification
+- [x] User previously confirmed the base-grass field is runtime-verified.
+- [x] Script places each leaf bundle as two adjacent cells on the `Details` layer.
+- [ ] Pull `origin main` and inspect the new leaf placements in Godot. This decoration pass has not yet been runtime-verified.
+
+---
+
 ## 2026-10-14 — Rebuild Overworld Ground With Confirmed Grass Cell
 
 ### Changes
