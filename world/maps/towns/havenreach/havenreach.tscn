@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="TileSet" uid="uid://0arbp208wdjw" path="res://assets/tilesets/overworld/background.tres" id="1_tileset"]
 [ext_resource type="Script" path="res://world/maps/towns/havenreach/havenreach.gd" id="2_script"]
+[ext_resource type="PackedScene" path="res://world/actors/npc/npc.tscn" id="3_npc"]
 
 [node name="Havenreach" type="Node2D"]
 script = ExtResource("2_script")
@@ -22,6 +23,33 @@ z_index = 1
 [node name="Buildings" type="Node2D" parent="."]
 
 [node name="NPCs" type="Node2D" parent="."]
+
+[node name="HavenreachResident" parent="NPCs" instance=ExtResource("3_npc")]
+position = Vector2(448, 320)
+display_name = "Townsperson"
+behavior_profile = 1
+move_speed = 24.0
+wander_radius = 36.0
+personal_space = 28.0
+dialogue_lines = PackedStringArray("Welcome to Havenreach.", "Most folk keep to the green when the weather is fair.")
+
+[node name="HavenreachGuard" parent="NPCs" instance=ExtResource("3_npc")]
+position = Vector2(592, 320)
+display_name = "Town Guard"
+behavior_profile = 2
+move_speed = 28.0
+patrol_points = Array[Vector2]([Vector2(592, 320), Vector2(624, 320), Vector2(624, 352), Vector2(592, 352)])
+dialogue_lines = PackedStringArray("Keep the main path clear, traveler.")
+
+[node name="HavenreachTraveler" parent="NPCs" instance=ExtResource("3_npc")]
+position = Vector2(520, 400)
+display_name = "Traveler"
+behavior_profile = 3
+move_speed = 32.0
+wander_radius = 40.0
+personal_space = 30.0
+ally_detection_radius = 48.0
+dialogue_lines = PackedStringArray("I arrived not long ago myself.", "The chapel is the oldest building here.")
 
 [node name="PlayerSpawnMarker" type="Marker2D" parent="."]
 position = Vector2(512, 320)
