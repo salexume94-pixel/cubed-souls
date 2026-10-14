@@ -14,5 +14,24 @@ position = Vector2(512, 320)
 
 [node name="TestNPC" parent="." instance=ExtResource("3_npc")]
 position = Vector2(560, 320)
-display_name = "Test Villager"
-dialogue_lines = PackedStringArray("Hello, traveler.", "Press E again to close this test conversation.")
+display_name = "Test Civilian"
+behavior_profile = 1
+dialogue_lines = PackedStringArray("Hello, traveler.", "I try to keep a little room around me.")
+
+[node name="TestGuard" parent="." instance=ExtResource("3_npc")]
+position = Vector2(700, 270)
+display_name = "Test Guard"
+behavior_profile = 2
+move_speed = 36.0
+patrol_points = Array[Vector2]([Vector2(700, 270), Vector2(780, 270), Vector2(780, 340), Vector2(700, 340)])
+dialogue_lines = PackedStringArray("The road is quiet today.")
+
+[node name="TestAlly" parent="." instance=ExtResource("3_npc")]
+position = Vector2(620, 410)
+display_name = "Test Ally"
+behavior_profile = 3
+move_speed = 55.0
+wander_radius = 72.0
+personal_space = 42.0
+ally_detection_radius = 64.0
+dialogue_lines = PackedStringArray("I will make room for you.")
