@@ -1,3 +1,20 @@
+## 2026-10-14 — Preserve Manual Overworld Collision Adjustments
+
+### Changes
+- Changed `world/maps/overworld/world.gd` so `GeneratedObjectCollisions` is generated only when the container is absent.
+- Removed automatic deletion and regeneration of existing collision nodes. Manually adjusted `StaticBody2D` and `CollisionShape2D` nodes now remain intact across tool-script refreshes, scene reloads, and runtime instantiation when the scene has been saved with those nodes.
+- Documented the reset workflow: deleting `GeneratedObjectCollisions` manually intentionally discards its adjustments and allows the script to generate default collisions again.
+- Left `world.tscn` unchanged in this commit to avoid overwriting any local collision edits.
+
+### Verification
+- [x] Reviewed the collision generation path to confirm an existing container returns before any generated nodes can be removed or modified.
+- [x] Updated `docs/MAP_MAKING_RULESET.md` with the persistence and reset rules.
+- [ ] Pull `origin main`, save `world/maps/overworld/world.tscn` after any collision adjustments, then reopen the scene and confirm the adjusted shapes remain.
+- [ ] Run the overworld and verify all object collisions. Godot editor/runtime verification remains pending.
+- Note: this source change preserves local scene adjustments but does not upload local-only edits to GitHub. The edited scene must be committed separately if those exact adjustments should also exist in the repository.
+
+---
+
 ## 2026-10-14 — Generate Object Collision From Sprite Transparency
 
 ### Changes
