@@ -1,3 +1,13 @@
+## 2026-10-14 — Record Player Capsule Collision Verification
+
+### Verification
+- User confirmed the current player capsule-collision setup and the collision-shape policy are verified in their tested build.
+- Player and NPC bodies should use `CapsuleShape2D` by default; enemy shapes remain case-by-case.
+- This does not claim that all existing NPC scenes have already been converted or that enemy collision shapes are verified.
+- Added the user-reported result to `docs/RUNTIME_VERIFIED.md`.
+
+---
+
 ## 2026-10-14 — Establish Character Collision-Shape Policy
 
 ### Decisions
