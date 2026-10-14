@@ -1,3 +1,19 @@
+## 2026-10-14 — Build Starter Overworld and Set Player Spawn
+
+### Changes
+- Added `world/maps/overworld/world.gd` to generate a 64×40 grass field from the existing overworld TileSet and scatter grass-detail tiles with a deterministic layout.
+- Updated `world/maps/overworld/world.tscn` to use the existing TileSet on its map layers and run the map builder.
+- Moved the main-scene player spawn to the center of the generated overworld at `Vector2(512, 320)`.
+- Updated the architecture and audit documents to describe the map builder and distinguish implementation from runtime verification.
+
+### Verification status
+- [x] Inspected current project settings, main scene, player scene/script, overworld scene, TileSet, and runtime verification record before editing.
+- [x] Committed changes directly to GitHub `main`.
+- [ ] Run in Godot to confirm the grass atlas coordinates render as intended, the detail tiles look correct, and the player spawns and moves normally.
+- Runtime behavior is **not yet verified**. The generated map is a starter field, not a finished world layout.
+
+---
+
 # Development Log
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
