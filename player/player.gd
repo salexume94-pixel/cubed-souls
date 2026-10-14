@@ -48,9 +48,17 @@ func _build_sprite_frames() -> SpriteFrames:
 
 	for animation_name in ANIMATIONS:
 		var definition: Dictionary = ANIMATIONS[animation_name]
-		var sheet := load(SHEET_DIR + str(definition["file"])) as Texture2D
+		var sheet_path := SHEET_DIR + str(definition["file"])
+		var sheet := load(sheet_path) as Texture2D
 		if sheet == null:
-			push_error("Player sprite sheet could not be loaded: " + SHEET_DIR + str(definition["file"]))
+			push_error("Player sprite sheet could not be loaded: " + sheet_path)
+			continue
+
+		# Some sprite sheets can contain fully transparent cells. Exclude those cells
+		# so a direction's walk cycle never makes the player vanish on a blank frame.
+		var sheet_image := sheet.get_image()
+		if sheet_image == null or sheet_image.is_empty():
+			push_error("Player sprite sheet image is empty: " + sheet_path)
 			continue
 
 		for row in range(DIRECTIONS.size()):
@@ -58,18 +66,39 @@ func _build_sprite_frames() -> SpriteFrames:
 			frames.add_animation(animation_id)
 			frames.set_animation_speed(animation_id, float(definition["fps"]))
 			frames.set_animation_loop(animation_id, true)
+
 			for column in range(int(definition["frames"])):
-				var atlas := AtlasTexture.new()
-				atlas.atlas = sheet
-				atlas.region = Rect2(
+				var region := Rect2i(
 					column * frame_size.x,
 					row * frame_size.y,
 					frame_size.x,
 					frame_size.y
 				)
+				if region.position.x + region.size.x > sheet_image.get_width() 				or region.position.y + region.size.y > sheet_image.get_height():
+					push_warning("Skipping out-of-bounds sprite frame in " + animation_id)
+					continue
+				if not _frame_has_visible_pixels(sheet_image, region):
+					push_warning("Skipping transparent sprite frame in " + animation_id)
+					continue
+
+				var atlas := AtlasTexture.new()
+				atlas.atlas = sheet
+				atlas.region = Rect2(region)
 				frames.add_frame(animation_id, atlas)
 
+			if frames.get_frame_count(animation_id) == 0:
+				push_error("No visible sprite frames were found for animation: " + animation_id)
+
 	return frames
+
+
+func _frame_has_visible_pixels(sheet_image: Image, region: Rect2i) -> bool:
+	# A fully transparent atlas cell renders as a missing character for one frame.
+	for y in range(region.position.y, region.position.y + region.size.y):
+		for x in range(region.position.x, region.position.x + region.size.x):
+			if sheet_image.get_pixel(x, y).a > 0.01:
+				return true
+	return false
 
 
 func _get_move_input() -> Vector2:
