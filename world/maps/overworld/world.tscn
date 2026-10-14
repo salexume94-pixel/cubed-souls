@@ -24,14 +24,14 @@ tile_set = ExtResource("1_tileset")
 [node name="Foreground" type="TileMapLayer" parent="." unique_id=25035801]
 tile_set = ExtResource("1_tileset")
 
-# Keep each boundary directly under World to avoid nested-parent instantiation warnings.
-# These invisible static walls block the player without adding visible placeholder art.
+# Static collision walls use flat root paths so every node instantiates reliably.
 [node name="WestBoundary" type="StaticBody2D" parent="."]
 position = Vector2(-8, 320)
 collision_layer = 1
 collision_mask = 0
 
-[node name="WestCollision" type="CollisionShape2D" parent="WestBoundary"]
+[node name="WestCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 320)
 shape = SubResource("RectangleShape2D_vertical_boundary")
 
 [node name="EastBoundary" type="StaticBody2D" parent="."]
@@ -39,7 +39,8 @@ position = Vector2(1032, 320)
 collision_layer = 1
 collision_mask = 0
 
-[node name="EastCollision" type="CollisionShape2D" parent="EastBoundary"]
+[node name="EastCollision" type="CollisionShape2D" parent="."]
+position = Vector2(1032, 320)
 shape = SubResource("RectangleShape2D_vertical_boundary")
 
 [node name="NorthBoundary" type="StaticBody2D" parent="."]
@@ -47,7 +48,8 @@ position = Vector2(512, -8)
 collision_layer = 1
 collision_mask = 0
 
-[node name="NorthCollision" type="CollisionShape2D" parent="NorthBoundary"]
+[node name="NorthCollision" type="CollisionShape2D" parent="."]
+position = Vector2(512, -8)
 shape = SubResource("RectangleShape2D_horizontal_boundary")
 
 [node name="SouthBoundary" type="StaticBody2D" parent="."]
@@ -55,5 +57,6 @@ position = Vector2(512, 648)
 collision_layer = 1
 collision_mask = 0
 
-[node name="SouthCollision" type="CollisionShape2D" parent="SouthBoundary"]
+[node name="SouthCollision" type="CollisionShape2D" parent="."]
+position = Vector2(512, 648)
 shape = SubResource("RectangleShape2D_horizontal_boundary")
