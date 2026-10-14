@@ -1,3 +1,17 @@
+## 2026-10-14 — Keep Overworld Visible in the Godot Editor
+
+### Changes
+- Added the `@tool` annotation to `world/maps/overworld/world.gd` so the existing deterministic ground and grass-leaf layout is generated when the scene is opened in the editor, not only when the game runs.
+- Kept the existing `Ground`, `Details`, `Objects`, and `Foreground` TileMapLayers and existing TileSet resources unchanged.
+- No Polygon2D, substitute artwork, or atlas-coordinate changes were introduced.
+
+### Verification
+- [x] Script change committed directly to GitHub `main`.
+- [ ] Pull `origin main`, reopen the overworld scene in Godot, and confirm the grass and leaves are visible in the 2D editor before pressing Play.
+- [ ] Confirm the editor debugger shows no tool-script errors.
+
+---
+
 ## 2026-10-14 — Scatter Grass-Leaf Bundles Across Overworld
 
 ### Changes
