@@ -1,8 +1,8 @@
 extends Node2D
 
 # Builds a deterministic grass field and scatters the user's confirmed grass-leaf details.
-# The ground and details use separate existing TileMapLayers and the existing TileSet.
-# Leaf bundles are always placed as two adjacent atlas cells on adjacent map cells.
+# Ground and details use separate existing TileMapLayers and the existing TileSet.
+# Each bundle is always placed as two adjacent atlas cells on adjacent map cells.
 
 const EXTERIOR_SOURCE_ID: int = 0
 const DETAILS_SOURCE_ID: int = 1
@@ -33,24 +33,22 @@ func _place_grass_leaves() -> void:
 	# Rebuild only the detail layer so every launch produces the same layout.
 	details.clear()
 
-	# Each bundle uses two adjacent atlas cells placed in adjacent map cells.
-	# Locations are distributed around the field, leaving the player spawn area clear.
+	# Each bundle uses adjacent atlas cells on adjacent map cells.
+	# Locations are spread around the field, keeping the player spawn clear.
 	_place_bundle(Vector2i(5, 5), BUNDLE_A_LEFT_X)
 	_place_bundle(Vector2i(18, 4), BUNDLE_B_LEFT_X)
 	_place_bundle(Vector2i(35, 6), BUNDLE_A_LEFT_X)
 	_place_bundle(Vector2i(52, 5), BUNDLE_B_LEFT_X)
-
 	_place_bundle(Vector2i(8, 12), BUNDLE_B_LEFT_X)
 	_place_bundle(Vector2i(24, 11), BUNDLE_A_LEFT_X)
 	_place_bundle(Vector2i(44, 13), BUNDLE_B_LEFT_X)
 	_place_bundle(Vector2i(56, 17), BUNDLE_A_LEFT_X)
-
 	_place_bundle(Vector2i(4, 25), BUNDLE_A_LEFT_X)
 	_place_bundle(Vector2i(17, 31), BUNDLE_B_LEFT_X)
 	_place_bundle(Vector2i(37, 33), BUNDLE_A_LEFT_X)
 	_place_bundle(Vector2i(53, 29), BUNDLE_B_LEFT_X)
 
-	# Individual leaves are sprinkled between bundles without touching the spawn.
+	# Individual leaves are scattered between bundles.
 	_place_single_leaf(Vector2i(12, 8), SINGLE_LEAF_A_X)
 	_place_single_leaf(Vector2i(29, 5), SINGLE_LEAF_B_X)
 	_place_single_leaf(Vector2i(47, 9), SINGLE_LEAF_A_X)
@@ -66,7 +64,7 @@ func _place_grass_leaves() -> void:
 func _place_bundle(map_position: Vector2i, left_atlas_x: int) -> void:
 	# A bundle is two neighboring 16×16 tiles, never separated on the map.
 	details.set_cell(map_position, DETAILS_SOURCE_ID, Vector2i(left_atlas_x, LEAF_ROW))
-	details.set_cell(map_position + Vector2i.RIGHT, DETAILS_SOURCE_ID, Vector2i(left_atlas_x + 1, LEAF_ROW))
+	details.set_cell(map_position + Vector2i(1, 0), DETAILS_SOURCE_ID, Vector2i(left_atlas_x + 1, LEAF_ROW))
 
 func _place_single_leaf(map_position: Vector2i, atlas_x: int) -> void:
 	# Single-leaf accents use the two confirmed individual-leaf cells.
