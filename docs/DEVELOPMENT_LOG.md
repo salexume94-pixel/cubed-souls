@@ -1,3 +1,18 @@
+## 2026-10-14 — Remove Pillow Dependency From Tileset Reference Generator
+
+### Changes
+- Reworked `tools/generate_tileset_reference.py` to use only the Python standard library.
+- The generator now writes SVG atlas references with checkerboard backgrounds, 16×16 grid lines, and zero-based cell labels. The SVGs link to the original PNGs using relative paths.
+- Updated `docs/OVERWORLD_TILESET_CATALOG.md` to document the SVG output and browser viewing workflow.
+- No package installation is required.
+
+### Verification
+- [x] Reviewed the generator's PNG-header dimension reading and output-path construction.
+- [x] Changes committed to GitHub `main`.
+- [ ] Run the generator locally and open both SVG references to verify the rendered output.
+
+---
+
 ## 2026-10-14 — Add Overworld Tileset Catalog and Coordinate References
 
 ### Findings
