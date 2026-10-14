@@ -53,7 +53,10 @@ func _ready() -> void:
 	_build_ground()
 	_build_details()
 	_build_objects()
-	# Object collision generation and map-edge boundaries are intentionally disabled during map-layout debugging.
+	# Remove generated object colliders while keeping the normal map-edge boundaries.
+	_remove_generated_object_collisions()
+	if not Engine.is_editor_hint():
+		_create_map_boundaries()
 
 
 func _build_ground() -> void:
@@ -238,6 +241,14 @@ func _place_object_bundle(collision_name: String, map_origin: Vector2i, atlas_or
 		"atlas_origin": atlas_origin,
 		"dimensions": dimensions,
 	})
+
+
+
+func _remove_generated_object_collisions() -> void:
+	# Object sprites should be collision-free during layout debugging. Remove only their generated container.
+	var existing_root := get_node_or_null("GeneratedObjectCollisions")
+	if existing_root != null:
+		existing_root.free()
 
 
 func _create_object_collisions() -> void:
