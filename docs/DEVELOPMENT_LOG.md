@@ -1,3 +1,20 @@
+## 2026-10-14 — Temporarily Disable World Object and Boundary Collisions
+
+### Changes
+- Disabled generated alpha-based collision creation in the overworld and Havenreach map builders.
+- Disabled automatically created map-edge boundary bodies so map navigation can be inspected without object or boundary collision nodes.
+- Confirmed the shared overworld TileSet resource contains no serialized physics-layer or tile-collision entries.
+- Left all visual tile placement, player movement, and NPC interaction code unchanged.
+- Updated the map-making ruleset to mark this as a temporary collision-disabled debugging phase.
+
+### Verification
+- [x] Inspected the overworld and Havenreach scene scripts and shared TileSet resource on GitHub `main`.
+- [x] Source edits committed to `main`.
+- [ ] Pull `origin main`, inspect the scene tree, and test movement through objects and across map edges in Godot.
+- **Status:** Source changes are committed; Godot editor/runtime verification is pending.
+
+---
+
 ## 2026-10-14 — Fix Project and NPC Test Scene Parse Errors
 
 ### Changes
