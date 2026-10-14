@@ -1,3 +1,18 @@
+## 2026-10-14 — Add Ruined Temple Walls and Floors Reference
+
+### Changes
+- Added `assets/tilesets/dungeons/ruined_temple/Walls_floor.png` to `tools/generate_tileset_reference.py`.
+- Defined the generated reference name as `ruined_temple_walls_floor_labeled.svg`.
+- Added a section to `docs/MAP_MAKING_RULESET.md` explaining the source and that its assets must be visually cataloged before coordinates or classifications are assigned.
+
+### Verification
+- [x] Generator and documentation updates committed to GitHub `main`.
+- [ ] Run the generator locally and inspect the generated SVG.
+- [ ] Identify useful floor, wall, and doorway assets and record their exact coordinates.
+- [ ] Godot atlas mapping, placement, collision, layering, and runtime behavior remain unverified.
+
+---
+
 ## 2026-10-14 — Correct Complete Ruined Temple Dragon Statue Coordinates
 
 ### Changes
