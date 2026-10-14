@@ -1,3 +1,11 @@
+## 2026-10-14 — Camera Bounds Runtime-Verified
+
+- User confirmed that the reusable camera-bounds implementation works in Godot.
+- Recorded the tested camera clipping behavior in `docs/RUNTIME_VERIFIED.md`.
+- The current camera script calculates limits from populated `TileMapLayer` nodes. Universal use on future maps depends on those maps having populated tile layers and should be checked as they are added.
+
+---
+
 ## 2026-10-14 — Add Reusable Camera Bounds for Tile Maps
 
 ### Changes
