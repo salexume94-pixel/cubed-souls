@@ -215,19 +215,22 @@ func _place_object_bundle(collision_name: String, map_origin: Vector2i, atlas_or
 
 
 func _create_object_collisions() -> void:
-	# Preserve existing saved collision edits. Delete GeneratedObjectCollisions manually to rebuild defaults.
+	# Rebuild generated colliders so layout changes always update house/chapel footprints.
+	# This container is generated data; hand-authored collision nodes belong outside it.
 	var existing_root := get_node_or_null("GeneratedObjectCollisions")
 	if existing_root != null:
 		_collision_root = existing_root as Node2D
-		return
-
-	_collision_root = Node2D.new()
-	_collision_root.name = "GeneratedObjectCollisions"
-	add_child(_collision_root)
-	if Engine.is_editor_hint():
-		var edited_root := get_tree().edited_scene_root
-		if edited_root != null:
-			_collision_root.owner = edited_root
+		for child in _collision_root.get_children():
+			_collision_root.remove_child(child)
+			child.free()
+	else:
+		_collision_root = Node2D.new()
+		_collision_root.name = "GeneratedObjectCollisions"
+		add_child(_collision_root)
+		if Engine.is_editor_hint():
+			var edited_root := get_tree().edited_scene_root
+			if edited_root != null:
+				_collision_root.owner = edited_root
 
 	# Buildings use one solid rectangle across their entire footprint, including roof tiles.
 	# Small environmental props retain alpha-derived shapes so transparent gaps stay passable.
