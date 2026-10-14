@@ -1,7 +1,7 @@
 @tool
 extends Node2D
 
-# Havenreach is a deterministic 64×40-tile settlement assembled only from catalogued PNG atlas cells.
+# Havenreach is a seeded-random 64×40-tile settlement assembled only from catalogued PNG atlas cells.
 # Keep this generator separate from the overworld so town-specific placements never clear overworld layers.
 
 const TILE_SIZE: int = 16
@@ -30,6 +30,14 @@ const ROCK_MEDIUM_B: Vector2i = Vector2i(5, 25)
 const BUSH_MEDIUM: Vector2i = Vector2i(10, 18)
 const BUSH_SMALL: Vector2i = Vector2i(14, 14)
 
+# A fixed seed gives Havenreach an irregular, randomized-looking layout that stays stable between runs.
+const LAYOUT_SEED: int = 481516
+const HOUSE_CANDIDATES: Array[Vector2i] = [
+	Vector2i(4, 4), Vector2i(18, 3), Vector2i(44, 5), Vector2i(51, 10),
+	Vector2i(3, 25), Vector2i(15, 29), Vector2i(44, 27), Vector2i(51, 29),
+	Vector2i(22, 29), Vector2i(38, 27), Vector2i(4, 14), Vector2i(49, 17),
+]
+
 @onready var ground: TileMapLayer = $Ground
 @onready var details: TileMapLayer = $Details
 @onready var objects: TileMapLayer = $Objects
@@ -40,7 +48,7 @@ var _collision_specs: Array[Dictionary] = []
 
 
 func _ready() -> void:
-	# Rebuild all four layers in both editor and runtime for a deterministic map.
+	# Rebuild all four layers in editor and runtime; the seeded layout is irregular but repeatable.
 	_collision_specs.clear()
 	_build_ground()
 	_build_details()
@@ -103,12 +111,14 @@ func _place_detail_tile(map_position: Vector2i, atlas_coords: Vector2i) -> void:
 
 
 func _build_objects() -> void:
-	# Split the same complete house bundle between Foreground and Objects so roofs can overlap the player.
-	# The relative atlas positions remain unchanged; empty atlas cells are intentionally skipped.
-	_place_house(Vector2i(7, 4), "WestNorthHouse")
-	_place_house(Vector2i(47, 4), "EastNorthHouse")
-	_place_house(Vector2i(7, 27), "WestSouthHouse")
-	_place_house(Vector2i(47, 27), "EastSouthHouse")
+	# Shuffle candidate plots so houses feel organically scattered instead of arranged in matching corners.
+	# The seed keeps placements stable between editor refreshes and game launches.
+	var rng := RandomNumberGenerator.new()
+	rng.seed = LAYOUT_SEED
+	var house_plots: Array[Vector2i] = HOUSE_CANDIDATES.duplicate()
+	house_plots.shuffle()
+	for index in range(4):
+		_place_house(house_plots[index], "House_%02d" % (index + 1))
 
 	# The chapel uses its own registered atlas source and is the settlement's visual landmark.
 	_place_chapel(Vector2i(28, 3), "HavenreachChapel")
@@ -219,15 +229,44 @@ func _create_object_collisions() -> void:
 		if edited_root != null:
 			_collision_root.owner = edited_root
 
-	# Generate collisions from actual texture alpha, not bundle rectangles, so transparent pixels stay passable.
+	# Buildings use one solid rectangle across their entire footprint, including roof tiles.
+	# Small environmental props retain alpha-derived shapes so transparent gaps stay passable.
 	for spec in _collision_specs:
-		_add_alpha_collision_for_bundle(
-			str(spec["name"]),
-			spec["map_origin"],
-			int(spec["source_id"]),
-			spec["atlas_origin"],
-			spec["dimensions"]
-		)
+		var collision_name := str(spec["name"])
+		if collision_name.begins_with("House_") or collision_name == "HavenreachChapel":
+			_add_full_bundle_collision(collision_name, spec["map_origin"], spec["dimensions"])
+		else:
+			_add_alpha_collision_for_bundle(
+				collision_name,
+				spec["map_origin"],
+				int(spec["source_id"]),
+				spec["atlas_origin"],
+				spec["dimensions"]
+			)
+
+
+func _add_full_bundle_collision(collision_name: String, map_origin: Vector2i, dimensions: Vector2i) -> void:
+	# Block the full building footprint, deliberately including the roof and any transparent-looking gaps.
+	var body := StaticBody2D.new()
+	body.name = collision_name + "_FullFootprint"
+	body.position = Vector2(map_origin.x * TILE_SIZE, map_origin.y * TILE_SIZE) + Vector2(
+		float(dimensions.x * TILE_SIZE) / 2.0,
+		float(dimensions.y * TILE_SIZE) / 2.0
+	)
+	body.collision_layer = 1
+	body.collision_mask = 0
+
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(dimensions.x * TILE_SIZE, dimensions.y * TILE_SIZE)
+	collision.shape = rectangle
+	body.add_child(collision)
+	_collision_root.add_child(body)
+	if Engine.is_editor_hint():
+		var edited_root := get_tree().edited_scene_root
+		if edited_root != null:
+			body.owner = edited_root
+			collision.owner = edited_root
 
 
 func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vector2i, source_id: int, atlas_origin: Vector2i, dimensions: Vector2i) -> void:
