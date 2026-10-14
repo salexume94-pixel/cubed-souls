@@ -1,3 +1,17 @@
+## 2026-10-14 — Align Player Collision With Sprite Frame
+
+### Changes
+- Changed the player's `RectangleShape2D` from 18×14 to 64×64 pixels, matching the existing sprite animation frame dimensions.
+- Moved `CollisionShape2D` to `(0, -24)`, matching the `AnimatedSprite2D` position so their frame rectangles align.
+- Preserved the existing player scene hierarchy, sprite sheets, animation setup, and camera settings.
+
+### Verification
+- [x] Scene change committed directly to GitHub `main`.
+- [ ] Pull `origin main` and confirm the collision rectangle matches the 64×64 sprite frame in Godot's 2D editor.
+- [ ] Run the game and verify collision behavior feels correct; exact frame-sized collision includes transparent padding.
+
+---
+
 ## 2026-10-14 — Keep Player Sprite Visible in the Godot Editor
 
 ### Changes
