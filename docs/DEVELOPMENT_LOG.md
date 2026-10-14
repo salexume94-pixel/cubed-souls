@@ -1,3 +1,21 @@
+## 2026-10-14 — Generalize F6 Player Spawning for Map Scenes
+
+### Changes
+- Added `systems/scene_test_bootstrap.gd` as a shared autoload that checks the active scene after a whole-scene launch.
+- When the selected scene contains `PlayerSpawnMarker` or the legacy `PlayerSpawn` marker, the bootstrap reuses an existing Player or instantiates `player/player.tscn`, then places it at the marker.
+- Registered the bootstrap in `project.godot`. The main scene's existing player is left alone when its scene has no spawn marker.
+- Removed the Havenreach-only spawning helper so the behavior is not tied to one map.
+- Kept the existing Havenreach marker named `PlayerSpawnMarker`.
+
+### Verification
+- [x] Changes committed directly to `main`.
+- [ ] Pull `origin main`, press F6 on Havenreach, and confirm the player appears at its marker.
+- [ ] Press F6 on another map with a spawn marker and confirm the same behavior.
+- [ ] Run the main game and confirm it does not create a duplicate player.
+- Runtime verification is pending.
+
+---
+
 ## 2026-10-14 — Spawn Player at Havenreach Marker During Standalone Tests
 
 ### Changes
