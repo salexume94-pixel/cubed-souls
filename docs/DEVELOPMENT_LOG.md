@@ -1,3 +1,17 @@
+## 2026-10-14 — Establish Character Collision-Shape Policy
+
+### Decisions
+- Player and NPC collision bodies should use `CapsuleShape2D` by default.
+- Enemy collision shapes will be assessed individually rather than forced into one standard.
+- Collision geometry should fit the visible character body, accounting for transparent padding in sprite frames.
+- Godot has no general automatic sprite-alpha “wrap collision” option for `CollisionShape2D`; capsule size and offset must be fitted manually. The result is a practical physics shape, not a pixel-perfect outline.
+
+### Status
+- Documented the standing policy in `docs/ARCHITECTURE.md`.
+- This records a design rule; it does not claim that every existing NPC has been updated or verified.
+
+---
+
 ## 2026-10-14 — Replace Player Rectangle With Capsule Collision
 
 ### Changes
