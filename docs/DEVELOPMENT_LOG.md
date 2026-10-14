@@ -1,3 +1,17 @@
+## 2026-10-14 — Clarify Building and Door Object Collision Rules
+
+### Changes
+- Clarified that complete houses/buildings and doors belong on the `Objects` TileMapLayer.
+- Required collision for both building bundles and door assets.
+- Distinguished ordinary solid building/object collision from a dedicated door scene-transition trigger, which must activate the transition without making the surrounding building passable.
+- Updated the verification checklist to include building collision and door-transition trigger checks.
+
+### Verification
+- [x] Updated the map-making ruleset documentation on GitHub `main`.
+- [ ] Verify actual house/door placement, collision shapes, and scene-transition behavior in Godot. Runtime verification remains pending.
+
+---
+
 ## 2026-10-14 — Catalog Town Exterior Door Bundle
 
 ### Changes
