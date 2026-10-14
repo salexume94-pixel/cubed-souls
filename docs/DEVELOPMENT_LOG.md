@@ -1,3 +1,18 @@
+## 2026-10-14 — Add Missing House and Interior Tile References
+
+### Changes
+- Generated and committed `docs/tileset_reference/generated/house_details_labeled.svg` from `assets/tilesets/towns/towns/house_details.png`.
+- Generated and committed `docs/tileset_reference/generated/walls_floor_labeled.svg` from `assets/tilesets/towns/towns/walls_floor.png`.
+- Both references use the generator's 16 × 16 source-cell grid and zero-based coordinate labels.
+- Corrected the tileset catalog note to reflect that generated SVGs embed the source PNG, so the references are self-contained.
+
+### Verification
+- [x] Confirmed source PNG dimensions and generated grid counts: house details 10 × 17 cells; walls/floor 9 × 11 cells.
+- [x] Confirmed both SVG files were created on GitHub `main`.
+- [ ] Open both references and visually inspect the atlas contents; Godot placement/runtime verification is not part of this documentation/reference generation step.
+
+---
+
 ## 2026-10-14 — Move Town House and Door Entries Under Objects
 
 ### Changes
