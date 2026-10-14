@@ -33,9 +33,9 @@ const BUSH_SMALL: Vector2i = Vector2i(14, 14)
 # A fixed seed gives Havenreach an irregular, randomized-looking layout that stays stable between runs.
 const LAYOUT_SEED: int = 481516
 const HOUSE_CANDIDATES: Array[Vector2i] = [
-	Vector2i(4, 4), Vector2i(18, 3), Vector2i(44, 5), Vector2i(51, 10),
-	Vector2i(3, 25), Vector2i(15, 29), Vector2i(44, 27), Vector2i(51, 29),
-	Vector2i(22, 29), Vector2i(38, 27), Vector2i(4, 14), Vector2i(49, 17),
+	Vector2i(5, 5), Vector2i(17, 5), Vector2i(42, 5), Vector2i(53, 14),
+	Vector2i(17, 17), Vector2i(42, 17), Vector2i(53, 27), Vector2i(5, 28),
+	Vector2i(17, 29), Vector2i(42, 29), Vector2i(5, 14), Vector2i(53, 5),
 ]
 
 @onready var ground: TileMapLayer = $Ground
