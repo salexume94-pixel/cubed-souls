@@ -31,9 +31,6 @@ This file is the single record of behavior that has been observed running in God
 
 ---
 
-**Record status:** No other runtime-verified behaviors are recorded here yet. Add further entries only when supported by explicit runtime-test evidence.
-
-
 ### 2026-10-14 — Player capsule collision and character collision policy
 
 **Status:** VERIFIED — user-reported.
@@ -43,3 +40,15 @@ This file is the single record of behavior that has been observed running in God
 **Result:** Record the current player capsule collision setup as verified for the user's tested build. The standing design policy is to use `CapsuleShape2D` for player and NPC bodies by default, while assessing enemy collision shapes individually.
 
 **Scope limits:** This does not establish that every NPC has already been converted to a capsule, nor does it verify any enemy collision shape. NPC-by-NPC implementation and enemy collision sizing remain to be checked when those actors are added or audited.
+### 2026-10-14 — Overworld perimeter collision
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user explicitly confirmed that the overworld boundary fix is working in the Godot runtime after the boundary implementation was changed.
+
+**Result:** The four runtime-created perimeter walls prevent the player from leaving the overworld map in the tested build.
+
+**Scope limits:** This confirms the boundary behavior tested by the user. It does not verify collision behavior on other maps or unrelated player/world interactions.
+
+---
+
