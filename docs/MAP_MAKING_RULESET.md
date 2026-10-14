@@ -137,9 +137,6 @@ Buildings and doors listed here are placed on the `Objects` TileMapLayer. Comple
 | `(13,15) + (14,15) + (13,16) + (14,16)` | Square bush bundle (2 × 2) |
 | `(10,18) + (11,18) + (10,19) + (11,19)` | Medium square bush bundle (2 × 2) |
 
-### Foreground
-
-No assets documented yet. Leave this category unused unless a map explicitly requires scenery to render over the player.
 
 ## Catalog maintenance notes
 
@@ -157,9 +154,6 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 | `(6,6), (7,6), (6,7), (7,7)` | Door bundle (2 × 2 atlas cells) |
 
 The supplied coordinates form a 2-column × 2-row bundle in the labeled atlas. At 16 × 16 source pixels per cell, its atlas footprint is 32 × 32 pixels. The user's “4×4 door” label is retained as a note requiring clarification; it does not match the listed coordinate footprint if “4×4” means atlas cells.
-
-
-
 
 
 ### Town house sprite — complete bundled asset
@@ -186,6 +180,13 @@ The asset's atlas footprint spans columns 0–9 and rows 0–7 (10 × 8 cells), 
 | `(6,6), (7,6), (6,7), (7,7)` | Door bundle (2 × 2 atlas cells) |
 
 The supplied coordinates form a 2-column × 2-row bundle in the labeled atlas. At 16 × 16 source pixels per cell, its atlas footprint is 32 × 32 pixels. The user's “4×4 door” label is retained as a note requiring clarification; it does not match the listed coordinate footprint if “4×4” means atlas cells.
+
+
+### Foreground
+
+No assets documented yet. Leave this category unused unless a map explicitly requires scenery to render over the player.
+
+
 
 ## `chapel_exterior_labeled.svg`
 
