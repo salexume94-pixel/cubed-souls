@@ -1,3 +1,22 @@
+## 2026-10-14 — Re-enable Source-Alpha Object Collision Trial
+
+### Changes
+- Re-enabled alpha-derived object collision generation in the overworld and Havenreach map builders.
+- The generators now clear the previous `GeneratedObjectCollisions` container and rebuild it from the current catalogued object bundles.
+- Collision is derived from opaque source-atlas pixels; transparent pixels remain passable.
+- Havenreach includes complete houses and chapel now that their roof tiles are placed on Objects rather than Foreground.
+- Preserved map-edge boundaries, player/NPC collision, and interaction logic.
+- Updated the map-making ruleset to describe alpha collision as the current trial rather than a disabled phase.
+
+### Verification
+- [x] Confirmed the existing alpha-mask and merged-rectangle generation methods are present in both map scripts.
+- [x] Enabled collision generation after each map's object placement step.
+- [x] Committed source and documentation updates to GitHub `main`.
+- [ ] Pull `origin main`, open the overworld and Havenreach in Godot, inspect `GeneratedObjectCollisions`, and test movement against visible and transparent sprite areas.
+- **Status:** Source changes committed; Godot editor/runtime verification pending.
+
+---
+
 ## 2026-10-14 — Move Havenreach Roof Tiles to Objects Layer
 
 ### Changes
