@@ -38,9 +38,7 @@ func _ready() -> void:
 	_build_ground()
 	_place_grass_leaves()
 	_place_objects()
-	_create_object_collisions()
-	if not Engine.is_editor_hint():
-		_create_map_boundaries()
+	# Object collision generation and map-edge boundaries are intentionally disabled during map-layout debugging.
 
 func _build_ground() -> void:
 	# Fill the field with the base-grass tile confirmed by the user.
