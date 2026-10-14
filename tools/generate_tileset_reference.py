@@ -27,6 +27,7 @@ SHEETS = (
     ("towns/chapels/Walls_Interior.png", "chapel_walls_interior_labeled.svg", None),
     ("towns/towns/house_details.png", "house_details_labeled.svg"),
     ("towns/towns/walls_floor.png", "walls_floor_labeled.svg"),
+    ("dungeons/ruined_temple/Exterior_objects.png", "ruined_temple_exterior_objects_labeled.svg"),
 )
 
 
@@ -110,7 +111,7 @@ def render_sheet(source_relative_path: str, output_name: str, reference_height: 
 
 
 def main() -> None:
-    """Generate overworld, town, and chapel exterior/interior tile references."""
+    """Generate overworld, town, chapel, and ruined-temple tile references."""
     for sheet in SHEETS:
         source_name, output_name = sheet[0], sheet[1]
         reference_height = sheet[2] if len(sheet) > 2 else None
