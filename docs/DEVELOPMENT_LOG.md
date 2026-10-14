@@ -1,3 +1,18 @@
+## 2026-10-14 — Move Town House and Door Entries Under Objects
+
+### Changes
+- Moved the complete town house bundle and town exterior door bundle into the town exterior catalog's `Objects` section in `docs/MAP_MAKING_RULESET.md`.
+- Added an explicit layer note stating that both belong on the `Objects` TileMapLayer.
+- Kept the door's scene-transition trigger distinct from ordinary building/object collision.
+- Preserved the existing coordinate lists and bundle descriptions without changing any source coordinates.
+
+### Verification
+- [x] Confirmed the house and door entries are now under the town exterior `Objects` section.
+- [x] Confirmed the recorded coordinate lists and arrangement notes were preserved.
+- [ ] Visual cross-check against the labeled SVG and Godot placement/runtime verification remain pending.
+
+---
+
 ## 2026-10-14 — Clarify Building and Door Object Collision Rules
 
 ### Changes
