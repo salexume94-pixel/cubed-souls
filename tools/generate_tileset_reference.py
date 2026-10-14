@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Generate SVG coordinate atlases for the overworld PNG tilesets.
+"""Generate self-contained SVG coordinate atlases for project PNG tilesets.
 
-Uses only Python's standard library. The SVGs embed each original PNG from a
-relative path, enlarge it with pixelated rendering, and overlay 16x16 cell
-boundaries and zero-based (column, row) labels. Open the SVG in a browser.
-These files are inspection aids, not game assets.
+Uses only Python's standard library. The SVGs embed each original PNG as base64,
+enlarge it with pixelated rendering, and overlay 16x16 cell boundaries and
+zero-based (column, row) labels. These files are inspection aids, not game assets.
 """
 
 from pathlib import Path
@@ -12,22 +11,25 @@ from html import escape
 from base64 import b64encode
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "assets" / "tilesets" / "overworld"
+TILESET_DIR = ROOT / "assets" / "tilesets"
 OUTPUT_DIR = ROOT / "docs" / "tileset_reference" / "generated"
 TILE_SIZE = 16
 SCALE = 4
 CELL = TILE_SIZE * SCALE
 
 SHEETS = (
-    ("exterior.png", "overworld_exterior_labeled.svg"),
-    ("exterior.png", "town_exterior_labeled.svg"),
-    ("ground_grass_details.png", "ground_grass_details_labeled.svg"),
+    ("overworld/exterior.png", "overworld_exterior_labeled.svg"),
+    ("overworld/exterior.png", "town_exterior_labeled.svg"),
+    ("overworld/ground_grass_details.png", "ground_grass_details_labeled.svg"),
+    ("towns/chapels/Exterior.png", "chapel_exterior_labeled.svg"),
+    ("towns/chapels/Walls_Interior.png", "chapel_walls_interior_labeled.svg"),
 )
 
 
-def render_sheet(source_name: str, output_name: str) -> None:
-    """Write one SVG atlas with a checkerboard, grid, and coordinate labels."""
-    source_path = SOURCE_DIR / source_name
+def render_sheet(source_relative_path: str, output_name: str) -> None:
+    """Write one self-contained SVG atlas with a grid and coordinate labels."""
+    source_path = TILESET_DIR / source_relative_path
+    source_name = Path(source_relative_path).name
     if not source_path.is_file():
         raise FileNotFoundError(f"Required source image not found: {source_path}")
 
@@ -95,7 +97,7 @@ def render_sheet(source_name: str, output_name: str) -> None:
 
 
 def main() -> None:
-    """Generate separate overworld/town exterior references and the ground/details atlas."""
+    """Generate overworld, town, and chapel exterior/interior tile references."""
     for source_name, output_name in SHEETS:
         render_sheet(source_name, output_name)
 
