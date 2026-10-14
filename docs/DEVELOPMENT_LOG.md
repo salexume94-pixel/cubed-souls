@@ -1,3 +1,17 @@
+## 2026-10-14 — Replace Player Rectangle With Capsule Collision
+
+### Changes
+- Replaced the 64×64 rectangle collision with a `CapsuleShape2D` using radius `10` and height `32` to better fit the character's body instead of the full transparent animation frame.
+- Kept the collision center at `(0, -24)`, aligned with the sprite frame position.
+- Preserved the sprite setup, scene hierarchy, and camera settings.
+
+### Verification
+- [x] Scene change committed directly to GitHub `main`.
+- [ ] Pull `origin main` and inspect the capsule outline against the visible character in the 2D editor.
+- [ ] Run the game and test movement along walls and around objects; adjust capsule dimensions or vertical position if needed.
+
+---
+
 ## 2026-10-14 — Align Player Collision With Sprite Frame
 
 ### Changes
