@@ -265,7 +265,15 @@ The window is not a small decorative detail. It is an overlay component intended
 
 ## `ruined_temple_walls_floor_labeled.svg`
 
-Reference source: `assets/tilesets/dungeons/ruined_temple/Walls_floor.png`. Generate the coordinate-labelled SVG with `python tools/generate_tileset_reference.py`. The source image has not yet been visually cataloged here. Do not assign coordinates or classify individual cells until they have been checked against the generated SVG. Record useful floor, wall, doorway, and other assets selectively; preserve bundled arrangements and apply the established Ground, Objects, Foreground, and collision rules.
+Reference: `docs/tileset_reference/generated/ruined_temple_walls_floor_labeled.svg`, sourced from `assets/tilesets/dungeons/ruined_temple/Walls_floor.png`. The source is 176 × 256 pixels, arranged as 11 columns × 16 rows of 16 × 16 cells. Coordinates use zero-based `(column, row)`.
+
+### Visual inventory
+
+The sheet contains several stone-wall sections, vertical wall/pillar pieces, a long horizontal wall section, door/opening artwork, and floor texture cells. These are candidate assets only; do not infer exact source coordinates from this summary.
+
+### Catalog status
+
+The labeled reference is committed and ready for coordinate inspection. Exact coordinates and bundled groupings have deliberately not been guessed. Before placing anything, identify useful assets in the labeled SVG, record every coordinate in each bundle, and preserve the original arrangement. Classify floor cells as Ground, solid wall structures as Objects, and any intentional overlay as Foreground. Doors need a transition trigger separate from ordinary blocking collision. Catalog only pieces likely to be used rather than every cell.
 
 ## `ruined_temple_exterior_objects_labeled.svg`
 
