@@ -165,3 +165,16 @@ This file is append-only. Add new entries at the top; do not remove or rewrite h
 3. Configure the player SpriteFrames resource and confirm the required animation names match the script.
 4. Verify the imported overworld map and sprite assets render at the intended scale.
 5. Update the audit documentation only after checking the actual repository paths and assets.
+
+
+## 2026-10-14 — Overworld layout trial pass
+
+### Changes
+- Rebuilt `world/maps/overworld/world.gd` to populate the existing `Ground`, `Details`, `Objects`, and `Foreground` layers without deleting or replacing scene nodes.
+- Kept all rendering on the existing TileSet and registered atlas tiles; no `Polygon2D`, custom-drawn shapes, or guessed image crops were added.
+- Added a deterministic grass-detail scatter, a central clearing and winding route, and a sparse boundary-object trial using registered exterior atlas coordinates.
+- Preserved a clear player spawn area so the first visual test has room for movement.
+
+### Verification
+- **GitHub source update:** committed to `main`.
+- **Godot runtime verification:** pending. The atlas regions have not been visually confirmed against the PNGs, so the first local run is a trial pass. Check whether the exterior atlas tiles look like coherent environment pieces; adjust the coordinate list based on what actually renders.
