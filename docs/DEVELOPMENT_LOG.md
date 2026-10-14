@@ -1,3 +1,20 @@
+## 2026-10-14 — Add NPC Instances to Havenreach
+
+### Changes
+- Added three reusable NPC scene instances under Havenreach's existing `NPCs` node: a wandering townsperson, a patrolling town guard, and a wandering traveler using the Ally profile.
+- Configured distinct starter dialogue on each instance so the E-key interaction can be tested in the actual town scene.
+- Kept the isolated NPC test scene for movement-specific testing; it is not the game's startup scene.
+- Source committed directly to GitHub `main`.
+
+### Verification
+- [x] Confirmed the previous Havenreach scene had an empty `NPCs` container.
+- [x] Added three NPC instances and configured their profiles/dialogue in `havenreach.tscn`.
+- [ ] Pull `origin main`, open Havenreach in Godot, and confirm the NPCs are visible and positioned correctly.
+- [ ] Runtime-test NPC movement, obstacle avoidance, and E-key dialogue.
+- **Status:** Scene placement committed; Godot editor/runtime verification pending.
+
+---
+
 ## 2026-10-14 — Port NPC Movement and Behavior Profiles
 
 ### Changes
