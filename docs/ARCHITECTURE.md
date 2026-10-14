@@ -23,9 +23,11 @@ Current foundational files include:
 - `scenes/main.tscn`: main scene; currently instances the overworld and player.
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
 - `world/maps/overworld/world.tscn`: overworld scene.
-- `world/maps/overworld/world.gd`: draws a starter field and winding path, then places transparent tree/rock regions from `exterior.png` and grass details from `ground_grass_details.png`.
+- `world/maps/overworld/world.gd`: inert by design; tile placements are authored in `world.tscn`, not regenerated at runtime. Do not restore guessed atlas placements.
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
+- `docs/OVERWORLD_TILESET_CATALOG.md`: required classification workflow and placement rules for overworld assets.
+- `tools/generate_tileset_reference.py`: generates enlarged, coordinate-labelled references for the two overworld PNG sheets.
 
 ### Runtime verification record
 
@@ -140,6 +142,7 @@ A task is complete only when:
 ## 9. Related Documents
 
 - `docs/AUDIT.md` — current asset/repository inventory and outstanding audit work.
+- `docs/OVERWORLD_TILESET_CATALOG.md` — atlas coordinate system, ground/flora/terrain categories, and safe placement workflow.
 - `docs/RUNTIME_VERIFIED.md` — sole record of behavior actually observed running in Godot.
 - `DEVELOPMENT_LOG.md` — root-level chronological implementation notes; append entries only.
 - `README.md` — brief project overview and top-level structure.
