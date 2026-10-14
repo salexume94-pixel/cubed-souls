@@ -88,7 +88,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if _dialogue_open:
 		_advance_dialogue()
-	elif is_instance_valid(_player_in_range):
+	elif is_instance_valid(_player_in_range) and bool(_player_in_range.get("movement_enabled")):
+		# Prevent overlapping interaction areas from opening multiple dialogue panels at once.
 		_start_dialogue()
 		get_viewport().set_input_as_handled()
 
@@ -120,7 +121,7 @@ func _update_patrol() -> void:
 	if patrol_points.is_empty():
 		_move_direction = Vector2.ZERO
 		return
-	var target := get_parent().to_global(patrol_points[_patrol_index])
+	var target: Vector2 = get_parent().to_global(patrol_points[_patrol_index])
 	var difference := target - global_position
 	if difference.length() <= 5.0:
 		_patrol_index = (_patrol_index + 1) % patrol_points.size()
@@ -175,7 +176,7 @@ func _show_dialogue_line() -> void:
 func _set_player_movement_enabled(enabled: bool) -> void:
 	# The player exposes this flag so NPC dialogue can pause movement without owning player input.
 	var player := get_tree().get_first_node_in_group("player")
-	if player != null and "movement_enabled" in player:
+	if player != null:
 		player.set("movement_enabled", enabled)
 
 
