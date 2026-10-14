@@ -16,7 +16,7 @@ This document is the reference point for anyone editing the overworld map. It ex
 
 - Both images align to a 16×16 pixel grid. Coordinates are zero-based: `(x, y)`, where `x` is the column and `y` is the row.
 - Godot's source IDs are defined by `assets/tilesets/overworld/background.tres`. Do not assume an image's filename or coordinate alone tells you its gameplay role.
-- Generate coordinate-labelled references with `python tools/generate_tileset_reference.py`. The script reads the source PNGs directly from the repository and writes enlarged, labelled SVG files to `docs/tileset_reference/generated/`. Open the SVG files in a browser; they reference the original PNGs with relative paths.
+- Generate coordinate-labelled references with `python tools/generate_tileset_reference.py`. The script reads the source PNGs directly from the repository and writes enlarged, labelled SVG files to `docs/tileset_reference/generated/`. Open the SVG files in a browser; each generated SVG embeds its source PNG and is self-contained. The generated references are committed under `docs/tileset_reference/generated/`.
 - These reference sheets are inspection aids, not game assets. Do not import them into the TileSet.
 
 ## Classification vocabulary
