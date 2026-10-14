@@ -385,6 +385,23 @@
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
 
+## 2026-10-14 — Show Alpha-Based Object Collisions in the Editor
+
+### Changes
+- Changed the overworld tool script to generate the same alpha-derived object collision shapes in editor mode and at runtime.
+- Grouped generated `StaticBody2D` and `CollisionShape2D` nodes under `GeneratedObjectCollisions`.
+- Assigned editor scene ownership to generated collision nodes so they appear in the Scene tree and can be selected to inspect their shapes.
+- Clear and rebuild the generated container on refresh to avoid duplicate or stale colliders.
+- Kept the existing alpha-mask logic: opaque sprite pixels collide, transparent pixels remain passable. Map boundaries remain runtime-only.
+
+### Verification
+- [x] Source and documentation changes committed to GitHub `main`.
+- [ ] Pull `origin main`, open `world/maps/overworld/world.tscn`, and inspect `GeneratedObjectCollisions` and its child shapes in the 2D editor.
+- [ ] Run the game and test movement around tree canopies, trunks, rocks, and bushes. Godot editor/runtime verification remains pending.
+
+---
+
+
 ## 2026-10-14 — Documentation Paths and Runtime Verification Record
 
 ### Changes
