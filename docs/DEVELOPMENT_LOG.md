@@ -1,3 +1,19 @@
+## 2026-10-14 — Spawn Player at Havenreach Marker During Standalone Tests
+
+### Changes
+- Renamed the Havenreach marker to `PlayerSpawnMarker` so its role is explicit.
+- Added runtime-only standalone test spawning: when Havenreach is the active scene and no `Player` already exists, it instantiates `player/player.tscn` and places it at the marker's global position.
+- When Havenreach is loaded into a scene that already contains a player, the map reuses that player and does not create a duplicate.
+- Editor preview remains unchanged; the player is created only at runtime.
+
+### Verification
+- [x] Source changes committed directly to `main`.
+- [ ] Pull `origin main` and press F6 on `world/maps/towns/havenreach/havenreach.tscn`; confirm the player appears at `PlayerSpawnMarker`.
+- [ ] Confirm loading Havenreach with an existing player does not create a duplicate.
+- Runtime verification is pending.
+
+---
+
 ## 2026-10-14 — Full House Alpha Collision and Occupied-Plot Checks
 
 ### Changes
