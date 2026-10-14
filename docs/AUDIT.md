@@ -45,7 +45,7 @@ The repository contains:
 - `assets/tilesets/overworld/exterior.png`
 - `assets/tilesets/overworld/ground_grass_details.png`
 
-The overworld PNG dimensions checked earlier are consistent with 16×16 tile cells. The TileSet resource contains atlas-coordinate definitions. The overworld scene now uses `world.gd` to fill a 64×40 grass field and scatter grass-detail tiles from the existing TileSet, with the center kept clear for the player spawn. This is a code-level implementation only: visual appearance and runtime behavior still require Godot testing.
+The overworld PNG dimensions checked earlier are consistent with 16×16 tile cells. The TileSet resource contains atlas-coordinate definitions. The overworld scene now uses `world.gd` to draw a 1024×640 grass field and winding dirt path, scatter grass details from `ground_grass_details.png`, and place tree/rock sprite regions from `exterior.png`. The center is kept clear for the player spawn. These source sheets contain transparent props/details rather than a complete opaque ground texture, so the ground and path are drawn beneath them. This is a code-level implementation only: region boundaries and runtime appearance still require Godot testing.
 
 ## 4. Sprite-sheet findings
 
