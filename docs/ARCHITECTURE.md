@@ -21,6 +21,7 @@ This repository is being rebuilt in stages. Gameplay systems must not be importe
 Current foundational files include:
 - `project.godot`: project configuration and main-scene setting.
 - `scenes/main.tscn`: main scene; currently instances the overworld and player.
+- `scenes/tests/npc_test.tscn`: isolated NPC smoke-test scene; not configured as the game's startup scene.
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
 - `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using the shared player sprite sheets, capsule collision, optional movement modes, and starter dialogue UI.
 - `world/maps/overworld/world.tscn`: overworld scene.
