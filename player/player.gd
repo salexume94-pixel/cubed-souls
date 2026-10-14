@@ -54,10 +54,10 @@ func _build_sprite_frames() -> SpriteFrames:
 			continue
 
 		for row in range(DIRECTIONS.size()):
-			var name := str(animation_name) + "_" + DIRECTIONS[row]
-			frames.add_animation(name)
-			frames.set_animation_speed(name, float(definition["fps"]))
-			frames.set_animation_loop(name, true)
+			var animation_id: String = str(animation_name) + "_" + str(DIRECTIONS[row])
+			frames.add_animation(animation_id)
+			frames.set_animation_speed(animation_id, float(definition["fps"]))
+			frames.set_animation_loop(animation_id, true)
 			for column in range(int(definition["frames"])):
 				var atlas := AtlasTexture.new()
 				atlas.atlas = sheet
@@ -67,7 +67,7 @@ func _build_sprite_frames() -> SpriteFrames:
 					frame_size.x,
 					frame_size.y
 				)
-				frames.add_frame(name, atlas)
+				frames.add_frame(animation_id, atlas)
 
 	return frames
 
