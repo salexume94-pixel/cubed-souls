@@ -1,3 +1,12 @@
+## 2026-10-14 — Shift-to-Run Runtime-Verified
+
+- User confirmed the Shift-to-run feature works in Godot.
+- Recorded the verified behavior in `docs/RUNTIME_VERIFIED.md`.
+- Holding Shift while moving uses the run state/animation; releasing Shift returns to walking, and stopping returns to idle.
+- This verification is limited to the behavior the user tested and does not imply every direction/key combination was separately checked.
+
+---
+
 ## 2026-10-14 — Add Shift-to-Run Movement
 
 ### Changes
