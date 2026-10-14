@@ -45,7 +45,7 @@ The repository contains:
 - `assets/tilesets/overworld/exterior.png`
 - `assets/tilesets/overworld/ground_grass_details.png`
 
-The overworld PNG dimensions checked earlier are consistent with 16×16 tile cells. The TileSet resource contains atlas-coordinate definitions, and the overworld scene references that resource. This verifies file presence and references, not every tile's visual correctness or runtime behavior.
+The overworld PNG dimensions checked earlier are consistent with 16×16 tile cells. The TileSet resource contains atlas-coordinate definitions. The overworld scene now uses `world.gd` to fill a 64×40 grass field and scatter grass-detail tiles from the existing TileSet, with the center kept clear for the player spawn. This is a code-level implementation only: visual appearance and runtime behavior still require Godot testing.
 
 ## 4. Sprite-sheet findings
 
