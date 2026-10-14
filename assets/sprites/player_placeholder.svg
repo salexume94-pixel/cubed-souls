@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Temporary 32x32 top-down adventurer sprite; replace with final art later. -->
+  <rect x="11" y="3" width="10" height="3" fill="#342a38"/>
+  <rect x="8" y="6" width="16" height="8" fill="#49364a"/>
+  <rect x="10" y="7" width="12" height="7" fill="#d7a879"/>
+  <rect x="9" y="8" width="3" height="5" fill="#d7a879"/>
+  <rect x="20" y="8" width="3" height="5" fill="#d7a879"/>
+  <rect x="11" y="9" width="3" height="2" fill="#342a38"/>
+  <rect x="18" y="9" width="3" height="2" fill="#342a38"/>
+  <rect x="14" y="12" width="4" height="1" fill="#9b5d55"/>
+  <rect x="8" y="14" width="16" height="10" fill="#315b75"/>
+  <rect x="11" y="14" width="10" height="8" fill="#477f9c"/>
+  <rect x="14" y="14" width="4" height="8" fill="#d8c99b"/>
+  <rect x="5" y="15" width="4" height="8" fill="#d7a879"/>
+  <rect x="23" y="15" width="4" height="8" fill="#d7a879"/>
+  <rect x="8" y="23" width="7" height="5" fill="#49364a"/>
+  <rect x="17" y="23" width="7" height="5" fill="#49364a"/>
+  <rect x="7" y="27" width="8" height="3" fill="#292a36"/>
+  <rect x="17" y="27" width="8" height="3" fill="#292a36"/>
+  <rect x="13" y="16" width="2" height="2" fill="#f0e5c8"/>
+  <rect x="17" y="16" width="2" height="2" fill="#f0e5c8"/>
+</svg>
