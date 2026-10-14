@@ -1,3 +1,18 @@
+## 2026-10-14 — Catalog Complete Town House Sprite
+
+### Changes
+- Added the complete house sprite from `town_exterior_labeled.svg` to `docs/MAP_MAKING_RULESET.md`.
+- Recorded the full coordinate arrangement as one bundled asset spanning a 10 × 8 atlas-cell footprint.
+- Preserved intentionally empty cells in the footprint and clarified that the coordinates are source-atlas positions, not destination map positions.
+- No source artwork or Godot scenes were changed.
+
+### Verification
+- [x] Transcribed the user's coordinate list row by row into the map-making ruleset.
+- [ ] Visually cross-check the complete bundle against `town_exterior_labeled.svg` before placing it in a map.
+- [ ] Godot editor/runtime placement remains unverified.
+
+---
+
 ## 2026-10-14 — Preserve Manual Overworld Collision Adjustments
 
 ### Changes
