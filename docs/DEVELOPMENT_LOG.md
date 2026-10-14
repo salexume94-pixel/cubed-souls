@@ -575,3 +575,18 @@ This file is append-only. Add new entries at the top; do not remove or rewrite h
 ### Verification
 - **GitHub source update:** committed to `main`.
 - **Godot editor/runtime verification:** pending. Base tile appearance and detail selections still require inspection in the local editor because the PNG artwork could not be visually confirmed here.
+
+
+## 2026-10-14 — Add Havenreach Town Scene Scaffold
+
+### Changes
+- Added `world/maps/towns/havenreach/havenreach.tscn` as a separate town scene.
+- Added the `Ground`, `Details`, `Objects`, and `Foreground` TileMapLayer nodes, all using the existing shared overworld TileSet resource.
+- Added `Buildings` and `NPCs` containers plus a `PlayerSpawn` Marker2D for future map construction.
+- Set the foreground layer to a higher Z index so it can render above the player when the map is integrated.
+- Left all layers empty. No unverified atlas coordinates, placeholder art, collision bounds, or transition logic were added.
+
+### Verification
+- **GitHub source update:** committed to `main`.
+- **Godot editor/runtime verification:** pending. Open the new scene locally and confirm the TileSet resource loads and the layer hierarchy appears as expected.
+- **Coordinate-reference issue:** the repository's chapel exterior PNG header reports 256×336 pixels, while the expected dimensions supplied by the user are 256×304. The source image was not cropped or modified because the intended 32-pixel difference has not been visually confirmed.
