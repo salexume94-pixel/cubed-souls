@@ -1,3 +1,19 @@
+## 2026-10-14 — Make Every Overworld Object Solid
+
+### Changes
+- Replaced undersized tree-trunk and compact rock collision shapes with colliders covering each object's complete placed tile-bundle footprint.
+- Added collision to every placed bush, including single-tile bushes.
+- Tree canopies now block movement as part of the full tree-bundle collider; bushes and rocks also block movement.
+- Updated `docs/MAP_MAKING_RULESET.md` to require collision on every `Objects`-layer asset, including tree canopies and bushes.
+
+### Verification
+- [x] Compared collision definitions against all 20 placed objects: 10 trees, 5 rock bundles, and 5 bushes.
+- [x] Confirmed the collider dimensions match each object's 3×3, 2×2, or single-tile placement footprint.
+- [ ] Pull `origin main` and test trees (including canopies), rocks, and bushes in Godot.
+- Runtime collision behavior remains **unverified locally** until the user tests the updated project.
+
+---
+
 ## 2026-10-14 — Add Overworld Object Collision and Map-Making Rule
 
 ### Changes
