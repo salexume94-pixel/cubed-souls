@@ -1,13 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://g73tno6hwhqq"]
+[gd_scene load_steps=3 format=3 uid="uid://g73tno6hwhqq"]
 
 [ext_resource type="TileSet" uid="uid://0arbp208wdjw" path="res://assets/tilesets/overworld/background.tres" id="1_tileset"]
 [ext_resource type="Script" path="res://world/maps/overworld/world.gd" id="2_script"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical_boundary"]
-size = Vector2(16, 656)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal_boundary"]
-size = Vector2(1040, 16)
 
 [node name="World" type="Node2D" unique_id=3713881]
 script = ExtResource("2_script")
@@ -23,36 +17,3 @@ tile_set = ExtResource("1_tileset")
 
 [node name="Foreground" type="TileMapLayer" parent="." unique_id=25035801]
 tile_set = ExtResource("1_tileset")
-
-# Static collision walls use flat root paths so every node instantiates reliably.
-[node name="WestBoundary" type="StaticBody2D" parent="."]
-position = Vector2(-8, 320)
-collision_layer = 1
-collision_mask = 0
-
-[node name="WestCollision" type="CollisionShape2D" parent="WestBoundary"]
-shape = SubResource("RectangleShape2D_vertical_boundary")
-
-[node name="EastBoundary" type="StaticBody2D" parent="."]
-position = Vector2(1032, 320)
-collision_layer = 1
-collision_mask = 0
-
-[node name="EastCollision" type="CollisionShape2D" parent="EastBoundary"]
-shape = SubResource("RectangleShape2D_vertical_boundary")
-
-[node name="NorthBoundary" type="StaticBody2D" parent="."]
-position = Vector2(512, -8)
-collision_layer = 1
-collision_mask = 0
-
-[node name="NorthCollision" type="CollisionShape2D" parent="NorthBoundary"]
-shape = SubResource("RectangleShape2D_horizontal_boundary")
-
-[node name="SouthBoundary" type="StaticBody2D" parent="."]
-position = Vector2(512, 648)
-collision_layer = 1
-collision_mask = 0
-
-[node name="SouthCollision" type="CollisionShape2D" parent="SouthBoundary"]
-shape = SubResource("RectangleShape2D_horizontal_boundary")
