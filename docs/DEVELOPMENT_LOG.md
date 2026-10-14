@@ -1,3 +1,20 @@
+## 2026-10-14 — Correct Boundary Collision Shape Parenting
+
+### Issue
+- User-reported warning showed the collision-shape node parent path was still unresolved.
+
+### Fix
+- Corrected the scene's direct-child parent paths to use Godot's scene-relative names without a leading `./`.
+- Reattached each `CollisionShape2D` to its matching `StaticBody2D`; shapes use local origin while the parent body sets the boundary position.
+- Kept the existing TileMapLayers, tile resources, and invisible rectangular boundary geometry unchanged.
+
+### Verification
+- [x] Corrected scene structure committed to GitHub `main`.
+- [ ] Pull and run in Godot; verify all parent-path warnings are gone and test all four edges and corners.
+- Runtime collision remains **unverified** until locally tested.
+
+---
+
 ## 2026-10-14 — Fix Overworld Boundary Instantiation Warnings
 
 ### Issue
