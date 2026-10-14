@@ -128,16 +128,20 @@ func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimens
 
 
 func _create_object_collisions() -> void:
-	# Rebuild one named container so tool-script refreshes never leave duplicate or stale colliders.
-	var old_root := get_node_or_null("GeneratedObjectCollisions")
-	if old_root != null:
-		old_root.free()
+	# Treat an existing container as the saved collision layout. Never delete or regenerate it
+	# automatically: the user may have adjusted individual shapes in the editor and saved the scene.
+	# To discard those edits and regenerate defaults, delete GeneratedObjectCollisions manually.
+	var existing_root := get_node_or_null("GeneratedObjectCollisions")
+	if existing_root != null:
+		_object_collision_root = existing_root as Node2D
+		return
 
+	# Generate the default collision layout only when the scene has no saved collision container.
+	# In the editor, ownership lets Godot serialize the generated nodes when the scene is saved.
 	_object_collision_root = Node2D.new()
 	_object_collision_root.name = "GeneratedObjectCollisions"
 	add_child(_object_collision_root)
 	if Engine.is_editor_hint():
-		# Give generated nodes scene ownership so they appear in the editor Scene tree and can be selected.
 		var edited_root := get_tree().edited_scene_root
 		if edited_root != null:
 			_object_collision_root.owner = edited_root
