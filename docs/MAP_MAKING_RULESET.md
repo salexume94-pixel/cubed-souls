@@ -112,6 +112,8 @@ Both references display the same source image, `assets/tilesets/overworld/exteri
 
 ### Objects
 
+Buildings and doors listed here are placed on the `Objects` TileMapLayer. Complete bundled structures stay assembled as one asset; doors also need a dedicated scene-transition trigger separate from the building's blocking collision.
+
 | Coordinates | Asset |
 |---|---|
 | `(9,7)` | Rocks |
@@ -157,6 +159,9 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 The supplied coordinates form a 2-column × 2-row bundle in the labeled atlas. At 16 × 16 source pixels per cell, its atlas footprint is 32 × 32 pixels. The user's “4×4 door” label is retained as a note requiring clarification; it does not match the listed coordinate footprint if “4×4” means atlas cells.
 
 
+
+
+
 ### Town house sprite — complete bundled asset
 
 **Asset:** One complete house sprite, arranged from top to bottom in `town_exterior_labeled.svg`. The coordinates below are a single asset, not separate buildings or modular pieces. Preserve the listed row/column arrangement and the empty cells inside its overall footprint.
@@ -174,6 +179,13 @@ The supplied coordinates form a 2-column × 2-row bundle in the labeled atlas. A
 
 The asset's atlas footprint spans columns 0–9 and rows 0–7 (10 × 8 cells), with intentionally unlisted cells left empty. This is a source-atlas footprint, not a destination map position.
 
+### Town exterior door
+
+| Coordinates | Asset |
+|---|---|
+| `(6,6), (7,6), (6,7), (7,7)` | Door bundle (2 × 2 atlas cells) |
+
+The supplied coordinates form a 2-column × 2-row bundle in the labeled atlas. At 16 × 16 source pixels per cell, its atlas footprint is 32 × 32 pixels. The user's “4×4 door” label is retained as a note requiring clarification; it does not match the listed coordinate footprint if “4×4” means atlas cells.
 
 ## `chapel_exterior_labeled.svg`
 
