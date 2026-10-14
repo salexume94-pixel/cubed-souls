@@ -25,6 +25,8 @@ SHEETS = (
     # Crop the reference viewport to the intended 256x304 atlas without altering the source asset.
     ("towns/chapels/Exterior.png", "chapel_exterior_labeled.svg", 304),
     ("towns/chapels/Walls_Interior.png", "chapel_walls_interior_labeled.svg", None),
+    ("towns/towns/house_details.png", "house_details_labeled.svg"),
+    ("towns/towns/walls_floor.png", "walls_floor_labeled.svg"),
 )
 
 
