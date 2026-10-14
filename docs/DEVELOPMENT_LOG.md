@@ -1,3 +1,17 @@
+## 2026-10-14 — Add Prioritized Implementation Checklist
+
+### Changes
+- Added `docs/checklist.md` to track the next gameplay-system work in priority order: reusable NPC scenes, scene transitions ported from `Scripts`, then the quest system ported from `Scripts`.
+- Recorded the current state accurately: NPC scenes are not implemented; scene transitions and the quest system have not been ported.
+- Linked the checklist from the documentation index.
+
+### Verification
+- [x] Checklist and documentation index committed directly to `main`.
+- [ ] Pull `origin main` and confirm `docs/checklist.md` appears in the local working tree.
+- Runtime verification is not applicable to this documentation-only change.
+
+---
+
 ## 2026-10-14 — Generalize F6 Player Spawning for Map Scenes
 
 ### Changes
