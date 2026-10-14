@@ -1,3 +1,20 @@
+## 2026-10-14 — Add Ruined Temple Walls and Floor Coordinate Reference
+
+### Changes
+- Added `docs/tileset_reference/generated/ruined_temple_walls_floor_labeled.svg` directly to GitHub `main`, embedding the original PNG with a zero-based coordinate grid.
+- Confirmed the source dimensions are 176 × 256 pixels: 11 columns × 16 rows of 16 × 16 cells.
+- Updated `docs/MAP_MAKING_RULESET.md` with the reference path, dimensions, visible asset categories, and catalog status.
+- Kept exact per-asset coordinates unlisted rather than guessing bundle boundaries from an unverified visual read.
+
+### Verification
+- [x] Source PNG fetched from the repository and dimensions confirmed from its PNG header.
+- [x] Labeled SVG committed to GitHub `main`.
+- [x] Ruleset updated and this entry added without removing historical log content.
+- [ ] Exact floor, wall, doorway, and overlay coordinates still need a careful pass against the labeled SVG.
+- [ ] No Godot map placement or runtime behavior was changed or verified.
+
+---
+
 ## 2026-10-14 — Add Ruined Temple Walls and Floors Reference
 
 ### Changes
