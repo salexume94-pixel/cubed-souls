@@ -19,6 +19,19 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Universal Tile-Map Camera Bounds
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user explicitly confirmed that the reusable camera-bounds implementation works in Godot.
+
+**Result:** The player camera stays within the bounds calculated from populated `TileMapLayer` nodes, preventing the grey area outside the map from appearing in the tested build.
+
+**Scope limits:** This verifies the camera behavior in the tested map/build. Other maps must use populated `TileMapLayer` nodes and should be tested when introduced; scenes without such bounds are intentionally left unrestricted.
+
+---
+
+
 ### 2026-10-14 — Player idle slowdown
 
 **Status:** VERIFIED — user-reported.
