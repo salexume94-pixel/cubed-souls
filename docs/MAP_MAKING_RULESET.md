@@ -148,21 +148,23 @@ No assets documented yet. Leave this category unused unless a map explicitly req
 
 ### Objects
 
-| Coordinates | Asset |
-|---|---|
-| (1,0), (3,0), (4,0), (6,0); all coordinates from columns 0–7 in rows 1–9 listed below | Chapel |
-| (0,1), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1) | Chapel |
-| (0,2), (1,2), (2,2), (3,2), (4,2), (5,2), (6,2), (7,2) | Chapel |
-| (0,3), (1,3), (2,3), (3,3), (4,3), (5,3), (6,3), (7,3) | Chapel |
-| (0,4), (1,4), (2,4), (3,4), (4,4), (5,4), (6,4), (7,4) | Chapel |
-| (0,5), (1,5), (2,5), (3,5), (4,5), (5,5), (6,5), (7,5) | Chapel |
-| (0,6), (1,6), (2,6), (3,6), (4,6), (5,6), (6,6), (7,6) | Chapel |
-| (0,7), (1,7), (2,7), (3,7), (4,7), (5,7), (6,7), (7,7) | Chapel |
-| (0,8), (1,8), (2,8), (3,8), (4,8), (5,8), (6,8), (7,8) | Chapel |
-| (0,9), (1,9), (2,9), (3,9), (4,9), (5,9), (6,9), (7,9) | Chapel |
+**Chapel building (single bundled asset, arranged from top to bottom).** All coordinates below belong to one complete chapel. Preserve their relative positions and the empty atlas cells in row 0; do not treat individual coordinates or rows as separate buildings.
 
-The listed chapel coordinates are source atlas coordinates for the chapel exterior asset. Treat them as a grouped asset and preserve the visible arrangement in the labeled SVG.
+```text
+(1,0) (3,0) (4,0) (6,0)
+(0,1) (1,1) (2,1) (3,1) (4,1) (5,1) (6,1) (7,1)
+(0,2) (1,2) (2,2) (3,2) (4,2) (5,2) (6,2) (7,2)
+(0,3) (1,3) (2,3) (3,3) (4,3) (5,3) (6,3) (7,3)
+(0,4) (1,4) (2,4) (3,4) (4,4) (5,4) (6,4) (7,4)
+(0,5) (1,5) (2,5) (3,5) (4,5) (5,5) (6,5) (7,5)
+(0,6) (1,6) (2,6) (3,6) (4,6) (5,6) (6,6) (7,6)
+(0,7) (1,7) (2,7) (3,7) (4,7) (5,7) (6,7) (7,7)
+(0,8) (1,8) (2,8) (3,8) (4,8) (5,8) (6,8) (7,8)
+(0,9) (1,9) (2,9) (3,9) (4,9) (5,9) (6,9) (7,9)
+```
 
+These are source atlas coordinates for **one chapel building**, with the listed arrangement running from the top row to the bottom row. Do not split this coordinate set into separate assets.
+ 
 ## `chapel_walls_interior_labeled.svg`
 
 ### Ground
