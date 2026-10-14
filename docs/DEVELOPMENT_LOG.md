@@ -1,3 +1,18 @@
+## 2026-10-14 — Keep Player Sprite Visible in the Godot Editor
+
+### Changes
+- Added `@tool` to `player/player.gd` so its existing sprite-sheet animation frames are built when the player scene is opened in the editor.
+- Kept the existing idle, walk, and run sheets, 64×64 frame size, animation timing, and transparent-frame filtering.
+- Guarded physics movement with `Engine.is_editor_hint()` so the player cannot move around while the scene is being edited.
+- Left the player scene hierarchy, collision shape, and camera settings unchanged.
+
+### Verification
+- [x] Script change committed directly to GitHub `main`.
+- [ ] Pull `origin main`, reopen the player or main scene, and confirm the player sprite is visible in the 2D editor before pressing Play.
+- [ ] Confirm no tool-script errors appear in the editor debugger and movement still works at runtime.
+
+---
+
 ## 2026-10-14 — Keep Overworld Visible in the Godot Editor
 
 ### Changes
