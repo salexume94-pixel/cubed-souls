@@ -2,6 +2,21 @@
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
 
+## 2026-10-13 — Fix North-Facing Idle Animation
+
+### Diagnosis
+- The issue occurs while facing north and standing still, so the affected animation is `idle_up`, not `walk_up`.
+- Inspected `Unarmed_Idle_without_shadow.png`: the north-facing row has only four visible frames, while the animation configuration requests twelve. The remaining cells are transparent and caused the sprite to disappear during idle playback.
+
+### Fix
+- The player animation builder now skips fully transparent cells instead of adding them to the animation. This code change is already committed to `main`.
+
+### Verification
+- [x] Camera zoom at 2.5x verified locally in Godot (reported by user).
+- [ ] Confirm `idle_up` no longer disappears after pulling the animation fix and running the game locally.
+
+---
+
 ## 2026-10-13 — Fix Blank Player Animation Frames and Verify Camera Zoom
 
 ### Changes
