@@ -34,12 +34,12 @@ If these sources disagree, report the mismatch and resolve it before placement.
 
 ## 4. Map layers
 
-- **Ground:** Base terrain only.
+- **Ground:** Base terrain and walkable floor surfaces. Individual floor variants may be placed separately across a room to create visual variation.
 - **Details:** Small, non-blocking decoration.
-- **Objects:** World features and structures, including rocks, trees, bushes, complete buildings, and doors. Buildings and doors belong on this layer, not in a separate decorative layer. Every placed object needs collision appropriate to its role.
-- **Foreground:** Parts of scenery that must render over the player.
+- **Objects:** World features and structures, including rocks, trees, bushes, complete buildings, stone walls, and doors. Buildings, walls, and doors belong on this layer, not in a separate decorative layer. Every placed object needs collision appropriate to its role.
+- **Foreground:** Scenery that must render over the player or over another object. A window sprite intended to sit visually on top of a wall belongs on this layer, not Details. Keep transparent openings in the window transparent so the wall/window composition looks correct.
 
-Avoid canopy layering and foreground rendering unless explicitly requested. Foreground can remain unused until a map actually needs it.
+Foreground layering is intentional when an asset must overlap the player or another structure. Do not add canopy layering or foreground art without a reason established by the asset and map design.
 
 ## 5. Placement and gameplay
 
@@ -226,3 +226,38 @@ These are source atlas coordinates for **one chapel building**, with the listed 
 | (3,12), (3,13), (3,14), (3,15) | Repeatable backwall section (1 × 4 vertical bundle) |
 
 The coordinates (3,12) through (3,15) are also included in the full back-wall region above. The repeatable-backwall entry identifies those same tiles for modular/repeatable wall construction; do not treat it as a separate set of source coordinates.
+
+## `walls_floor_labeled.svg`
+
+Reference: `docs/tileset_reference/generated/walls_floor_labeled.svg`. Coordinates are zero-based `(column, row)`; each atlas cell represents 16 × 16 source pixels. Coordinates grouped in one row below are a single bundled asset and must retain their arrangement.
+
+### Ground
+
+| Coordinates | Asset | Placement rule |
+|---|---|---|
+| `(7,4), (8,4), (7,5), (8,5)` | Wooden floor tile variants (4 separate cells) | Each coordinate is a separately placeable floor tile. |
+| `(6,10), (7,10), (8,10)` | Wooden floor tile variants (3 separate cells) | Each coordinate is a separately placeable floor tile. |
+
+The wooden floor cells are individual tiles, not one multi-cell bundle. They may be mixed across eligible floor cells to create a varied or randomized-looking floor. Keep room geometry and collision deterministic; visual tile variation does not require procedural room generation. Only use the listed cells after confirming their appearance in the SVG.
+
+### Objects
+
+| Coordinates | Asset | Placement rule |
+|---|---|---|
+| `(1,3), (1,4)` | Stone wall section (2 × 1 bundle) | Keep the two cells together in their original vertical arrangement. |
+| `(0,6), (0,7)` | Stone wall section (1 × 2 bundle) | Keep the two cells together vertically. |
+| `(1,6), (1,7)` | Stone wall section (1 × 2 bundle) | Keep the two cells together vertically. |
+| `(2,6), (2,7)` | Stone wall section (1 × 2 bundle) | Keep the two cells together vertically. |
+| `(5,6), (6,6), (5,7), (6,7)` | Open door (2 × 2 bundle) | Preserve the complete bundle. |
+| `(7,6), (8,6), (7,7), (8,7)` | Closed door (2 × 2 bundle) | Preserve the complete bundle. |
+
+Stone wall pieces belong on the Objects layer and must block movement where the wall is solid. Door collision and scene-transition triggers must follow the existing building/door collision rules: the transition trigger is separate from ordinary blocking collision.
+
+### Foreground
+
+| Coordinates | Asset | Placement rule |
+|---|---|---|
+| `(5,4), (6,4), (5,5), (6,5)` | Window (2 × 2 bundle) | Place on Foreground so it renders over the wall. Preserve the complete bundle and keep transparent window openings transparent. |
+
+The window is not a small decorative detail. It is an overlay component intended to be layered over the wall structure.
+
