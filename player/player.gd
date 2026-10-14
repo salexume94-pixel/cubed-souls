@@ -4,6 +4,7 @@ extends CharacterBody2D
 # Movement is intentionally self-contained so this player can be reused on other maps.
 # The speed is expressed in world pixels per second; the current overworld grid is 16 px.
 @export var move_speed: float = 110.0
+@export var run_speed_multiplier: float = 1.6
 @export var frame_size: Vector2i = Vector2i(64, 64)
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -31,9 +32,11 @@ func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	# Use the standard Godot input actions so keyboard remapping remains possible.
+	# Shift temporarily increases speed; no Input Map setup is needed.
 	var input_direction := _get_move_input()
-	velocity = input_direction * move_speed
+	is_running = Input.is_key_pressed(KEY_SHIFT) and input_direction != Vector2.ZERO
+	var current_speed := move_speed * run_speed_multiplier if is_running else move_speed
+	velocity = input_direction * current_speed
 	move_and_slide()
 
 	if input_direction != Vector2.ZERO:
@@ -42,7 +45,10 @@ func _physics_process(_delta: float) -> void:
 			facing = "left" if input_direction.x < 0.0 else "right"
 		else:
 			facing = "up" if input_direction.y < 0.0 else "down"
-		sprite.play("walk_" + facing)
+
+		# Use the matching run cycle only while moving and holding Shift.
+		var movement_animation := "run_" if is_running else "walk_"
+		sprite.play(movement_animation + facing)
 	else:
 		sprite.play("idle_" + facing)
 
@@ -83,8 +89,8 @@ func _build_sprite_frames() -> SpriteFrames:
 				if region.position.x + region.size.x > sheet_image.get_width() or region.position.y + region.size.y > sheet_image.get_height():
 					push_warning("Skipping out-of-bounds sprite frame in " + animation_id)
 					continue
-				# Transparent cells are expected in some rows, so skip silently instead
-				# of flooding the debugger with a warning for every unused cell.
+				# Transparent cells are expected in some rows, so skip silently
+				# instead of flooding the debugger with a warning for every unused cell.
 				if not _frame_has_visible_pixels(sheet_image, region):
 					continue
 
