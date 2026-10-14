@@ -19,6 +19,19 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Havenreach Transition Partial Test and Exit Regression
+
+**Status:** PARTIALLY VERIFIED — user-reported; exit regression observed.
+
+**Evidence:** The user confirmed that entering Havenreach from the overworld and its transition effect worked. The user then reported that leaving Havenreach failed.
+
+**Result:** Overworld → Havenreach entry is verified for the tested build. Havenreach → overworld return is not working reliably in that build and must not be marked complete until retested.
+
+**Follow-up:** Exit triggers were widened and moved inward across the full town edges; house doorway collision and approach clearance were updated. These source fixes remain unverified until the user pulls and tests them in Godot.
+
+---
+
+
 ### 2026-10-14 — NPC Movement and Collision Smoke Test
 
 **Status:** VERIFIED — user-reported.
