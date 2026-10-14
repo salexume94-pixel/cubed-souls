@@ -18,13 +18,25 @@ const MAP_WIDTH: int = 64
 const MAP_HEIGHT: int = 40
 const TILE_SIZE: int = 16
 
+# Exterior atlas coordinates documented in docs/MAP_MAKING_RULESET.md.
+# Multi-cell assets are placed as complete contiguous bundles.
+const TREE_LARGE_ATLAS: Vector2i = Vector2i(0, 38)
+const TREE_SMALL_ATLAS: Vector2i = Vector2i(3, 39)
+const ROCK_LARGE_ATLAS: Vector2i = Vector2i(0, 25)
+const ROCK_MEDIUM_A_ATLAS: Vector2i = Vector2i(3, 25)
+const ROCK_MEDIUM_B_ATLAS: Vector2i = Vector2i(5, 25)
+const BUSH_MEDIUM_ATLAS: Vector2i = Vector2i(10, 18)
+const BUSH_SMALL_ATLAS: Vector2i = Vector2i(14, 14)
+
 @onready var ground: TileMapLayer = $Ground
 @onready var details: TileMapLayer = $Details
+@onready var objects: TileMapLayer = $Objects
 
 func _ready() -> void:
 	# Keep map artwork generated in the editor, but create physics walls only at runtime.
 	_build_ground()
 	_place_grass_leaves()
+	_place_objects()
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
 
@@ -75,6 +87,42 @@ func _place_bundle(map_position: Vector2i, left_atlas_x: int) -> void:
 func _place_single_leaf(map_position: Vector2i, atlas_x: int) -> void:
 	# Single-leaf accents use the two confirmed individual-leaf cells.
 	details.set_cell(map_position, DETAILS_SOURCE_ID, Vector2i(atlas_x, LEAF_ROW))
+
+
+func _place_objects() -> void:
+	# Use only catalogued atlas regions from the exterior tileset.
+	# Large objects sit around the perimeter, preserving a broad open center.
+	objects.clear()
+	_place_bundle_object(Vector2i(2, 2), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_place_bundle_object(Vector2i(18, 2), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(42, 2), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_place_bundle_object(Vector2i(59, 3), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(2, 17), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(59, 20), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_place_bundle_object(Vector2i(3, 34), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_place_bundle_object(Vector2i(19, 35), TREE_SMALL_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(42, 35), TREE_LARGE_ATLAS, Vector2i(3, 3))
+	_place_bundle_object(Vector2i(59, 34), TREE_SMALL_ATLAS, Vector2i(2, 2))
+
+	# Rock clusters frame the field edges without closing the route through the middle.
+	_place_bundle_object(Vector2i(10, 3), ROCK_LARGE_ATLAS, Vector2i(3, 3))
+	_place_bundle_object(Vector2i(29, 2), ROCK_MEDIUM_A_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(51, 10), ROCK_MEDIUM_B_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(10, 34), ROCK_MEDIUM_B_ATLAS, Vector2i(2, 2))
+	_place_bundle_object(Vector2i(51, 33), ROCK_LARGE_ATLAS, Vector2i(3, 3))
+
+	# Bushes add low vegetation, away from the central walking corridor.
+	_place_bundle_object(Vector2i(7, 9), BUSH_MEDIUM_ATLAS, Vector2i(2, 2))
+	objects.set_cell(Vector2i(56, 13), EXTERIOR_SOURCE_ID, BUSH_SMALL_ATLAS)
+	_place_bundle_object(Vector2i(24, 31), BUSH_MEDIUM_ATLAS, Vector2i(2, 2))
+	objects.set_cell(Vector2i(6, 29), EXTERIOR_SOURCE_ID, BUSH_SMALL_ATLAS)
+	objects.set_cell(Vector2i(56, 28), EXTERIOR_SOURCE_ID, BUSH_SMALL_ATLAS)
+
+func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimensions: Vector2i) -> void:
+	# Copy each cell in the catalogued rectangle to the same relative map position.
+	for y in range(dimensions.y):
+		for x in range(dimensions.x):
+			objects.set_cell(map_position + Vector2i(x, y), EXTERIOR_SOURCE_ID, atlas_origin + Vector2i(x, y))
 
 func _create_map_boundaries() -> void:
 	# Build physics nodes in code to avoid fragile .tscn parent-path parsing.
