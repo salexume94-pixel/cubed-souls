@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://player/player_movement.gd" id="1_movement"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player_placeholder.svg" id="2_sprite"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
+radius = 7.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_movement")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_sprite")
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_player")
