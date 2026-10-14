@@ -19,9 +19,13 @@ const DIRECTIONS := ["down", "left", "right", "up"]
 
 var facing: String = "down"
 var is_running: bool = false
+# NPC dialogue toggles this flag to prevent movement while a conversation is active.
+var movement_enabled: bool = true
 
 
 func _ready() -> void:
+	# NPCs find the player through this group when checking interaction range or locking movement.
+	add_to_group("player")
 	# Build frames in both the editor and game so the player sprite is visible before Play.
 	sprite.sprite_frames = _build_sprite_frames()
 	sprite.play("idle_down")
@@ -33,6 +37,12 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	# Shift temporarily increases speed; no Input Map setup is needed.
+	if not movement_enabled:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		sprite.play("idle_" + facing)
+		return
+
 	var input_direction := _get_move_input()
 	is_running = Input.is_key_pressed(KEY_SHIFT) and input_direction != Vector2.ZERO
 	var current_speed := move_speed * run_speed_multiplier if is_running else move_speed
