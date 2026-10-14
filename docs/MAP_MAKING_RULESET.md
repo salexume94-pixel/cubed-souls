@@ -263,6 +263,10 @@ Stone wall pieces belong on the Objects layer and must block movement where the 
 The window is not a small decorative detail. It is an overlay component intended to be layered over the wall structure.
 
 
+## `ruined_temple_walls_floor_labeled.svg`
+
+Reference source: `assets/tilesets/dungeons/ruined_temple/Walls_floor.png`. Generate the coordinate-labelled SVG with `python tools/generate_tileset_reference.py`. The source image has not yet been visually cataloged here. Do not assign coordinates or classify individual cells until they have been checked against the generated SVG. Record useful floor, wall, doorway, and other assets selectively; preserve bundled arrangements and apply the established Ground, Objects, Foreground, and collision rules.
+
 ## `ruined_temple_exterior_objects_labeled.svg`
 
 Reference: `docs/tileset_reference/generated/ruined_temple_exterior_objects_labeled.svg`, sourced from `assets/tilesets/dungeons/ruined_temple/Exterior_objects.png`. The sheet is 352 × 656 source pixels, arranged as 22 columns × 41 rows of 16 × 16 cells. Coordinates use zero-based `(column, row)`.
