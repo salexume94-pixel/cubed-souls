@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://g73tno6hwhqq"]
+[gd_scene load_steps=3 format=3 uid="uid://g73tno6hwhqq"]
 
-[ext_resource type="Script" path="res://world/maps/overworld/world.gd" id="1_world_script"]
+[ext_resource type="TileSet" uid="uid://0arbp208wdjw" path="res://assets/tilesets/overworld/background.tres" id="1_tileset"]
+[ext_resource type="Script" path="res://world/maps/overworld/world.gd" id="2_world_script"]
 
 [node name="World" type="Node2D" unique_id=3713881]
-script = ExtResource("1_world_script")
+script = ExtResource("2_world_script")
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=983746334]
+tile_set = ExtResource("1_tileset")
+
+[node name="Details" type="TileMapLayer" parent="." unique_id=2043315822]
+tile_set = ExtResource("1_tileset")
+
+[node name="Objects" type="TileMapLayer" parent="." unique_id=1012134006]
+tile_set = ExtResource("1_tileset")
+
+[node name="Foreground" type="TileMapLayer" parent="." unique_id=25035801]
+tile_set = ExtResource("1_tileset")
