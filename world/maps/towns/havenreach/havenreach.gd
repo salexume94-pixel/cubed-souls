@@ -276,14 +276,32 @@ func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vecto
 			var atlas_coords := atlas_origin + Vector2i(tile_x, tile_y)
 			if not atlas_source.has_tile(atlas_coords):
 				continue
-			var region: Rect2i = atlas_source.get_tile_texture_region(atlas_coords)
-			for py in range(mini(TILE_SIZE, region.size.y)):
-				for px in range(mini(TILE_SIZE, region.size.x)):
-					var alpha := atlas_image.get_pixel(region.position.x + px, region.position.y + py).a
+			# Sample the registered atlas cell directly from the source PNG.
+			# Do not depend on the rendered tile region: the house roof is drawn on Foreground,
+			# but its collision must still come from the exact source-atlas alpha pixels.
+			var source_x := atlas_coords.x * TILE_SIZE
+			var source_y := atlas_coords.y * TILE_SIZE
+			for py in range(TILE_SIZE):
+				for px in range(TILE_SIZE):
+					var image_x := source_x + px
+					var image_y := source_y + py
+					if image_x >= atlas_image.get_width() or image_y >= atlas_image.get_height():
+						continue
+					var alpha := atlas_image.get_pixel(image_x, image_y).a
 					if alpha > 0.05:
 						var target_x := tile_x * TILE_SIZE + px
 						var target_y := tile_y * TILE_SIZE + py
 						opaque[target_y * pixel_width + target_x] = 1
+
+	# Fail loudly if a requested bundle region produced no opaque pixels instead of silently
+	# leaving an entire roof or object without collision.
+	var opaque_pixel_count := 0
+	for pixel_value in opaque:
+		if pixel_value != 0:
+			opaque_pixel_count += 1
+	if opaque_pixel_count == 0:
+		push_error("Havenreach: alpha collision for %s found no opaque pixels." % collision_prefix)
+		return
 
 	# Merge identical horizontal opaque runs vertically to keep the physics-shape count practical.
 	var active_runs: Dictionary = {}
