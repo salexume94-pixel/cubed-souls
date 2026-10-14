@@ -159,9 +159,9 @@ func _build_objects() -> void:
 
 
 func _can_place_house(map_origin: Vector2i) -> bool:
-	# Reject a plot if any registered house cell would cover an existing object/foreground tile.
-	# This tests occupied cells, not the entire rectangular footprint, so intentional atlas gaps
-	# do not reserve unnecessary ground.
+	# Reject plots where any registered house cell would cover another object.
+	# Intentional atlas gaps remain unreserved, but the doorway and its approach
+	# are explicitly kept clear so bushes and rocks cannot seal the entrance.
 	var atlas_source := objects.tile_set.get_source(EXTERIOR_SOURCE_ID) as TileSetAtlasSource
 	if atlas_source == null:
 		return false
@@ -172,6 +172,14 @@ func _can_place_house(map_origin: Vector2i) -> bool:
 				continue
 			var destination := map_origin + Vector2i(x, y)
 			if objects.get_cell_source_id(destination) != -1 or foreground.get_cell_source_id(destination) != -1:
+				return false
+
+	# The door occupies source cells (6,6) through (7,7). Reserve a two-cell-wide
+	# walk-up lane immediately below it, including the nearby foreground layer.
+	for y in range(8, 10):
+		for x in range(6, 8):
+			var approach_cell := map_origin + Vector2i(x, y)
+			if objects.get_cell_source_id(approach_cell) != -1 or foreground.get_cell_source_id(approach_cell) != -1:
 				return false
 	return true
 
@@ -320,6 +328,14 @@ func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vecto
 						var target_y := tile_y * TILE_SIZE + py
 						opaque[target_y * pixel_width + target_x] = 1
 
+	# House door source cells (6,6)-(7,7) must be passable. Without this carve-out,
+	# the alpha collision generated from the complete house sprite seals its own door.
+	# _can_place_house() also reserves the approach lane so shrubs cannot block entry.
+	if collision_prefix.begins_with("House_"):
+		for door_y in range(6 * TILE_SIZE, 8 * TILE_SIZE):
+			for door_x in range(6 * TILE_SIZE, 8 * TILE_SIZE):
+				opaque[door_y * pixel_width + door_x] = 0
+
 	# Fail loudly if a requested bundle region produced no opaque pixels instead of silently
 	# leaving an entire roof or object without collision.
 	var opaque_pixel_count := 0
@@ -399,10 +415,13 @@ func _create_map_boundaries() -> void:
 	_add_boundary("NorthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, -TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 	_add_boundary("SouthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE + TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 
-	_add_map_transition_trigger("NorthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, 8.0), Vector2(MAP_WIDTH * TILE_SIZE, 32.0))
-	_add_map_transition_trigger("SouthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE - 8.0), Vector2(MAP_WIDTH * TILE_SIZE, 32.0))
-	_add_map_transition_trigger("WestExit", Vector2(8.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(32.0, MAP_HEIGHT * TILE_SIZE))
-	_add_map_transition_trigger("EastExit", Vector2(MAP_WIDTH * TILE_SIZE - 8.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(32.0, MAP_HEIGHT * TILE_SIZE))
+	# Put broad, non-solid trigger strips safely inside the physical perimeter.
+	# The previous 32px strips were centered almost on the boundary, leaving too
+	# little overlap for the Player body to reliably enter before being blocked.
+	_add_map_transition_trigger("NorthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, 32.0), Vector2(MAP_WIDTH * TILE_SIZE - 96.0, 64.0))
+	_add_map_transition_trigger("SouthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE - 32.0), Vector2(MAP_WIDTH * TILE_SIZE - 96.0, 64.0))
+	_add_map_transition_trigger("WestExit", Vector2(32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE - 96.0))
+	_add_map_transition_trigger("EastExit", Vector2(MAP_WIDTH * TILE_SIZE - 32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE - 96.0))
 
 
 func _add_map_transition_trigger(trigger_name: String, trigger_position: Vector2, trigger_size: Vector2) -> void:
