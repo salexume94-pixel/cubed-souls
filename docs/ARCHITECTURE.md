@@ -22,8 +22,8 @@ Current foundational files include:
 - `project.godot`: project configuration and main-scene setting.
 - `scenes/main.tscn`: main scene; currently instances the overworld and player.
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
-- `world/maps/overworld/world.tscn`: overworld scene and TileMapLayer composition.
-- `world/maps/overworld/world.gd`: builds the starter grass field and scatters details using the existing overworld TileSet.
+- `world/maps/overworld/world.tscn`: overworld scene.
+- `world/maps/overworld/world.gd`: draws a starter field and winding path, then places transparent tree/rock regions from `exterior.png` and grass details from `ground_grass_details.png`.
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
 
@@ -98,7 +98,7 @@ For each code/resource change:
    - **Static-checked:** relevant static/resource checks passed.
    - **Runtime-verified:** behavior was actually observed in Godot.
    - **Blocked:** state the exact missing evidence or failure.
-7. Append a dated entry to the root `DEVELOPMENT_LOG.md`. Never erase earlier log entries. Runtime verification results must also be recorded in `docs/RUNTIME_VERIFIED.md`.
+7. Append a dated entry to `docs/DEVELOPMENT_LOG.md`. Never erase earlier log entries. Runtime verification results must also be recorded in `docs/RUNTIME_VERIFIED.md`.
 
 Do not report a test as passed if it was not run. If the user supplies runtime results, record them as user-reported runtime verification.
 
