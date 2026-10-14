@@ -605,3 +605,11 @@ This file is append-only. Add new entries at the top; do not remove or rewrite h
 - **Static checks:** SVG viewport sizes and row/column counts were generated from the intended display dimensions; the interior reference now includes the full 528-pixel source height.
 - **Godot editor/runtime verification:** pending. These are documentation references and do not alter gameplay assets.
 - **Source asset unchanged:** `Exterior.png` was not cropped or overwritten. If the actual PNG itself must be exactly 256×304, its source artwork still needs confirmation before changing it.
+
+
+## 2026-10-14 — Add Town Architecture Tileset References
+
+- Added `assets/tilesets/towns/towns/house_details.png` to the labeled tileset reference generator as `house_details_labeled.svg`.
+- Added `assets/tilesets/towns/towns/walls_floor.png` to the labeled tileset reference generator as `walls_floor_labeled.svg`.
+- Both references will use the existing 16×16 tile grid and zero-based `(column, row)` labels.
+- The source PNGs are unchanged. Generated references and their coordinate catalogs still require local generation and visual inspection.
