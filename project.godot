@@ -15,7 +15,11 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[autoload]\n\nSceneTestBootstrap="*res://systems/scene_test_bootstrap.gd"\n\n[display]
+[autoload]
+
+SceneTestBootstrap="*res://systems/scene_test_bootstrap.gd"
+
+[display]
 
 # The project baseline is 16:9 at 1152×648; maps use a 16 px tile grid.
 window/size/viewport_width=1152
