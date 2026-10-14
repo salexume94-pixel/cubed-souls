@@ -19,6 +19,18 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Shift-to-Run Movement
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user explicitly confirmed that the run feature works in Godot.
+
+**Result:** Holding Shift while moving activates the run behavior and directional run animation. Releasing Shift returns to walking, and stopping returns to idle.
+
+**Scope limits:** This verifies the behavior tested by the user. It does not independently verify every keyboard/direction combination or other movement systems.
+
+---
+
 ### 2026-10-14 — Universal Tile-Map Camera Bounds
 
 **Status:** VERIFIED — user-reported.
