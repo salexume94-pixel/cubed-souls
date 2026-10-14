@@ -4,6 +4,7 @@ extends Node2D
 # Havenreach is a seeded-random 64×40-tile settlement assembled only from catalogued PNG atlas cells.
 # Keep this generator separate from the overworld so town-specific placements never clear overworld layers.
 
+const PLAYER_SCENE: PackedScene = preload("res://player/player.tscn")
 const TILE_SIZE: int = 16
 const MAP_WIDTH: int = 64
 const MAP_HEIGHT: int = 40
@@ -58,6 +59,27 @@ func _ready() -> void:
 	# Runtime-only invisible boundaries keep the player inside the settlement.
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
+		_spawn_player_for_standalone_test()
+
+
+func _spawn_player_for_standalone_test() -> void:
+	# F6 runs Havenreach without scenes/main.tscn, so provide a player only when the active scene has none.
+	# When Havenreach is loaded by the main game, reuse its existing Player instead of making a duplicate.
+	var scene_root := get_tree().current_scene
+	if scene_root == null:
+		return
+	if scene_root.find_child("Player", true, false) != null:
+		return
+	var spawn_marker := get_node_or_null("PlayerSpawnMarker") as Marker2D
+	if spawn_marker == null:
+		push_error("Havenreach: PlayerSpawnMarker is missing; cannot place the standalone test player.")
+		return
+	var player := PLAYER_SCENE.instantiate() as CharacterBody2D
+	if player == null:
+		push_error("Havenreach: could not instantiate the player scene for standalone testing.")
+		return
+	scene_root.add_child(player)
+	player.global_position = spawn_marker.global_position
 
 
 func _build_ground() -> void:
