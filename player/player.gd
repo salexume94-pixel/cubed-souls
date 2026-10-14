@@ -9,7 +9,7 @@ extends CharacterBody2D
 
 const SHEET_DIR := "res://assets/sprites/player/"
 const ANIMATIONS := {
-	"idle": {"file": "Unarmed_Idle_without_shadow.png", "frames": 12, "fps": 6.0},
+	"idle": {"file": "Unarmed_Idle_without_shadow.png", "frames": 12, "fps": 3.0},
 	"walk": {"file": "Unarmed_Walk_without_shadow.png", "frames": 6, "fps": 10.0},
 	"run": {"file": "Unarmed_Run_without_shadow.png", "frames": 8, "fps": 14.0},
 }
@@ -54,8 +54,8 @@ func _build_sprite_frames() -> SpriteFrames:
 			push_error("Player sprite sheet could not be loaded: " + sheet_path)
 			continue
 
-		# Some sprite sheets can contain fully transparent cells. Exclude those cells
-		# so a direction's walk cycle never makes the player vanish on a blank frame.
+		# Some sprite sheets contain transparent cells; exclude them so the character
+		# never disappears for a frame when an animation reaches an unused cell.
 		var sheet_image := sheet.get_image()
 		if sheet_image == null or sheet_image.is_empty():
 			push_error("Player sprite sheet image is empty: " + sheet_path)
@@ -74,11 +74,12 @@ func _build_sprite_frames() -> SpriteFrames:
 					frame_size.x,
 					frame_size.y
 				)
-				if region.position.x + region.size.x > sheet_image.get_width() 				or region.position.y + region.size.y > sheet_image.get_height():
+				if region.position.x + region.size.x > sheet_image.get_width() or region.position.y + region.size.y > sheet_image.get_height():
 					push_warning("Skipping out-of-bounds sprite frame in " + animation_id)
 					continue
+				# Transparent cells are expected in some rows, so skip silently instead
+				# of flooding the debugger with a warning for every unused cell.
 				if not _frame_has_visible_pixels(sheet_image, region):
-					push_warning("Skipping transparent sprite frame in " + animation_id)
 					continue
 
 				var atlas := AtlasTexture.new()
