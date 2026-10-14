@@ -127,26 +127,33 @@ func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimens
 
 
 func _create_object_collisions() -> void:
-	# Collision matches solid trunks/bases, not the full transparent tree canopy.
-	# Rocks use compact footprints covering their visible solid formations.
-	# Bushes intentionally remain passable.
-	_add_object_collision("TreeLargeCollision_1", Vector2i(2, 2), Vector2(12, 10), Vector2(24, 40))
-	_add_object_collision("TreeSmallCollision_1", Vector2i(18, 2), Vector2(10, 8), Vector2(16, 24))
-	_add_object_collision("TreeLargeCollision_2", Vector2i(42, 2), Vector2(12, 10), Vector2(24, 40))
-	_add_object_collision("TreeSmallCollision_2", Vector2i(59, 3), Vector2(10, 8), Vector2(16, 24))
-	_add_object_collision("TreeSmallCollision_3", Vector2i(2, 17), Vector2(10, 8), Vector2(16, 24))
-	_add_object_collision("TreeLargeCollision_3", Vector2i(59, 20), Vector2(12, 10), Vector2(24, 40))
-	_add_object_collision("TreeLargeCollision_4", Vector2i(3, 34), Vector2(12, 10), Vector2(24, 40))
-	_add_object_collision("TreeSmallCollision_4", Vector2i(19, 35), Vector2(10, 8), Vector2(16, 24))
-	_add_object_collision("TreeLargeCollision_5", Vector2i(42, 35), Vector2(12, 10), Vector2(24, 40))
-	_add_object_collision("TreeSmallCollision_5", Vector2i(59, 34), Vector2(10, 8), Vector2(16, 24))
+	# Every placed Objects-layer asset blocks movement across its full bundle footprint.
+	# This intentionally includes tree canopies and bushes, not just trunks or bases.
+	# A 3×3 bundle uses a 48×48 collider; a 2×2 bundle uses 32×32; single tiles use 16×16.
+	_add_object_collision("TreeLargeCollision_1", Vector2i(2, 2), Vector2(48, 48), Vector2(24, 24))
+	_add_object_collision("TreeSmallCollision_1", Vector2i(18, 2), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("TreeLargeCollision_2", Vector2i(42, 2), Vector2(48, 48), Vector2(24, 24))
+	_add_object_collision("TreeSmallCollision_2", Vector2i(59, 3), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("TreeSmallCollision_3", Vector2i(2, 17), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("TreeLargeCollision_3", Vector2i(59, 20), Vector2(48, 48), Vector2(24, 24))
+	_add_object_collision("TreeLargeCollision_4", Vector2i(3, 34), Vector2(48, 48), Vector2(24, 24))
+	_add_object_collision("TreeSmallCollision_4", Vector2i(19, 35), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("TreeLargeCollision_5", Vector2i(42, 35), Vector2(48, 48), Vector2(24, 24))
+	_add_object_collision("TreeSmallCollision_5", Vector2i(59, 34), Vector2(32, 32), Vector2(16, 16))
 
-	# Rock bodies are compact and fitted to the object footprint.
-	_add_object_collision("RockLargeCollision_1", Vector2i(10, 3), Vector2(40, 36), Vector2(24, 24))
-	_add_object_collision("RockMediumCollision_1", Vector2i(29, 2), Vector2(26, 22), Vector2(16, 16))
-	_add_object_collision("RockMediumCollision_2", Vector2i(51, 10), Vector2(26, 22), Vector2(16, 16))
-	_add_object_collision("RockMediumCollision_3", Vector2i(10, 34), Vector2(26, 22), Vector2(16, 16))
-	_add_object_collision("RockLargeCollision_2", Vector2i(51, 33), Vector2(40, 36), Vector2(24, 24))
+	# Rock bundles block their full placed tile footprint.
+	_add_object_collision("RockLargeCollision_1", Vector2i(10, 3), Vector2(48, 48), Vector2(24, 24))
+	_add_object_collision("RockMediumCollision_1", Vector2i(29, 2), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("RockMediumCollision_2", Vector2i(51, 10), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("RockMediumCollision_3", Vector2i(10, 34), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("RockLargeCollision_2", Vector2i(51, 33), Vector2(48, 48), Vector2(24, 24))
+
+	# Bushes are solid obstacles too, using their full tile or bundle footprint.
+	_add_object_collision("BushMediumCollision_1", Vector2i(7, 9), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("BushSmallCollision_1", Vector2i(56, 13), Vector2(16, 16), Vector2(8, 8))
+	_add_object_collision("BushMediumCollision_2", Vector2i(24, 31), Vector2(32, 32), Vector2(16, 16))
+	_add_object_collision("BushSmallCollision_2", Vector2i(6, 29), Vector2(16, 16), Vector2(8, 8))
+	_add_object_collision("BushSmallCollision_3", Vector2i(56, 28), Vector2(16, 16), Vector2(8, 8))
 
 func _add_object_collision(collision_name: String, map_position: Vector2i, shape_size: Vector2, local_offset: Vector2) -> void:
 	# Physics bodies are created only at runtime; the @tool map remains easy to edit.
