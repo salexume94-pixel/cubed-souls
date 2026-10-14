@@ -2,6 +2,27 @@
 
 This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
 
+## 2026-10-13 — Initial Overworld Runtime Verification Passed
+
+### Verified locally in Godot
+- [x] Project launches successfully.
+- [x] Player movement works with both WASD and arrow keys.
+- [x] Player collision and camera tracking work.
+- [x] SpriteFrames and animation playback work without errors.
+- [x] Overworld assets render at the intended scale.
+
+### Gate result
+**PASS — Initial overworld and player foundation.** All five runtime checks were reported as passed. The earlier pending verification notes below are historical and are superseded by this entry.
+
+### Next steps
+1. Continue with the next planned migration/development gate.
+2. Keep new systems isolated and verify them in Godot before marking them complete.
+3. Preserve this log's history; add future entries above this one.
+
+---
+
+This file is append-only. Add new entries at the top; do not remove or rewrite historical entries.
+
 ## 2026-10-13 — Initial Overworld and Player Foundation
 
 ### Completed
