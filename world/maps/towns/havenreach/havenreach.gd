@@ -110,6 +110,11 @@ func _place_detail_tile(map_position: Vector2i, atlas_coords: Vector2i) -> void:
 
 
 func _build_objects() -> void:
+	# Rebuild generated object layers cleanly so old roof tiles cannot remain on Foreground.
+	# Foreground is reserved for clouds and flying birds; all buildings and tree canopies stay on Objects.
+	objects.clear()
+	foreground.clear()
+
 	# Place fixed landmark and nature bundles first so houses can avoid every occupied object cell.
 	# The house layout is randomized only after these fixed placements are known.
 	_place_chapel(Vector2i(28, 3), "HavenreachChapel")
@@ -182,10 +187,8 @@ func _place_house(map_origin: Vector2i, collision_name: String) -> void:
 			if not atlas_source.has_tile(atlas_coords):
 				continue
 			var destination := map_origin + Vector2i(x, y)
-			if y <= 4:
-				foreground.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
-			else:
-				objects.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
+			# Keep every house tile, including the roof, on Objects instead of Foreground.
+			objects.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
 	# Build one alpha mask across the COMPLETE 10×8 house bundle.
 	# This explicitly includes every opaque roof pixel as well as the lower body.
 	# Transparent source pixels remain walkable; the roof is not clipped at a row boundary.
@@ -199,7 +202,7 @@ func _place_house(map_origin: Vector2i, collision_name: String) -> void:
 
 
 func _place_chapel(map_origin: Vector2i, collision_name: String) -> void:
-	# Place the complete chapel bundle; upper rows render in Foreground and lower rows stay behind the player.
+	# Keep the complete chapel, including its roof, on Objects. Foreground is reserved for clouds and flying birds.
 	var atlas_source := objects.tile_set.get_source(CHAPEL_SOURCE_ID) as TileSetAtlasSource
 	if atlas_source == null:
 		push_error("Havenreach: chapel atlas source is missing.")
@@ -210,10 +213,7 @@ func _place_chapel(map_origin: Vector2i, collision_name: String) -> void:
 			if not atlas_source.has_tile(atlas_coords):
 				continue
 			var destination := map_origin + Vector2i(x, y)
-			if y <= 5:
-				foreground.set_cell(destination, CHAPEL_SOURCE_ID, atlas_coords)
-			else:
-				objects.set_cell(destination, CHAPEL_SOURCE_ID, atlas_coords)
+			objects.set_cell(destination, CHAPEL_SOURCE_ID, atlas_coords)
 	_collision_specs.append({
 		"name": collision_name,
 		"map_origin": map_origin,
