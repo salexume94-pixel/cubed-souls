@@ -17,15 +17,15 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 - [ ] Chapel uses the real chapel exterior PNG and appears as one complete 8 × 10 bundle.
 - [ ] Trees, rocks, bushes, and leaf/flower details use only existing atlas assets.
 - [ ] The central approach remains open and the player spawns near the center of the settlement.
-- [ ] House and chapel layers render as intended; building collisions cover the full footprint, including roofs.
+- [ ] House and chapel layers render as intended; collisions follow opaque roof and wall pixels, not the full rectangular footprint.
 - [ ] No duplicated, missing, or offset collision nodes appear after reopening the scene.
 
 ## 3. Movement and collisions
 
 - [ ] Move in all four directions using the configured movement keys.
 - [ ] Hold Shift while moving; running is faster than walking.
-- [ ] Trees, rocks, and bushes block on opaque pixels; each house and the chapel blocks across its entire rectangular footprint, including the roof.
-- [ ] Transparent gaps inside non-building object sprites remain passable where the source artwork is transparent. Building footprints are intentionally solid.
+- [ ] Trees, rocks, bushes, houses, and chapel block only on opaque sprite pixels, using the same alpha-derived collision method.
+- [ ] Transparent gaps inside all object sprites, including buildings, remain passable where the source artwork is transparent.
 - [ ] The player can walk around each building and object without getting trapped.
 - [ ] The four map edges prevent the player from leaving the 64 × 40 map.
 - [ ] No debugger errors appear during movement or collision tests.
