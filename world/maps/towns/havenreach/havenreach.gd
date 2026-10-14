@@ -418,9 +418,9 @@ func _create_map_boundaries() -> void:
 	# Put broad, non-solid trigger strips safely inside the physical perimeter.
 	# The previous 32px strips were centered almost on the boundary, leaving too
 	# little overlap for the Player body to reliably enter before being blocked.
-	_add_map_transition_trigger("NorthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, 32.0), Vector2(MAP_WIDTH * TILE_SIZE - 96.0, 64.0))
+	_add_map_transition_trigger("NorthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, 32.0), Vector2(MAP_WIDTH * TILE_SIZE, 64.0))
 	_add_map_transition_trigger("SouthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE - 32.0), Vector2(MAP_WIDTH * TILE_SIZE - 96.0, 64.0))
-	_add_map_transition_trigger("WestExit", Vector2(32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE - 96.0))
+	_add_map_transition_trigger("WestExit", Vector2(32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE))
 	_add_map_transition_trigger("EastExit", Vector2(MAP_WIDTH * TILE_SIZE - 32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE - 96.0))
 
 
