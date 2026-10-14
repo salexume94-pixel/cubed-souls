@@ -178,3 +178,17 @@ This file is append-only. Add new entries at the top; do not remove or rewrite h
 ### Verification
 - **GitHub source update:** committed to `main`.
 - **Godot runtime verification:** pending. The atlas regions have not been visually confirmed against the PNGs, so the first local run is a trial pass. Check whether the exterior atlas tiles look like coherent environment pieces; adjust the coordinate list based on what actually renders.
+
+
+## 2026-10-14 — Serialize overworld tiles in the scene
+
+### Changes
+- Saved base terrain and deterministic detail placements directly into `world/maps/overworld/world.tscn` using the existing TileSet resource.
+- Preserved all four existing TileMapLayer nodes: `Ground`, `Details`, `Objects`, and `Foreground`.
+- Removed the scene's runtime map-builder attachment and made `world.gd` inert so it no longer regenerates tiles when the game starts.
+- Left `Objects` and `Foreground` empty rather than placing unverified atlas fragments that could create incomplete trees or props.
+- Used registered atlas coordinates only; no `Polygon2D` or custom-drawn shapes.
+
+### Verification
+- **GitHub source update:** committed to `main`.
+- **Godot editor/runtime verification:** pending. Base tile appearance and detail selections still require inspection in the local editor because the PNG artwork could not be visually confirmed here.
