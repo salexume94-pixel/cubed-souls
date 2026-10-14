@@ -25,7 +25,8 @@ Current foundational files include:
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
 - `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using shared player sprite sheets, capsule collision, stationary/civilian/guard/ally behavior profiles, obstacle probes, E-key dialogue, and optional story movement.
 - `world/maps/overworld/world.tscn`: overworld scene.
-- `world/maps/overworld/world.gd`: inert by design; tile placements are authored in `world.tscn`, not regenerated at runtime. Do not restore guessed atlas placements.
+- `world/maps/overworld/world.gd`: deterministic overworld generation, object collision, and the first Havenreach entry trigger.
+- `systems/scene_manager.gd` and `systems/map_transition_trigger.gd`: persistent map swapping, fade overlay, and Player entry/exit placement; runtime verification is pending.
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
 - `docs/OVERWORLD_TILESET_CATALOG.md`: required classification workflow and placement rules for overworld assets.
@@ -52,7 +53,7 @@ Place each file according to its primary responsibility. Extend this structure o
 | `world/maps/towns/` | Town maps |
 | `world/maps/dungeons/` | Dungeon maps |
 | `world/objects/` | Reusable world objects and interactable environment elements |
-| `systems/` | Cross-scene gameplay services and managers |
+| `systems/` | Cross-scene gameplay services and managers, including map transitions |
 | `ui/` | Menus, HUD, and interface scenes/scripts |
 | `scenes/` | Main scene and high-level scene composition |
 | `docs/` | Architecture, audits, runtime verification, migration decisions, and task handoffs |
