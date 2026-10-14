@@ -1,3 +1,16 @@
+## 2026-10-14 — Keep Building Collision Alpha-Based
+
+### Correction
+- Building collision now uses the same alpha-mask method as trees, rocks, and bushes. Opaque pixels from roof and wall artwork block the player; transparent pixels inside atlas cells remain walkable.
+- Removed the intended full-footprint rectangle behavior from the current Havenreach collision generator. The roof is not treated as a solid rectangular tile area.
+- Seeded-random house plot selection remains in place, and modular `house_details` construction remains deferred.
+
+### Verification
+- [x] Current `havenreach.gd` source checked on GitHub `main`: all placed bundles use `_add_alpha_collision_for_bundle()`.
+- [ ] User should visually check roof gaps and building edges in Godot after pulling the latest changes.
+
+---
+
 ## 2026-10-14 — Scatter Havenreach Houses and Use Full-Building Collisions
 
 ### Changes
