@@ -36,10 +36,10 @@ If these sources disagree, report the mismatch and resolve it before placement.
 
 - **Ground:** Base terrain and walkable floor surfaces. Individual floor variants may be placed separately across a room to create visual variation.
 - **Details:** Small, non-blocking decoration.
-- **Objects:** World features and structures, including rocks, trees, bushes, complete buildings, stone walls, and doors. Buildings, walls, and doors belong on this layer, not in a separate decorative layer. Every placed object needs collision appropriate to its role.
-- **Foreground:** Scenery that must render over the player or over another object. A window sprite intended to sit visually on top of a wall belongs on this layer, not Details. Keep transparent openings in the window transparent so the wall/window composition looks correct.
+- **Objects:** World features and structures, including rocks, trees and their canopies, bushes, complete buildings and roofs, stone walls, doors, and wall-mounted overlays such as windows. Keep each complete object bundle on this layer unless a specific gameplay requirement says otherwise.
+- **Foreground:** Reserved for sky elements such as clouds and flying birds. Do not place building roofs, tree canopies, windows, or other world-object artwork on this layer.
 
-Foreground layering is intentional when an asset must overlap the player or another structure. Do not add canopy layering or foreground art without a reason established by the asset and map design.
+Do not split buildings or trees across layers merely to create a visual overlap. Keep their complete artwork on Objects; use Foreground only for clouds and flying birds.
 
 ## 5. Placement and gameplay
 
@@ -249,13 +249,13 @@ The wooden floor cells are individual tiles, not one multi-cell bundle. They may
 
 Stone wall pieces belong on the Objects layer and must block movement where the wall is solid. Door collision and scene-transition triggers must follow the existing building/door collision rules: the transition trigger is separate from ordinary blocking collision.
 
-### Foreground
+### Objects (continued)
 
 | Coordinates | Asset | Placement rule |
 |---|---|---|
-| `(5,4), (6,4), (5,5), (6,5)` | Window (2 × 2 bundle) | Place on Foreground so it renders over the wall. Preserve the complete bundle and keep transparent window openings transparent. |
+| `(5,4), (6,4), (5,5), (6,5)` | Window (2 × 2 bundle) | Place on Objects as a wall-mounted overlay. Preserve the complete bundle and keep transparent window openings transparent. |
 
-The window is not a small decorative detail. It is an overlay component intended to be layered over the wall structure.
+The window is part of the building artwork and belongs on Objects. Foreground is reserved for clouds and flying birds.
 
 
 ## `ruined_temple_walls_floor_labeled.svg`
