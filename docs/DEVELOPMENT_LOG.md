@@ -1,3 +1,18 @@
+## 2026-10-14 — Catalog Ruined Temple Walls and Floor Assets
+
+### Changes
+- Added the supplied Ground coordinates for the entrance floor and repeatable floor cells to `docs/MAP_MAKING_RULESET.md`.
+- Cataloged crumbling wall edges, four vertical stone-wall sections, left/right wall edges, the 2 × 3 interior door bundle, and the complete 3 × 5 solid stone pillar bundle.
+- Documented the interior door as a possible future deeper-level passage, not an implemented transition.
+- Preserved the existing append-only development history.
+
+### Verification
+- [x] Coordinate catalog committed directly to GitHub `main`.
+- [ ] Visual cross-check against the labeled SVG and Godot atlas configuration remains pending.
+- [ ] No map placement, collision implementation, or runtime behavior was changed or verified.
+
+---
+
 ## 2026-10-14 — Add Ruined Temple Walls and Floor Coordinate Reference
 
 ### Changes
