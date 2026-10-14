@@ -1,3 +1,17 @@
+## 2026-10-14 — Catalog Town Exterior Door Bundle
+
+### Changes
+- Added the door coordinates `(6,6), (7,6), (6,7), (7,7)` from `town_exterior_labeled.svg` to the map-making ruleset.
+- Recorded the supplied coordinates as one 2 × 2 atlas-cell bundle.
+- Flagged that the user's “4×4 door” label does not match the listed atlas footprint if it means 4 × 4 cells; no coordinate changes were guessed.
+
+### Verification
+- [x] Checked the coordinate list's row/column footprint.
+- [ ] Confirm door appearance and intended size against the SVG.
+- [ ] Godot placement/runtime verification remains pending.
+
+---
+
 ## 2026-10-14 — Catalog Complete Town House Sprite
 
 ### Changes
