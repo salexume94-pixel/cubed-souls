@@ -19,6 +19,18 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Source-Alpha Object Collision Trial
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user explicitly reported that the alpha-based object collision trial is runtime verified in Godot.
+
+**Result:** Record the re-enabled alpha-derived collision trial for overworld and Havenreach as tested in the user's current build.
+
+**Scope limits:** This records the user's confirmation that the trial ran as expected at the time of testing. It does not independently establish pixel-perfect collision on every asset or verify later NPC movement changes.
+
+---
+
 ### 2026-10-14 — Preserve Manual Overworld Collision Adjustments
 
 **Status:** VERIFIED — user-reported.
