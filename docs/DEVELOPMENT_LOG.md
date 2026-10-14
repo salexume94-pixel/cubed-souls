@@ -1,3 +1,20 @@
+## 2026-10-14 — Generate Object Collision From Sprite Transparency
+
+### Changes
+- Replaced full-bundle rectangular object colliders with collision generated from the actual exterior atlas texture's alpha channel.
+- The generator reads each placed bundle's source atlas cells, marks visible pixels as solid, merges contiguous horizontal runs vertically, and creates compact rectangle shapes.
+- Transparent holes and margins inside trees, rocks, and bushes are now excluded from collision automatically.
+- Updated `docs/MAP_MAKING_RULESET.md` to require alpha-derived collision for every `Objects`-layer asset.
+
+### Verification
+- [x] Collision definitions cover all 20 placed objects: 10 trees, 5 rock bundles, and 5 bushes.
+- [x] Reviewed the generated alpha-mask and run-merging logic for transparent-pixel exclusion.
+- [ ] Pull `origin main`; run the overworld in Godot and inspect collisions against the actual imported sprite alpha.
+- [ ] Verify no parse/runtime errors, opaque sprite pixels block movement, and transparent gaps remain passable.
+- Runtime behavior remains **unverified locally** until tested in Godot.
+
+---
+
 ## 2026-10-14 — Make Every Overworld Object Solid
 
 ### Changes
