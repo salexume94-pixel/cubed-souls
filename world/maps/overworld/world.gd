@@ -1,7 +1,9 @@
+@tool
 extends Node2D
 
-# Builds a deterministic grass field and scatters the user's confirmed grass-leaf details.
-# Ground and details use separate existing TileMapLayers and the existing TileSet.
+# This is an @tool script so the generated tiles are visible in the 2D editor,
+# not only after pressing Play. The same deterministic layout is used at runtime.
+# Ground and details use the existing TileMapLayers and registered TileSet cells.
 # Each bundle is always placed as two adjacent atlas cells on adjacent map cells.
 
 const EXTERIOR_SOURCE_ID: int = 0
@@ -19,6 +21,7 @@ const MAP_HEIGHT: int = 40
 @onready var details: TileMapLayer = $Details
 
 func _ready() -> void:
+	# Rebuild on editor scene load as well as game start so the map is never editor-invisible.
 	_build_ground()
 	_place_grass_leaves()
 
@@ -30,7 +33,7 @@ func _build_ground() -> void:
 			ground.set_cell(Vector2i(x, y), EXTERIOR_SOURCE_ID, GRASS_ATLAS_COORDS)
 
 func _place_grass_leaves() -> void:
-	# Rebuild only the detail layer so every launch produces the same layout.
+	# Rebuild only the detail layer so every editor load and launch uses the same layout.
 	details.clear()
 
 	# Each bundle uses adjacent atlas cells on adjacent map cells.
