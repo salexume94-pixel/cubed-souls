@@ -160,12 +160,22 @@ func _place_house(map_origin: Vector2i, collision_name: String) -> void:
 				foreground.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
 			else:
 				objects.set_cell(destination, EXTERIOR_SOURCE_ID, atlas_coords)
+	# Generate the foreground roof and lower building body as separate alpha masks.
+	# The roof occupies rows 0–4 on Foreground; the wall/base occupies rows 5–7 on Objects.
+	# Both masks use the same source alpha, so transparent pixels in either section remain walkable.
 	_collision_specs.append({
-		"name": collision_name,
+		"name": collision_name + "_Roof",
 		"map_origin": map_origin,
 		"source_id": EXTERIOR_SOURCE_ID,
 		"atlas_origin": HOUSE_ATLAS_ORIGIN,
-		"dimensions": HOUSE_SIZE,
+		"dimensions": Vector2i(HOUSE_SIZE.x, 5),
+	})
+	_collision_specs.append({
+		"name": collision_name + "_Body",
+		"map_origin": map_origin + Vector2i(0, 5),
+		"source_id": EXTERIOR_SOURCE_ID,
+		"atlas_origin": HOUSE_ATLAS_ORIGIN + Vector2i(0, 5),
+		"dimensions": Vector2i(HOUSE_SIZE.x, HOUSE_SIZE.y - 5),
 	})
 
 
