@@ -1,3 +1,19 @@
+## 2026-10-14 — Move Havenreach Roof Tiles to Objects Layer
+
+### Changes
+- Changed Havenreach house placement so every house tile, including all roof tiles, is placed on the Objects TileMapLayer.
+- Changed chapel placement so its entire bundled sprite, including the roof, stays on Objects.
+- Clear and rebuild the generated Objects and Foreground layers before placement, preventing roof tiles left by the old split-layer logic from lingering.
+- Reserved Foreground for clouds and flying birds; updated the map-making ruleset accordingly, including moving the documented window overlay rule to Objects.
+- Left collision generation disabled as currently configured; this change only changes visual tile-layer placement.
+
+### Verification
+- [x] Updated the Havenreach generator source and map-making documentation on GitHub `main`.
+- [ ] Pull `origin main`, open Havenreach in Godot, and confirm house/church roofs are on Objects and Foreground is clear for sky elements.
+- [ ] Runtime/editor verification remains pending.
+
+---
+
 ## 2026-10-14 — Narrow Collision Disablement to World Objects
 
 ### Changes
