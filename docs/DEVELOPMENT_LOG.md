@@ -1,3 +1,19 @@
+## 2026-10-14 — Catalog Ruined Temple Exterior Objects
+
+### Changes
+- Added the user's confirmed flower, grass-leaf, small-tree, medium-tree, and complete moss-covered ruined-temple sprite coordinates to `docs/MAP_MAKING_RULESET.md`.
+- Recorded the two medium trees as complete 2 × 2 bundles and the vertical grass leaf as a 1 × 2 bundle.
+- Preserved the complete ruined-temple sprite's coordinate arrangement as one bundled asset.
+- Flagged the dragon statue coordinates as unresolved because the supplied list contains four malformed `(,31)` entries and repeated coordinates. No corrections were guessed.
+
+### Verification
+- [x] Updated the catalog and development log on GitHub `main`.
+- [ ] Visually cross-check each listed asset against `ruined_temple_exterior_objects_labeled.svg`.
+- [ ] Confirm the dragon statue coordinates before documenting it as placement-ready.
+- [ ] Godot placement, collision, layering, and runtime behavior remain unverified.
+
+---
+
 ## 2026-10-14 — Add Ruined Temple Exterior Objects Reference
 
 - Added `docs/tileset_reference/generated/ruined_temple_exterior_objects_labeled.svg`, a self-contained coordinate atlas sourced from `assets/tilesets/dungeons/ruined_temple/Exterior_objects.png`.
