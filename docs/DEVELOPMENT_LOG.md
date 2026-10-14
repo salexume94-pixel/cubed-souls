@@ -1,3 +1,20 @@
+## 2026-10-14 — Add Reusable Camera Bounds for Tile Maps
+
+### Changes
+- Added `systems/map_camera_bounds.gd`, a reusable Camera2D script that finds the active scene's non-empty TileMapLayer bounds and applies them to the camera limits.
+- Attached the script to the existing player Camera2D so maps using TileMapLayer nodes inherit bounds automatically without per-map dimensions.
+- Preserved camera zoom, position smoothing, player movement, collision, and existing map art.
+- Scenes without populated TileMapLayer nodes are left unchanged rather than assigned guessed limits.
+
+### Verification
+- [x] Reviewed the script's tile-edge conversion and world-coordinate handling.
+- [x] Committed the reusable camera setup to GitHub `main`.
+- [ ] Pull `origin main`, run the game, and check all four screen edges while moving the player.
+- [ ] Verify any future map has populated TileMapLayer bounds before marking universal behavior runtime-verified.
+- Runtime camera clipping is **not yet verified** in Godot.
+
+---
+
 ## 2026-10-14 — Overworld Boundaries Runtime-Verified
 
 - User confirmed the overworld perimeter collision fix is working in Godot.
