@@ -1,3 +1,18 @@
+## 2026-10-14 — Scatter Havenreach Houses and Use Full-Building Collisions
+
+### Changes
+- Replaced the rigid four-corner house layout with seeded-random selection from separated candidate plots, keeping the arrangement irregular but repeatable between runs.
+- Changed house and chapel collision to one solid rectangle covering the entire building footprint, including roofs. Walking behind building roofs is intentionally blocked.
+- Kept alpha-derived collisions for trees, rocks, and bushes so their transparent gaps remain passable.
+- Deferred the modular `house_details` sheet; modular house construction is not part of this pass.
+
+### Verification
+- [x] User reports Havenreach movement, collisions, and camera bounds are runtime-verified in Godot.
+- [x] Source changes committed to GitHub `main`.
+- [ ] Reopen Havenreach in Godot and visually check the randomized house arrangement and full-footprint building blockers after pulling the latest `main`.
+
+---
+
 
 ---
 
