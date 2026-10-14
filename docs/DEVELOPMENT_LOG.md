@@ -1,3 +1,20 @@
+## 2026-10-14 — Rebuild Overworld Ground With Confirmed Grass Cell
+
+### Changes
+- Used the user's confirmed base-grass atlas coordinate: `exterior.png`, source ID `0`, atlas `(1, 12)`.
+- Reattached `world/maps/overworld/world.gd` to the existing overworld scene and added a deterministic 64×40 ground fill.
+- Preserved the existing `Ground`, `Details`, `Objects`, and `Foreground` TileMapLayer` nodes and the existing TileSet resource.
+- Did not add Polygon2D, hand-drawn geometry, or guessed prop coordinates.
+- Updated the tileset catalog to record the confirmed ground cell and distinguish it from still-unverified props and path tiles.
+
+### Verification
+- [x] Confirmed the existing scene and TileSet resource before editing.
+- [x] Ground fill uses source ID `0` and atlas coordinate `(1, 12)` only.
+- [ ] Pull `origin main` and run the scene in Godot to verify the selected cell visually tiles cleanly.
+- [ ] Add paths, trees, and other props only after exact atlas regions are visually identified. Runtime/editor verification remains pending.
+
+---
+
 ## 2026-10-14 — Remove Pillow Dependency From Tileset Reference Generator
 
 ### Changes
