@@ -46,9 +46,9 @@ Avoid canopy layering and foreground rendering unless explicitly requested. Fore
 - Use the identified source tiles to construct the requested map and place every bundle in its complete arrangement.
 - Position objects appropriately while preserving paths, entrances, and usable space.
 - **Every placed world object must have collision.** Do not assume the `Objects` layer or the sprite itself automatically blocks movement.
-- Trees: the entire placed tree bundle blocks movement, including the canopy. Rocks: the entire placed rock bundle blocks movement. Bushes: every bush blocks movement. Do not leave any `Objects`-layer asset passable by default.
-- For bundled objects, size and position collision to cover the complete placed bundle footprint. A 3×3 bundle uses a 48×48 pixel footprint on a 16-pixel grid; a 2×2 bundle uses 32×32; a single-tile object uses 16×16. If the art extends beyond its tile footprint, inspect it and adjust collision deliberately rather than silently leaving part of the object passable.
-- Use the project's established collision layers and masks; verify the player is blocked by trees (including canopy areas), rocks, and bushes from every reachable side.
+- Trees, rocks, and bushes all block movement where their sprite pixels are visibly opaque. **Transparent pixels within any object's texture must remain passable**, including gaps inside canopies, branches, and bush silhouettes. Do not leave opaque parts of an `Objects`-layer asset passable by default.
+- Derive collision automatically from each placed asset's actual alpha channel rather than using the full tile-bundle rectangle. Merge adjacent opaque pixel runs into larger rectangles to keep physics shape counts practical. Ignore pixels with alpha at or below 0.05 to filter effectively transparent edges.
+- Use the project's established collision layers and masks; verify opaque tree canopy, trunk, rock, and bush pixels block movement while visible transparent gaps remain walkable.
 - For generated maps, generate matching collision bodies deterministically from the same object-placement definitions. Avoid duplicated or stale colliders when rebuilding the map. `Ground` and decorative `Details` are separate layers; this rule applies to every asset placed on `Objects`.
 - Preserve existing gameplay logic, TileMapLayer nodes, scene components, and project conventions unless a change is necessary and authorized.
 - Use the actual assets. Do not use Polygon2D, improvised graphics, or placeholder scenery as substitutes.
@@ -61,8 +61,8 @@ Before placement:
 3. Verify atlas-coordinate mapping and the target map's structure.
 
 After placement:
-- Check for incorrect coordinates, missing bundle tiles, broken arrangements, unintended gaps or overlaps, missing/undersized/oversized collisions, and collisions that obstruct intended routes.
-- Test trees across both trunk and canopy areas, every rock bundle, and every bush from each reachable side. All `Objects`-layer assets must block movement; confirm paths remain navigable around them.
+- Check for incorrect coordinates, missing bundle tiles, broken arrangements, unintended gaps or overlaps, missing collisions on opaque pixels, and collisions incorrectly covering transparent pixels.
+- Test opaque and transparent regions across tree canopies/trunks, rocks, and bushes. Opaque pixels must block movement; transparent gaps must remain passable, and routes around objects must stay navigable.
 - Distinguish proposed changes from implemented changes.
 - Do not claim runtime verification until the map has been run and tested in Godot.
 - State what remains unverified.
