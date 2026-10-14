@@ -37,7 +37,7 @@ Classify each usable tile or multi-cell sprite before placing it.
 - `ground_grass_details.png` is a transparent detail sheet. It contains small earth/stone-like accents and green grass/plant tufts. It is **not** a seamless full-field grass texture.
 - These are broad sheet-level observations, not a claim that every 16×16 cell has been individually classified. A large prop may span multiple cells, so isolated atlas cells can be incomplete fragments.
 
-**Important:** the currently specified overworld sheets do not visibly provide a confirmed, seamless base-grass tile. Do not tile a tiny pebble, tuft, shrub, or arbitrary transparent atlas cell across the map. Locate the correct ground asset in the project or request/obtain one before rebuilding the base field.
+**Base grass confirmed by the user:** source ID `0`, `exterior.png`, atlas coordinate `(1, 12)`. This cell is the project's chosen ground base. The map builder currently repeats it across a 64×40-cell field. Other prop/path coordinates remain unverified and must not be guessed.
 
 ## Required placement workflow
 
@@ -61,7 +61,7 @@ Only add entries after visually checking the generated reference image. A multi-
 
 | Source | Coordinate / region | Description | Class | Layer | Confidence / notes |
 |---|---|---|---|---|---|
-| 0 — `exterior.png` | TBD | Seamless base grass not confirmed on this sheet | Ground surface | Ground | **Unverified / not found** |
+| 0 — `exterior.png` | `(1, 12)` | User-confirmed base grass cell | Ground surface | Ground | **Coordinate confirmed by user; Godot rendering pending** |
 | 1 — `ground_grass_details.png` | TBD | Small green grass/plant accents | Flora / ground detail | Details | Sheet-level observation; exact cells TBD |
 | 0 — `exterior.png` | TBD | Trees, rocks, buildings, fences, and other large props | Terrain / prop | Objects / Foreground | Sheet-level observation; record each region before placement |
 
