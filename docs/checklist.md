@@ -4,7 +4,9 @@ This checklist tracks gameplay systems that still need to be built or ported int
 
 ## Priority 1 — NPC scenes
 
-- [x] **Runtime verified.** `world/actors/npc/npc.tscn` and `npc.gd` reuse the player's sprite sheets and capsule dimensions, with Stationary, Civilian, Guard, and Ally profiles. Civilian/Ally wander within a home radius and make room for the Player; Guards follow authored patrol points or remain at post. Movement includes multi-ray obstacle steering, stuck recovery, and optional story-target movement. E-key multiline dialogue pauses the Player. The isolated test scene includes all three moving profiles, and Havenreach contains three NPC instances with individual starter dialogue. The user confirmed no errors, working collision, and working NPC movement in Godot.
+- [x] **Runtime verified by user:** NPC scripts parse without errors; Player/NPC collision and NPC movement behavior work in the isolated test scene.
+- [ ] **Still needs runtime verification:** E-key multiline dialogue, Player movement lock during dialogue, and the three NPCs' visibility/placement in the actual Havenreach scene.
+- **Implemented in source:** Stationary, Civilian, Guard, and Ally profiles; bounded civilian/ally wandering; guard patrol routes; obstacle steering and stuck recovery; optional story-target movement; reusable NPC scene and individual per-instance dialogue.
 
 ## Priority 2 — Scene transitions
 
