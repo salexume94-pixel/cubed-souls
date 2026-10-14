@@ -19,6 +19,19 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Preserve Manual Overworld Collision Adjustments
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user pulled the updated `main` branch, tested the project in Godot, and confirmed that their collision adjustments persisted.
+
+**Result:** Existing `GeneratedObjectCollisions` adjustments are preserved by the updated generation logic in the tested project after pulling the change and running the game.
+
+**Scope limits:** This verifies persistence only. Final collision sizing, obstacle coverage, and movement clearance still need to be tuned and tested by the user. It does not establish that every overworld object collision is correctly fitted.
+
+---
+
+
 ### 2026-10-14 — Shift-to-Run Movement
 
 **Status:** VERIFIED — user-reported.
