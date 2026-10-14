@@ -590,3 +590,18 @@ This file is append-only. Add new entries at the top; do not remove or rewrite h
 - **GitHub source update:** committed to `main`.
 - **Godot editor/runtime verification:** pending. Open the new scene locally and confirm the TileSet resource loads and the layer hierarchy appears as expected.
 - **Coordinate-reference issue:** the repository's chapel exterior PNG header reports 256×336 pixels, while the expected dimensions supplied by the user are 256×304. The source image was not cropped or modified because the intended 32-pixel difference has not been visually confirmed.
+
+
+## 2026-10-14 — Correct Chapel Atlas SVG Dimensions
+
+### Changes
+- Updated `tools/generate_tileset_reference.py` so a reference can show a clipped region of a source image without scaling or distorting the embedded image.
+- Corrected `chapel_exterior_labeled.svg` to display the intended 256×304 atlas region (16 columns × 19 rows). The source PNG remains unchanged at 256×336; the reference clips the extra 32 pixels at the bottom rather than deleting source artwork.
+- Regenerated `chapel_walls_interior_labeled.svg` from the current source PNG dimensions of 160×528 (10 columns × 33 rows). The previous SVG showed only 160×416 and stretched the embedded image into that smaller viewport.
+- Kept coordinate labels zero-based and each cell at 16×16 source pixels.
+
+### Verification
+- **GitHub source update:** committed to `main`.
+- **Static checks:** SVG viewport sizes and row/column counts were generated from the intended display dimensions; the interior reference now includes the full 528-pixel source height.
+- **Godot editor/runtime verification:** pending. These are documentation references and do not alter gameplay assets.
+- **Source asset unchanged:** `Exterior.png` was not cropped or overwritten. If the actual PNG itself must be exactly 256×304, its source artwork still needs confirmation before changing it.
