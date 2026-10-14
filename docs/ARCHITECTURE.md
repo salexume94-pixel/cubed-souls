@@ -26,11 +26,11 @@ Current foundational files include:
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
 
-### Verified runtime status
+### Runtime verification record
 
-- **Player idle slowdown:** runtime-verified by the user on 2026-10-14. Treat this specific issue as resolved unless it reappears.
-- **Other behavior:** do not infer runtime verification from the idle slowdown result. Verify each new change separately.
-- **Sprite sheet assumptions:** dimensions and frame grids documented in `docs/AUDIT.md` include hypotheses. Do not treat a hypothesis as confirmed without inspection/testing.
+- `docs/RUNTIME_VERIFIED.txt` is the single source for recorded runtime-verified behavior.
+- Keep runtime results out of this architecture document. Add only observed runtime behavior to the verification record, with date, evidence, result, and scope limits.
+- Repository audits and sprite-sheet hypotheses belong in `docs/AUDIT.md`; they are not runtime verification.
 
 ## 3. Directory Responsibilities
 
@@ -139,5 +139,6 @@ A task is complete only when:
 ## 9. Related Documents
 
 - `docs/AUDIT.md` — current asset/repository inventory and outstanding audit work.
-- `docs/DEVELOPMENT_LOG.md` — chronological record of implementation and verification work; append entries only.
+- `docs/RUNTIME_VERIFIED.txt` — sole record of behavior actually observed running in Godot.
+- `docs/DEVELOPMENT_LOG.md` — chronological implementation notes, if/when created; append entries only. Runtime verification results must also be recorded in `docs/RUNTIME_VERIFIED.txt`.
 - `README.md` — brief project overview and top-level structure.
