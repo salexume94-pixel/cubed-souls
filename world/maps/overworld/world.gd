@@ -39,6 +39,7 @@ func _ready() -> void:
 	_place_objects()
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
+		_create_object_collisions()
 
 func _build_ground() -> void:
 	# Fill the field with the base-grass tile confirmed by the user.
@@ -123,6 +124,44 @@ func _place_bundle_object(map_position: Vector2i, atlas_origin: Vector2i, dimens
 	for y in range(dimensions.y):
 		for x in range(dimensions.x):
 			objects.set_cell(map_position + Vector2i(x, y), EXTERIOR_SOURCE_ID, atlas_origin + Vector2i(x, y))
+
+
+func _create_object_collisions() -> void:
+	# Collision matches solid trunks/bases, not the full transparent tree canopy.
+	# Rocks use compact footprints covering their visible solid formations.
+	# Bushes intentionally remain passable.
+	_add_object_collision("TreeLargeCollision_1", Vector2i(2, 2), Vector2(12, 10), Vector2(24, 40))
+	_add_object_collision("TreeSmallCollision_1", Vector2i(18, 2), Vector2(10, 8), Vector2(16, 24))
+	_add_object_collision("TreeLargeCollision_2", Vector2i(42, 2), Vector2(12, 10), Vector2(24, 40))
+	_add_object_collision("TreeSmallCollision_2", Vector2i(59, 3), Vector2(10, 8), Vector2(16, 24))
+	_add_object_collision("TreeSmallCollision_3", Vector2i(2, 17), Vector2(10, 8), Vector2(16, 24))
+	_add_object_collision("TreeLargeCollision_3", Vector2i(59, 20), Vector2(12, 10), Vector2(24, 40))
+	_add_object_collision("TreeLargeCollision_4", Vector2i(3, 34), Vector2(12, 10), Vector2(24, 40))
+	_add_object_collision("TreeSmallCollision_4", Vector2i(19, 35), Vector2(10, 8), Vector2(16, 24))
+	_add_object_collision("TreeLargeCollision_5", Vector2i(42, 35), Vector2(12, 10), Vector2(24, 40))
+	_add_object_collision("TreeSmallCollision_5", Vector2i(59, 34), Vector2(10, 8), Vector2(16, 24))
+
+	# Rock bodies are compact and fitted to the object footprint.
+	_add_object_collision("RockLargeCollision_1", Vector2i(10, 3), Vector2(40, 36), Vector2(24, 24))
+	_add_object_collision("RockMediumCollision_1", Vector2i(29, 2), Vector2(26, 22), Vector2(16, 16))
+	_add_object_collision("RockMediumCollision_2", Vector2i(51, 10), Vector2(26, 22), Vector2(16, 16))
+	_add_object_collision("RockMediumCollision_3", Vector2i(10, 34), Vector2(26, 22), Vector2(16, 16))
+	_add_object_collision("RockLargeCollision_2", Vector2i(51, 33), Vector2(40, 36), Vector2(24, 24))
+
+func _add_object_collision(collision_name: String, map_position: Vector2i, shape_size: Vector2, local_offset: Vector2) -> void:
+	# Physics bodies are created only at runtime; the @tool map remains easy to edit.
+	var body := StaticBody2D.new()
+	body.name = collision_name
+	body.position = Vector2(map_position.x * TILE_SIZE, map_position.y * TILE_SIZE) + local_offset
+	body.collision_layer = 1
+	body.collision_mask = 0
+
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = shape_size
+	collision.shape = rectangle
+	body.add_child(collision)
+	add_child(body)
 
 func _create_map_boundaries() -> void:
 	# Build physics nodes in code to avoid fragile .tscn parent-path parsing.
