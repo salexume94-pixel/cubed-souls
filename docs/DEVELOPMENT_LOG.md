@@ -1,6 +1,21 @@
 
 ---
 
+## 2026-10-14 — Add Havenreach Runtime Verification Checklist
+
+### Changes
+- Added a repeatable local Godot checklist for import/parse errors, map layout, player movement/run, object collisions, transparent gaps, foreground overlap, camera bounds, and map boundaries.
+- Kept runtime verification unchecked because Godot is not available in the repository-editing environment and the project has not yet been run locally.
+
+### Verification
+- [x] Checklist committed to GitHub `main`.
+- [ ] User must pull `origin main`, run the Havenreach test scene, and report any errors before runtime behavior can be marked verified.
+
+---
+
+
+---
+
 ## 2026-10-14 — Build Havenreach Map Scaffold and Cross-Check Tileset Catalogs
 
 ### Changes
