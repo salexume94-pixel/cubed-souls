@@ -1,3 +1,22 @@
+## 2026-10-15 — Add Havenreach House and Church Interiors
+
+### Changes
+- Added dedicated TileSet resources for the documented wooden house-interior sheet and chapel walls/interior sheet.
+- Added reusable house and church interior scenes with editor-visible tile layouts, documented floor/wall bundles, room boundaries, and south-door exit triggers.
+- Added generated entry triggers to Havenreach houses and the chapel. Interior exits use the saved safe return position with an offset so the Player returns outside the doorway rather than immediately retriggering it.
+- Carved the centered chapel doorway out of source-alpha collision to keep its entrance accessible.
+- Kept the church NPC and save system out of this stage, as planned.
+
+### Verification
+- [x] Source assets, tile coordinates, scene structure, and transition manager contracts were inspected before implementation.
+- [x] New scenes and TileSet resources are committed to GitHub `main`.
+- [ ] Pull `origin main`, allow Godot imports to finish, and open both interior scenes to check tile appearance and atlas alignment.
+- [ ] Runtime-test each house entrance/exit and the church entrance/exit; confirm the Player returns outside each doorway and no transition loops or debugger errors occur.
+- [ ] Check interior wall boundaries, Player spawn positions, and camera framing in Godot.
+- **Status:** Source implementation committed; Godot editor/runtime verification pending. Static GitHub inspection is not runtime verification.
+
+---
+
 ## 2026-10-15 — Verify Position-Preserving Havenreach Transitions
 
 ### Runtime verification
