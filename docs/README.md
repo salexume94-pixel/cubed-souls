@@ -9,12 +9,13 @@ A 2D pixel-art fantasy RPG built with Godot.
 - `systems/` - Gameplay systems
 - `ui/` - User interface
 - `scenes/` - Shared scenes
-- `docs/` - Architecture, audits, checklists, and runtime verification records
+- `docs/` - Architecture, audits, tileset references, and runtime verification records
 
 ## Project documentation
-- [Implementation checklist](checklist.md)
 - [Architecture and collaboration guide](ARCHITECTURE.md)
 - [Repository and asset audit](AUDIT.md)
+- [Map-making ruleset and tileset references](MAP_MAKING_RULESET.md)
+- [Tileset catalog cross-check](TILESET_CROSSCHECK.md)
 - [Runtime-verified behavior](RUNTIME_VERIFIED.md)
 - [Development log](DEVELOPMENT_LOG.md)
 
