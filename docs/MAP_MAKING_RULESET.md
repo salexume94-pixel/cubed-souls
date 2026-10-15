@@ -41,6 +41,14 @@ If these sources disagree, report the mismatch and resolve it before placement.
 
 Do not split buildings or trees across layers merely to create a visual overlap. Keep their complete artwork on Objects; use Foreground only for clouds and flying birds.
 
+## Interior exit design
+
+- Do not place door artwork inside house or church interior scenes to represent the exit.
+- Use the existing half-rug asset as the visual exit marker and align the transition collision with it.
+- Identify the half-rug's exact source coordinates from the interior atlas and catalog them before placing it. Never guess its atlas coordinates.
+- Interior rooms use one back wall at the north edge unless a documented asset/layout specifically requires otherwise. Do not construct decorative stone side walls just to enclose the room.
+- Center the camera on the active interior map while the Player moves. Restore player-follow camera behavior when returning to an outdoor map.
+
 ## 5. Placement and gameplay
 
 - Use the identified source tiles to construct the requested map and place every bundle in its complete arrangement.
