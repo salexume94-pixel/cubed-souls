@@ -415,13 +415,10 @@ func _create_map_boundaries() -> void:
 	_add_boundary("NorthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, -TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 	_add_boundary("SouthBoundary", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE + TILE_SIZE / 2.0), Vector2(MAP_WIDTH * TILE_SIZE + TILE_SIZE, TILE_SIZE))
 
-	# Put broad, non-solid trigger strips safely inside the physical perimeter.
-	# The previous 32px strips were centered almost on the boundary, leaving too
-	# little overlap for the Player body to reliably enter before being blocked.
-	_add_map_transition_trigger("NorthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, 32.0), Vector2(MAP_WIDTH * TILE_SIZE, 64.0))
-	_add_map_transition_trigger("SouthExit", Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE - 32.0), Vector2(MAP_WIDTH * TILE_SIZE, 64.0))
+	# Havenreach is entered from the overworld's east side, so the matching return
+	# route is the west/left edge of town. Keep physical boundaries on all edges,
+	# but create a transition trigger only on that intended exit.
 	_add_map_transition_trigger("WestExit", Vector2(32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE))
-	_add_map_transition_trigger("EastExit", Vector2(MAP_WIDTH * TILE_SIZE - 32.0, MAP_HEIGHT * TILE_SIZE / 2.0), Vector2(64.0, MAP_HEIGHT * TILE_SIZE))
 
 
 func _add_map_transition_trigger(trigger_name: String, trigger_position: Vector2, trigger_size: Vector2) -> void:
