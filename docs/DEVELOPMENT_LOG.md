@@ -1,3 +1,13 @@
+## 2026-10-15 — Verify Position-Preserving Havenreach Transitions
+
+### Runtime verification
+- User confirmed the updated transition behavior works in Godot with no errors.
+- Position along the boundary is preserved when entering and leaving Havenreach, mapping top/middle/bottom locations to corresponding positions on the opposite map edge.
+- West/left remains the only Havenreach exit; the north, south, and east edges block the Player.
+- Runtime verification is recorded in `docs/RUNTIME_VERIFIED.md`.
+
+---
+
 ## 2026-10-15 — Preserve Position Along Havenreach Transitions
 
 ### Changes
