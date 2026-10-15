@@ -41,12 +41,14 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 ## 5. Building and church interiors
 
 - [ ] Walk to each visible house door; verify its entrance trigger can be reached and loads `house_interior.tscn`.
-- [ ] Verify the house interior floor, side walls, open door bundle, and room boundaries render correctly without missing or offset atlas cells.
+- [ ] Verify the house interior floor and single north back wall render correctly; there should be no interior door artwork or stone side walls.
 - [ ] Walk through the house interior exit; verify the Player returns outside the same house instead of immediately re-entering.
 - [ ] Walk to the chapel's centered entrance; verify the door is reachable and loads `church_interior.tscn`.
 - [ ] Verify the church floor, back wall, portrait, and two pillar bundles render correctly and leave a clear central aisle.
 - [ ] Walk through the church interior exit; verify the Player returns outside the chapel without a transition loop.
-- [ ] Confirm the interior room boundaries block movement at the walls but leave the south doorway open.
+- [ ] Confirm the interior room boundaries block movement at the room edges while the south exit trigger remains reachable.
+- [ ] Confirm each interior camera is centered on the room and remains fixed while the Player moves; returning to Havenreach restores player-follow camera behavior.
+- [ ] Add the catalogued half-rug asset at each interior exit and align the exit collision to it.
 - [ ] Confirm transition messages identify the home and chapel correctly.
 - [ ] No debugger errors appear during any entry or exit.
 
@@ -54,4 +56,4 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 
 Record each section as PASS or FAIL. For failures, include the exact debugger error and a screenshot of the affected map region. Do not mark any new interior or doorway check passed until it has been run in Godot. Re-run these checks after layout/collision changes to catch regressions.
 
-**Known scope limit:** the house and church interiors are implemented but need local Godot runtime verification. The church NPC and save system are intentionally deferred to later stages.
+**Known scope limit:** interior camera centering and the house back-wall correction are committed but need local Godot runtime verification. The half-rug atlas coordinates must be identified from `assets/tilesets/towns/towns/Interior.png` before adding rug artwork. The church NPC and save system are intentionally deferred to later stages.
