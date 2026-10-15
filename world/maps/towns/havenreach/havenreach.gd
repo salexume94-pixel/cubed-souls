@@ -422,14 +422,14 @@ func _create_map_boundaries() -> void:
 
 
 func _add_map_transition_trigger(trigger_name: String, trigger_position: Vector2, trigger_size: Vector2) -> void:
-	# Every town edge returns to the overworld; SceneManager restores the saved
-	# return point rather than dropping the Player at a hard-coded town center.
+	# Return through the west edge to the matching height along the overworld east edge.
 	var trigger := Area2D.new()
 	trigger.name = trigger_name
 	trigger.set_script(preload("res://systems/map_transition_trigger.gd"))
 	trigger.set("target_scene", "res://world/maps/overworld/world.tscn")
 	trigger.set("target_player_position", Vector2(960.0, 320.0))
-	trigger.set("use_return_position", true)
+	trigger.set("use_return_position", false)
+	trigger.set("preserve_vertical_position", true)
 	trigger.position = trigger_position
 	var collision := CollisionShape2D.new()
 	var rectangle := RectangleShape2D.new()
