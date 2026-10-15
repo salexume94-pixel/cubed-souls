@@ -10,11 +10,6 @@ const FLOOR_TILES: Array[Vector2i] = [
 	Vector2i(7, 4), Vector2i(8, 4), Vector2i(7, 5), Vector2i(8, 5),
 	Vector2i(6, 10), Vector2i(7, 10), Vector2i(8, 10)
 ]
-const WALL_VERTICAL: Array[Vector2i] = [
-	Vector2i(0, 6), Vector2i(0, 7),
-	Vector2i(1, 6), Vector2i(1, 7),
-	Vector2i(2, 6), Vector2i(2, 7)
-]
 const OPEN_DOOR := Vector2i(5, 6)
 
 @onready var ground: TileMapLayer = $Ground
