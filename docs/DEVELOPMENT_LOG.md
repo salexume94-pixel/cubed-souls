@@ -1,3 +1,19 @@
+## 2026-10-14 — Restrict Havenreach Return to the West Exit
+
+### Changes
+- Removed the north, south, and east Havenreach return triggers. The west/left exit is now the only edge trigger that returns the Player to the overworld.
+- Kept physical boundary collision on all four edges.
+- Preserved the saved overworld return-position behavior.
+
+### Verification
+- [x] User reported that Havenreach returns the Player to the exact saved overworld position with no debugger errors.
+- [x] User tested all four exits in the prior build and confirmed they all triggered; this exposed the unintended extra exits.
+- [x] Source fix committed directly to GitHub `main`.
+- [ ] Pull `origin main` and verify only the west/left exit transitions to the overworld while the other three edges remain blocked.
+- **Status:** Previous transition behavior verified; west-only exit correction committed, runtime retest pending.
+
+---
+
 ## 2026-10-14 — Fix Havenreach Exit Triggers and House Door Clearance
 
 ### Changes
