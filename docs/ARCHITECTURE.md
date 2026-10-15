@@ -26,6 +26,8 @@ Current foundational files include:
 - `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using shared player sprite sheets, capsule collision, stationary/civilian/guard/ally behavior profiles, obstacle probes, E-key dialogue, and optional story movement.
 - `world/maps/overworld/world.tscn`: overworld scene.
 - `world/maps/overworld/world.gd`: deterministic overworld generation, object collision, and the first Havenreach entry trigger.
+- `world/maps/towns/havenreach/havenreach.tscn` and `havenreach.gd`: Havenreach town layout, object collision, and generated house/church entrance triggers.
+- `world/maps/towns/interiors/house_interior.tscn` and `church_interior.tscn`: reusable house interior and church interior; their editor-tool scripts place catalogued tiles and each scene has a return doorway.
 - `systems/scene_manager.gd` and `systems/map_transition_trigger.gd`: persistent map swapping, fade overlay, and Player entry/exit placement; runtime verification is pending.
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
