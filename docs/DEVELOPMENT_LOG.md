@@ -1,3 +1,17 @@
+## 2026-10-15 — Preserve Position Along Havenreach Transitions
+
+### Changes
+- Added an opt-in vertical-position preservation setting to reusable map transition triggers. It offsets the destination spawn by the Player's vertical distance from the source trigger center.
+- Changed overworld → Havenreach entry to spawn near the town's west/left edge, preserving the Player's relative height along the east-edge entry trigger.
+- Changed Havenreach → overworld return to use the matching height along the overworld's east edge instead of restoring the old fixed return position.
+- Kept Havenreach's west-only exit trigger and all four physical boundary walls unchanged.
+
+### Verification
+- Source changes are committed to `main`.
+- Godot runtime verification is pending. Test entry and exit near the top, middle, and bottom of the shared boundary; verify the Player appears at the matching height, remains clear of walls, and the other three Havenreach edges stay blocked.
+
+---
+
 ## 2026-10-14 — Restrict Havenreach Return to the West Exit
 
 ### Changes
