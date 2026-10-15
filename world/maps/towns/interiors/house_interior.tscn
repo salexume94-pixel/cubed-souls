@@ -75,6 +75,7 @@ position = Vector2(192, 232)
 script = ExtResource("3_transition")
 target_scene = "res://world/maps/towns/havenreach/havenreach.tscn"
 target_player_position = Vector2(0, 0)
+use_return_position = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitTrigger"]
 shape = SubResource("RectangleShape2D_exit")
