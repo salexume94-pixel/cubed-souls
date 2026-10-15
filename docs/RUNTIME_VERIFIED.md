@@ -19,6 +19,19 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Havenreach Return Transition Retest
+
+**Status:** PARTIALLY VERIFIED — user-reported; return transition now succeeds.
+
+**Evidence:** The user reported that after the SceneManager active-map lookup fix, leaving Havenreach returns the Player to the overworld and the Godot debugger shows no errors.
+
+**Result:** Havenreach → overworld map return is working in the tested build without reported errors.
+
+**Scope limits:** The user has not yet confirmed that the Player returns to the exact saved overworld position. All four Havenreach edge exits, house-door access, and doorway approach clearance have not been individually verified by this report.
+
+---
+
+
 ### 2026-10-14 — Havenreach Transition Partial Test and Exit Regression
 
 **Status:** PARTIALLY VERIFIED — user-reported; exit regression observed.
