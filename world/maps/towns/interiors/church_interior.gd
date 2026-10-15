@@ -28,7 +28,7 @@ func _build_floor() -> void:
 	for y in range(1, ROOM_HEIGHT - 1):
 		for x in range(1, ROOM_WIDTH - 1):
 			# Repeat the documented 2×2 floor bundle without changing its internal arrangement.
-			var atlas := FLOOR_ORIGIN + Vector2i(x % 2, y % 2)
+			var atlas := FLOOR_ORIGIN + Vector2i((x - 1) % 2, (y - 1) % 2)
 			ground.set_cell(Vector2i(x, y), SOURCE_ID, atlas)
 
 
