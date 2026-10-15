@@ -2,7 +2,9 @@
 
 ### Changes
 - Added dedicated TileSet resources for the documented wooden house-interior sheet and chapel walls/interior sheet.
-- Added reusable house and church interior scenes with editor-visible tile layouts, catalogued floor and wall bundles, room boundaries, and south-door exit triggers.
+- Added reusable house and church interior scenes with editor-visible tile layouts, catalogued floor and wall bundles, room boundaries, and exit triggers.
+- Corrected the house interior to use one north back wall, removing the unnecessary stone side-wall artwork and interior door bundle.
+- Added a fixed map-centered camera mode for house and church interiors; Havenreach restores the normal player-follow camera on return.
 - Added blocking collision for the church back wall and both pillars so these solid structures cannot be walked through.
 - Added generated entry triggers to Havenreach houses and the chapel. Interior exits use the saved return position with an offset so the Player returns outside the doorway.
 - Opened the centered chapel doorway in the generated source-alpha collision so the entrance can be reached.
@@ -15,6 +17,7 @@
 - [ ] Pull `origin main`, allow Godot imports to finish, and open both interior scenes to check tile appearance and atlas alignment.
 - [ ] Runtime-test house and church entry/exit; confirm the Player returns outside the doorway and the debugger reports no errors.
 - [ ] Check wall boundaries, Player spawn positions, and camera framing in Godot.
+- [ ] Identify and catalog the half-rug tile from `assets/tilesets/towns/towns/Interior.png`, then place it at each exit and align the exit collision.
 - **Status:** Source implementation committed; Godot editor/runtime verification pending. Static GitHub inspection is not runtime verification.
 
 ---
