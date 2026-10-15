@@ -156,8 +156,12 @@ func _finish_transition() -> void:
 
 
 func _get_transition_message(destination_path: String) -> String:
-	# Keep labels generic so new map scenes do not need manager changes.
-	if destination_path.contains("/towns/"):
+	# Give the newly added Havenreach interiors their own labels.
+	if destination_path.contains("/interiors/church_interior"):
+		return "Entering chapel"
+	if destination_path.contains("/interiors/house_interior"):
+		return "Entering home"
+	if destination_path.contains("/towns/havenreach"):
 		return "Entering Havenreach"
 	if destination_path.contains("/overworld/"):
 		return "Leaving settlement"
