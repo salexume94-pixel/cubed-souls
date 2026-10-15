@@ -1,6 +1,6 @@
 # Tileset Catalog Cross-Check
 
-Date: 2026-10-14  
+Date: 2026-10-15  
 Branch: `main`
 
 ## Results
@@ -14,7 +14,7 @@ This review compares the labeled SVG source images, documented coordinate bundle
 | `house_details_labeled.svg` | 160 × 272 px | 10 × 17 | Visual reference exists, but the ruleset has no coordinate-level catalog for this sheet yet. Do not use its modular parts until the intended bundles are catalogued. |
 | `chapel_exterior_labeled.svg` | 256 × 304 px | 16 × 19 | The first chapel occupies an 8 × 10 region. The documented row-0 cells (1,0), (3,0), (4,0), (6,0) and rows 1–9, columns 0–7 match the visible bundle. Registered as atlas source 2 for Havenreach. |
 | `chapel_walls_interior_labeled.svg` | 160 × 528 px | 10 × 33 | The listed floor, wall, portrait, and pillar groups are within the source grid. Dedicated TileSet resource `assets/tilesets/towns/church_interior.tres` and scene `world/maps/towns/interiors/church_interior.tscn` now use these bundles; runtime appearance remains unverified. The repeatable wall section duplicates coordinates already included in the back-wall region. |
-| `walls_floor_labeled.svg` | 144 × 176 px | 9 × 11 | Listed floor, wall, door, and window coordinates fit the grid. The window is a 2 × 2 foreground bundle; the doors remain objects with separate transition triggers. |
+| `walls_floor_labeled.svg` | 144 × 176 px | 9 × 11 | Listed floor, wall, door, and window coordinates fit the grid. Dedicated TileSet resource `assets/tilesets/towns/house_interior.tres` and scene `world/maps/towns/interiors/house_interior.tscn` now use the catalogued floor, wall, and open-door cells; runtime appearance remains unverified. |
 | `ruined_temple_walls_floor_labeled.svg` | 176 × 256 px | 11 × 16 | Listed coordinates fit the grid. The pillar is a 3 × 5 bundle, the interior passage is 2 × 3, and wall-edge groups must remain assembled. |
 | `ruined_temple_exterior_objects_labeled.svg` | 352 × 656 px | 22 × 41 | Listed coordinates fit the grid. Exterior temple/ruin structures and trees are separate bundles; do not substitute the ruin facade for an ordinary town building. |
 
