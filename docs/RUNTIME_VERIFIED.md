@@ -19,6 +19,19 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-14 — Havenreach Exact Return Position and Four-Edge Exit Test
+
+**Status:** VERIFIED — user-reported for the prior build; intended west-only correction pending retest.
+
+**Evidence:** The user confirmed the Player returns to the exact overworld position saved before entering Havenreach, all four Havenreach exits triggered, and no debugger errors appeared.
+
+**Result:** The saved return position and return transition are verified. The test also exposed that north, south, and east exits were unintentionally enabled.
+
+**Follow-up:** Source now creates only the west/left return trigger. Runtime confirmation that the other three edges stay blocked is still pending.
+
+---
+
+
 ### 2026-10-14 — Havenreach Return Transition Retest
 
 **Status:** PARTIALLY VERIFIED — user-reported; return transition now succeeds.
