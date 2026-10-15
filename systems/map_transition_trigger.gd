@@ -9,6 +9,7 @@ extends Area2D
 @export var target_player_position: Vector2 = Vector2.ZERO
 @export var use_return_position: bool = false
 @export var return_position_offset: Vector2 = Vector2.ZERO
+@export var preserve_vertical_position: bool = false
 
 
 func _ready() -> void:
@@ -23,4 +24,9 @@ func _on_body_entered(body: Node2D) -> void:
 	# Ignore NPCs and other physics bodies; only the Player changes maps.
 	if not body.is_in_group("player"):
 		return
-	SceneManager.change_map(target_scene, target_player_position, use_return_position, return_position_offset)
+	# Keep the same relative height along matching horizontal map edges.
+	# Global coordinates are used because Player and map triggers are siblings under Main.
+	var destination_position := target_player_position
+	if preserve_vertical_position:
+		destination_position.y += body.global_position.y - global_position.y
+	SceneManager.change_map(target_scene, destination_position, use_return_position, return_position_offset)
