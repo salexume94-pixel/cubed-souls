@@ -287,9 +287,10 @@ func _create_map_boundaries() -> void:
 		Vector2(MAP_WIDTH * TILE_SIZE - 8.0, MAP_HEIGHT * TILE_SIZE / 2.0),
 		Vector2(32.0, MAP_HEIGHT * TILE_SIZE),
 		"res://world/maps/towns/havenreach/havenreach.tscn",
-		Vector2(512.0, 320.0),
+		Vector2(64.0, 320.0),
 		false,
-		Vector2(-48.0, 0.0)
+		Vector2.ZERO,
+		true
 	)
 
 
@@ -300,7 +301,8 @@ func _add_map_transition_trigger(
 	target_scene: String,
 	target_player_position: Vector2,
 	use_return_position: bool = false,
-	return_position_offset: Vector2 = Vector2.ZERO
+	return_position_offset: Vector2 = Vector2.ZERO,
+	preserve_vertical_position: bool = false
 ) -> void:
 	# Build the reusable trigger at runtime so the map remains data-light.
 	var trigger := Area2D.new()
@@ -310,6 +312,7 @@ func _add_map_transition_trigger(
 	trigger.set("target_player_position", target_player_position)
 	trigger.set("use_return_position", use_return_position)
 	trigger.set("return_position_offset", return_position_offset)
+	trigger.set("preserve_vertical_position", preserve_vertical_position)
 	trigger.position = trigger_position
 	var collision := CollisionShape2D.new()
 	var rectangle := RectangleShape2D.new()
