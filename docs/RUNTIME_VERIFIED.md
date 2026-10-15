@@ -19,6 +19,18 @@ This file is the single record of behavior that has been observed running in God
 
 ## Runtime-Verified Items
 
+### 2026-10-15 — Position-Preserving Havenreach Transitions
+
+**Status:** VERIFIED — user-reported.
+
+**Evidence:** The user confirmed the new transition behavior works in Godot, with no debugger errors.
+
+**Result:** Entering Havenreach and leaving through its west/left exit preserves the Player's relative vertical position along the shared boundary. Top, middle, and bottom crossings map to corresponding positions on the opposite map edge. The west-only exit restriction remains in place, with the other three Havenreach edges blocking the Player.
+
+**Scope limits:** This verifies the transition behavior reported by the user for the tested build. It does not verify unrelated map transitions or doorway interactions.
+
+---
+
 ### 2026-10-14 — Havenreach Exact Return Position and Four-Edge Exit Test
 
 **Status:** VERIFIED — user-reported for the prior build; intended west-only correction pending retest.
