@@ -10,7 +10,6 @@ const FLOOR_TILES: Array[Vector2i] = [
 	Vector2i(7, 4), Vector2i(8, 4), Vector2i(7, 5), Vector2i(8, 5),
 	Vector2i(6, 10), Vector2i(7, 10), Vector2i(8, 10)
 ]
-const OPEN_DOOR := Vector2i(5, 6)
 
 @onready var ground: TileMapLayer = $Ground
 @onready var objects: TileMapLayer = $Objects
@@ -20,6 +19,7 @@ func _ready() -> void:
 	# Rebuild the documented room layout so changes stay deterministic in editor and runtime.
 	_build_floor()
 	_build_walls()
+	_configure_interior_camera()
 
 
 func _build_floor() -> void:
@@ -32,15 +32,19 @@ func _build_floor() -> void:
 
 func _build_walls() -> void:
 	objects.clear()
-	# Repeat only the documented vertical stone-wall bundle along both side walls.
-	for y in range(2, ROOM_HEIGHT - 2, 2):
-		# Each selected source column is a complete 1×2 vertical wall bundle.
-		var wall_atlas_x: int = int(y / 2) % 3
-		objects.set_cell(Vector2i(1, y), SOURCE_ID, Vector2i(wall_atlas_x, 6))
-		objects.set_cell(Vector2i(1, y + 1), SOURCE_ID, Vector2i(wall_atlas_x, 7))
-		objects.set_cell(Vector2i(ROOM_WIDTH - 2, y), SOURCE_ID, Vector2i(wall_atlas_x, 6))
-		objects.set_cell(Vector2i(ROOM_WIDTH - 2, y + 1), SOURCE_ID, Vector2i(wall_atlas_x, 7))
-	# Place the documented 2×2 open-door bundle centered on the south wall.
-	for dy in range(2):
-		for dx in range(2):
-			objects.set_cell(Vector2i(int(ROOM_WIDTH / 2) - 1 + dx, ROOM_HEIGHT - 2 + dy), SOURCE_ID, OPEN_DOOR + Vector2i(dx, dy))
+	# The room has one back wall across the north edge, not stone walls down both sides.
+	# Repeat the catalogued vertical wall bundle horizontally to form that back wall.
+	for x in range(1, ROOM_WIDTH - 1):
+		var wall_atlas_x: int = (x - 1) % 3
+		objects.set_cell(Vector2i(x, 1), SOURCE_ID, Vector2i(wall_atlas_x, 6))
+		objects.set_cell(Vector2i(x, 2), SOURCE_ID, Vector2i(wall_atlas_x, 7))
+
+
+func _configure_interior_camera() -> void:
+	# The interior is a fixed room view. The Player can move without dragging the camera.
+	var player := get_tree().current_scene.find_child("Player", true, false) as Node2D
+	if player == null:
+		return
+	var camera := player.get_node_or_null("Camera2D") as Camera2D
+	if camera != null:
+		camera.center_on_map(Vector2i(ROOM_WIDTH, ROOM_HEIGHT), 2.5)
