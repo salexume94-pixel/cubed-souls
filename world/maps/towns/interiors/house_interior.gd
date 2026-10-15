@@ -39,11 +39,12 @@ func _build_walls() -> void:
 	objects.clear()
 	# Repeat only the documented vertical stone-wall bundle along both side walls.
 	for y in range(2, ROOM_HEIGHT - 2, 2):
-		for dx in range(3):
-			objects.set_cell(Vector2i(1, y), SOURCE_ID, Vector2i(dx, 6))
-			objects.set_cell(Vector2i(1, y + 1), SOURCE_ID, Vector2i(dx, 7))
-			objects.set_cell(Vector2i(ROOM_WIDTH - 2, y), SOURCE_ID, Vector2i(dx, 6))
-			objects.set_cell(Vector2i(ROOM_WIDTH - 2, y + 1), SOURCE_ID, Vector2i(dx, 7))
+		# Each selected source column is a complete 1×2 vertical wall bundle.
+		var wall_atlas_x := (y / 2) % 3
+		objects.set_cell(Vector2i(1, y), SOURCE_ID, Vector2i(wall_atlas_x, 6))
+		objects.set_cell(Vector2i(1, y + 1), SOURCE_ID, Vector2i(wall_atlas_x, 7))
+		objects.set_cell(Vector2i(ROOM_WIDTH - 2, y), SOURCE_ID, Vector2i(wall_atlas_x, 6))
+		objects.set_cell(Vector2i(ROOM_WIDTH - 2, y + 1), SOURCE_ID, Vector2i(wall_atlas_x, 7))
 	# Place the documented 2×2 open-door bundle centered on the south wall.
 	for dy in range(2):
 		for dx in range(2):
