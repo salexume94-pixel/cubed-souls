@@ -44,12 +44,14 @@ const HOUSE_CANDIDATES: Array[Vector2i] = [
 @onready var foreground: TileMapLayer = $Foreground
 
 var _collision_root: Node2D
+var _building_trigger_root: Node2D
 var _collision_specs: Array[Dictionary] = []
 
 
 func _ready() -> void:
 	# Rebuild all four layers in editor and runtime; the seeded layout is irregular but repeatable.
 	_collision_specs.clear()
+	_prepare_building_triggers()
 	_build_ground()
 	_build_details()
 	_build_objects()
@@ -208,6 +210,7 @@ func _place_house(map_origin: Vector2i, collision_name: String) -> void:
 		"atlas_origin": HOUSE_ATLAS_ORIGIN,
 		"dimensions": HOUSE_SIZE,
 	})
+	_add_building_entry_trigger(collision_name + "Entry", map_origin, false)
 
 
 func _place_chapel(map_origin: Vector2i, collision_name: String) -> void:
@@ -230,6 +233,7 @@ func _place_chapel(map_origin: Vector2i, collision_name: String) -> void:
 		"atlas_origin": CHAPEL_ATLAS_ORIGIN,
 		"dimensions": CHAPEL_SIZE,
 	})
+	_add_building_entry_trigger(collision_name + "Entry", map_origin, true)
 
 
 func _place_object_bundle(collision_name: String, map_origin: Vector2i, atlas_origin: Vector2i, dimensions: Vector2i) -> void:
@@ -251,6 +255,48 @@ func _place_object_bundle(collision_name: String, map_origin: Vector2i, atlas_or
 		"dimensions": dimensions,
 	})
 
+
+
+func _prepare_building_triggers() -> void:
+	# Replace only generated door triggers so editor refreshes never duplicate them.
+	var existing := get_node_or_null("BuildingEntryTriggers")
+	if existing != null:
+		existing.free()
+	_building_trigger_root = Node2D.new()
+	_building_trigger_root.name = "BuildingEntryTriggers"
+	add_child(_building_trigger_root)
+	if Engine.is_editor_hint():
+		var edited_root := get_tree().edited_scene_root
+		if edited_root != null:
+			_building_trigger_root.owner = edited_root
+
+
+func _add_building_entry_trigger(trigger_name: String, map_origin: Vector2i, is_chapel: bool) -> void:
+	# Doorway triggers detect the Player but never replace the building's physical collision.
+	var trigger := Area2D.new()
+	trigger.name = trigger_name
+	trigger.set_script(preload("res://systems/map_transition_trigger.gd"))
+	var door_cell := map_origin + (Vector2i(4, 9) if is_chapel else Vector2i(7, 7))
+	trigger.position = Vector2(door_cell.x * TILE_SIZE + TILE_SIZE / 2.0, door_cell.y * TILE_SIZE + TILE_SIZE / 2.0)
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(28.0, 28.0)
+	collision.shape = rectangle
+	trigger.add_child(collision)
+	if is_chapel:
+		trigger.set("target_scene", "res://world/maps/towns/interiors/church_interior.tscn")
+		trigger.set("target_player_position", Vector2(256.0, 280.0))
+		trigger.set("return_position_offset", Vector2(0.0, 48.0))
+	else:
+		trigger.set("target_scene", "res://world/maps/towns/interiors/house_interior.tscn")
+		trigger.set("target_player_position", Vector2(192.0, 224.0))
+		trigger.set("return_position_offset", Vector2(0.0, 32.0))
+	_building_trigger_root.add_child(trigger)
+	if Engine.is_editor_hint():
+		var edited_root := get_tree().edited_scene_root
+		if edited_root != null:
+			trigger.owner = edited_root
+			collision.owner = edited_root
 
 
 func _remove_generated_object_collisions() -> void:
@@ -334,6 +380,13 @@ func _add_alpha_collision_for_bundle(collision_prefix: String, map_origin: Vecto
 	if collision_prefix.begins_with("House_"):
 		for door_y in range(6 * TILE_SIZE, 8 * TILE_SIZE):
 			for door_x in range(6 * TILE_SIZE, 8 * TILE_SIZE):
+				opaque[door_y * pixel_width + door_x] = 0
+
+	# The chapel doorway is the centered two-column opening at the bottom of its 8×10 bundle.
+	# Keep the entry trigger reachable through the same source-alpha collision system.
+	if collision_prefix == "HavenreachChapel":
+		for door_y in range(8 * TILE_SIZE, 10 * TILE_SIZE):
+			for door_x in range(3 * TILE_SIZE, 5 * TILE_SIZE):
 				opaque[door_y * pixel_width + door_x] = 0
 
 	# Fail loudly if a requested bundle region produced no opaque pixels instead of silently
