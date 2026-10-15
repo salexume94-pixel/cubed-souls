@@ -285,11 +285,11 @@ func _add_building_entry_trigger(trigger_name: String, map_origin: Vector2i, is_
 	trigger.add_child(collision)
 	if is_chapel:
 		trigger.set("target_scene", "res://world/maps/towns/interiors/church_interior.tscn")
-		trigger.set("target_player_position", Vector2(256.0, 280.0))
+		trigger.set("target_player_position", Vector2(256.0, 160.0))
 		trigger.set("return_position_offset", Vector2(0.0, 48.0))
 	else:
 		trigger.set("target_scene", "res://world/maps/towns/interiors/house_interior.tscn")
-		trigger.set("target_player_position", Vector2(192.0, 224.0))
+		trigger.set("target_player_position", Vector2(192.0, 176.0))
 		trigger.set("return_position_offset", Vector2(0.0, 32.0))
 	_building_trigger_root.add_child(trigger)
 	if Engine.is_editor_hint():
