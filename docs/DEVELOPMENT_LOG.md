@@ -5,6 +5,7 @@
 - Added reusable house and church interior scenes with editor-visible tile layouts, catalogued floor and wall bundles, room boundaries, and south-door exit triggers.
 - Added generated entry triggers to Havenreach houses and the chapel. Interior exits use the saved return position with an offset so the Player returns outside the doorway.
 - Opened the centered chapel doorway in the generated source-alpha collision so the entrance can be reached.
+- Expanded `docs/HAVENREACH_RUNTIME_CHECKLIST.md` with interior entry/exit, room-boundary, atlas-alignment, and transition-message tests.
 - Left the church NPC and save system for their later planned stages.
 
 ### Verification
