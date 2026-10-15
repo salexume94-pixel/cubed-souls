@@ -21,6 +21,7 @@ func _ready() -> void:
 	_build_back_wall()
 	_build_portrait()
 	_build_pillars()
+	_configure_interior_camera()
 
 
 func _build_floor() -> void:
@@ -61,3 +62,13 @@ func _build_pillars() -> void:
 		for y in range(4):
 			for x in range(2):
 				objects.set_cell(origin + Vector2i(x, y), SOURCE_ID, PILLAR_ORIGIN + Vector2i(x, y))
+
+
+func _configure_interior_camera() -> void:
+	# Fit the wider church room into the viewport and keep it centered during movement.
+	var player := get_tree().current_scene.find_child("Player", true, false) as Node2D
+	if player == null:
+		return
+	var camera := player.get_node_or_null("Camera2D") as Camera2D
+	if camera != null:
+		camera.center_on_map(Vector2i(ROOM_WIDTH, ROOM_HEIGHT), 2.0)
