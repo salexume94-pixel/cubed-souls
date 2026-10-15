@@ -7,7 +7,7 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 - [ ] Run `git pull origin main`; confirm the working tree is clean before testing.
 - [ ] Open `project.godot` in Godot 4.7.2 stable mono.
 - [ ] Wait for asset imports to finish.
-- [ ] Confirm there are no parse/import errors for `assets/tilesets/overworld/background.tres`, `world/maps/towns/havenreach/havenreach.gd`, or either Havenreach scene.
+- [ ] Confirm there are no parse/import errors for `assets/tilesets/overworld/background.tres`, `assets/tilesets/towns/house_interior.tres`, `assets/tilesets/towns/church_interior.tres`, Havenreach scripts/scenes, or either interior script/scene.
 - [ ] Open `world/maps/towns/havenreach/havenreach_test.tscn` and use **F6 / Run Current Scene**.
 
 ## 2. Map appearance
@@ -38,8 +38,20 @@ Run this checklist locally after pulling the latest `main`. These checks cannot 
 - [ ] The camera does not reveal empty space beyond the map edges.
 - [ ] The settlement remains readable at the player camera's configured zoom.
 
-## 5. Report
+## 5. Building and church interiors
 
-Record each section as PASS or FAIL. For failures, include the exact debugger error and a screenshot of the affected map region. Movement, collisions, and camera bounds have been reported runtime-verified by the user. Re-run these checks after layout/collision changes to catch regressions.
+- [ ] Walk to each visible house door; verify its entrance trigger can be reached and loads `house_interior.tscn`.
+- [ ] Verify the house interior floor, side walls, open door bundle, and room boundaries render correctly without missing or offset atlas cells.
+- [ ] Walk through the house interior exit; verify the Player returns outside the same house instead of immediately re-entering.
+- [ ] Walk to the chapel's centered entrance; verify the door is reachable and loads `church_interior.tscn`.
+- [ ] Verify the church floor, back wall, portrait, and two pillar bundles render correctly and leave a clear central aisle.
+- [ ] Walk through the church interior exit; verify the Player returns outside the chapel without a transition loop.
+- [ ] Confirm the interior room boundaries block movement at the walls but leave the south doorway open.
+- [ ] Confirm transition messages identify the home and chapel correctly.
+- [ ] No debugger errors appear during any entry or exit.
 
-**Known scope limit:** this test scene validates the map and player movement. Building-door scene transitions and interior entry are not implemented by this map scaffold.
+## 6. Report
+
+Record each section as PASS or FAIL. For failures, include the exact debugger error and a screenshot of the affected map region. Do not mark any new interior or doorway check passed until it has been run in Godot. Re-run these checks after layout/collision changes to catch regressions.
+
+**Known scope limit:** the house and church interiors are implemented but need local Godot runtime verification. The church NPC and save system are intentionally deferred to later stages.
