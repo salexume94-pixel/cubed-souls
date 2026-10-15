@@ -51,6 +51,7 @@ var _collision_specs: Array[Dictionary] = []
 func _ready() -> void:
 	# Rebuild all four layers in editor and runtime; the seeded layout is irregular but repeatable.
 	_collision_specs.clear()
+	_restore_outdoor_camera()
 	_prepare_building_triggers()
 	_build_ground()
 	_build_details()
@@ -60,6 +61,15 @@ func _ready() -> void:
 	_create_object_collisions()
 	if not Engine.is_editor_hint():
 		_create_map_boundaries()
+
+
+func _restore_outdoor_camera() -> void:
+	var player := get_tree().current_scene.find_child("Player", true, false) as Node2D
+	if player == null:
+		return
+	var camera := player.get_node_or_null("Camera2D") as Camera2D
+	if camera != null:
+		camera.follow_player()
 
 
 func _build_ground() -> void:
