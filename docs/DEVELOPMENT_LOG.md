@@ -1244,3 +1244,19 @@ This file is append-only. Add new entries at the top; do not remove or rewrite h
 - Added `assets/tilesets/towns/towns/walls_floor.png` to the labeled tileset reference generator as `walls_floor_labeled.svg`.
 - Both references will use the existing 16×16 tile grid and zero-based `(column, row)` labels.
 - The source PNGs are unchanged. Generated references and their coordinate catalogs still require local generation and visual inspection.
+
+
+## 2026-10-15 — Preserve Debug Area and Reset Town/Interior Layouts
+
+### Changes
+- Kept the existing overworld scene and its current generated test layout unchanged as the project's debugging area.
+- Kept the NPC smoke-test scene, player movement/animation, reusable NPC, camera bounds, map transition manager, and transition trigger system.
+- Removed automatic tile/building/detail/object placement from Havenreach. Its map script now only handles runtime camera setup, map boundaries, and the west-edge return transition.
+- Removed pre-placed NPCs from the Havenreach workspace so town placement can be authored manually.
+- Removed automatic floor and wall placement from the house and church interior scripts. They now configure the camera only.
+- Cleared the old interior-specific boundary and exit-trigger geometry because it was tied to the previous room dimensions. The reusable transition system remains available for manually placed door triggers.
+- Preserved all source artwork, TileSet resources, labeled SVG coordinate references, and existing documentation history.
+
+### Verification
+- **GitHub source update:** committed to `main`.
+- **Godot editor/runtime verification:** pending. Pull the commit, open the town and interior scenes, confirm TileMapLayer painting persists after save/reopen, then run the main debug area and NPC smoke test. The test area was intentionally not modified.

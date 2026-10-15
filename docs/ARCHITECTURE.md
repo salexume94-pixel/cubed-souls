@@ -25,9 +25,9 @@ Current foundational files include:
 - `player/player.tscn` and `player/player.gd`: player scene and movement/animation logic.
 - `world/actors/npc/npc.tscn` and `world/actors/npc/npc.gd`: reusable NPC actor using shared player sprite sheets, capsule collision, stationary/civilian/guard/ally behavior profiles, obstacle probes, E-key dialogue, and optional story movement.
 - `world/maps/overworld/world.tscn`: overworld scene.
-- `world/maps/overworld/world.gd`: deterministic overworld generation, object collision, and the first Havenreach entry trigger.
-- `world/maps/towns/havenreach/havenreach.tscn` and `havenreach.gd`: Havenreach town layout, object collision, and generated house/church entrance triggers.
-- `world/maps/towns/interiors/house_interior.tscn` and `church_interior.tscn`: reusable house interior and church interior; their editor-tool scripts place catalogued tiles and each scene has a return doorway.
+- `world/maps/overworld/world.tscn` and `world.gd`: the retained debug/test area. Its existing test layout and collision behavior are intentionally preserved.
+- `world/maps/towns/havenreach/havenreach.tscn` and `havenreach.gd`: an editable, manually authored town workspace. The script retains runtime map boundaries, camera handling, and the west-edge return transition; it does not place tiles, buildings, NPCs, or building-entry triggers.
+- `world/maps/towns/interiors/house_interior.tscn` and `church_interior.tscn`: empty, manually authored interior workspaces with their existing TileSet resources. Scripts configure the camera only; room art, room-specific collision, and door triggers are added deliberately in the editor.
 - `systems/scene_manager.gd` and `systems/map_transition_trigger.gd`: persistent map swapping, fade overlay, and Player entry/exit placement; runtime verification is pending.
 - `assets/`: source art, sprites, and tileset resources.
 - `docs/AUDIT.md`: repository and asset audit, including explicit unverified items.
@@ -161,3 +161,11 @@ A task is complete only when:
 - `docs/RUNTIME_VERIFIED.md` — sole record of behavior actually observed running in Godot.
 - `DEVELOPMENT_LOG.md` — root-level chronological implementation notes; append entries only.
 - `README.md` — brief project overview and top-level structure.
+
+
+## Manual Map Authoring Policy
+
+- Keep `world/maps/overworld/world.tscn` as the debug test area. Do not remove it as part of map-layout cleanup; it remains useful for player movement, collision, camera, and NPC smoke tests.
+- Town and interior scenes must not use `@tool` scripts to clear or regenerate TileMapLayer cells. Manual placements made in the Godot editor must persist after opening and running the project.
+- Preserve source spritesheets, TileSet resources, reusable actors, transition scripts, camera scripts, and coordinate-reference documentation.
+- Procedural placements are not part of the town/interior foundation. Building placement, room art, room collision, and building door triggers are authored explicitly in the editor as those layouts are designed.
