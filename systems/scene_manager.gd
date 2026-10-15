@@ -60,8 +60,11 @@ func change_map(
 	if root == null or root.find_child("Player", true, false) == null:
 		push_error("SceneManager needs an active scene containing a Player node.")
 		return
-	if root.find_child("World", true, false) == null:
-		push_error("SceneManager could not find the active map node named World.")
+
+	# Locate the map by its structure instead of assuming its root is always named "World".
+	var active_map := _find_active_map(root)
+	if active_map == null:
+		push_error("SceneManager could not identify the active map containing a Ground TileMapLayer.")
 		return
 
 	# Leaving a map normally restores the exact position saved when it was entered.
@@ -94,9 +97,10 @@ func _perform_map_change(
 		_finish_transition()
 		return
 
-	var old_map := root.find_child("World", true, false) as Node
+	# Use the same structural lookup here so validation and swapping agree.
+	var old_map := _find_active_map(root)
 	if old_map == null:
-		push_error("SceneManager could not find the active map node named World.")
+		push_error("SceneManager could not identify the active map during the transition.")
 		_finish_transition()
 		return
 
@@ -122,6 +126,21 @@ func _perform_map_change(
 	await get_tree().create_timer(0.12).timeout
 	await _fade_to(Color(0.0, 0.0, 0.0, 0.0), 0.18)
 	_finish_transition()
+
+
+func _find_active_map(root: Node) -> Node2D:
+	# Map scenes have a direct Ground TileMapLayer; the player does not.
+	# Check the root itself first, then descendants to support different map root names.
+	if root is Node2D and root.get_node_or_null("Ground") is TileMapLayer:
+		return root as Node2D
+
+	for candidate in root.find_children("*", "Node2D", true, false):
+		if candidate.name == "Player":
+			continue
+		if candidate.get_node_or_null("Ground") is TileMapLayer:
+			return candidate as Node2D
+
+	return null
 
 
 func _fade_to(target_color: Color, duration: float) -> void:
