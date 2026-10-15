@@ -64,3 +64,22 @@ func _apply_map_bounds() -> void:
 	limit_top = floori(min_y)
 	limit_right = ceili(max_x)
 	limit_bottom = ceili(max_y)
+
+
+func center_on_map(map_size_tiles: Vector2i, zoom_factor: float) -> void:
+	# Interior rooms use a fixed, map-centered camera instead of following the Player.
+	top_level = true
+	position_smoothing_enabled = false
+	zoom = Vector2.ONE * zoom_factor
+	global_position = Vector2(map_size_tiles) * 8.0
+	reset_smoothing()
+
+
+func follow_player() -> void:
+	# Outdoor maps restore the normal player-follow camera after leaving an interior.
+	top_level = false
+	position = Vector2.ZERO
+	position_smoothing_enabled = true
+	position_smoothing_speed = 6.0
+	zoom = Vector2(2.5, 2.5)
+	call_deferred("_apply_map_bounds")
